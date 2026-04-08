@@ -224,7 +224,7 @@ func shouldFetchRelease(fsys afero.Fs) bool {
 }
 
 func suggestUpgrade(version string) string {
-	const guide = "https://supabase.com/docs/guides/cli/getting-started#updating-the-supabase-cli"
+	const guide = "https://gentabase.dev/docs/guides/cli/getting-started#updating-the-gentabase-cli"
 	return fmt.Sprintf(`A new version of Gentabase CLI is available: %s (currently installed v%s)
 We recommend updating regularly for new features and bug fixes: %s`, utils.Yellow(version), utils.Version, utils.Bold(guide))
 }

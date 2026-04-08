@@ -31,8 +31,8 @@ func GetGitHubClient(ctx context.Context) *github.Client {
 }
 
 const (
-	CLI_OWNER = "gentabase"
-	CLI_REPO  = "cli"
+	CLI_OWNER = "hk8xb"
+	CLI_REPO  = "gentabase-cli"
 )
 
 func GetLatestRelease(ctx context.Context) (string, error) {
