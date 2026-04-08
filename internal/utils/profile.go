@@ -71,7 +71,7 @@ var allProfiles = []Profile{{
 	APIURL:       "http://localhost:8080",
 	DashboardURL: "http://localhost:8082",
 	DocsURL:      "https://gentabase.dev/docs",
-	ProjectHost:  "gentabase.ai",
+	ProjectHost:  "localhost",
 	ProjectRegions: []api.V1CreateProjectBodyRegion{
 		api.V1CreateProjectBodyRegionApSoutheast1,
 		api.V1CreateProjectBodyRegionUsEast1,

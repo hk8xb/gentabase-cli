@@ -174,9 +174,9 @@ func checkProjectHealth(ctx context.Context) error {
 }
 
 const (
-	SUPABASE_SERVICE_ROLE_KEY = "SUPABASE_SERVICE_ROLE_KEY"
-	SUPABASE_ANON_KEY         = "SUPABASE_ANON_KEY"
-	SUPABASE_URL              = "SUPABASE_URL"
+	GENTABASE_SERVICE_ROLE_KEY = "GENTABASE_SERVICE_ROLE_KEY"
+	GENTABASE_ANON_KEY         = "GENTABASE_ANON_KEY"
+	GENTABASE_URL              = "GENTABASE_URL"
 	POSTGRES_URL              = "POSTGRES_URL"
 	// Derived keys
 	POSTGRES_PRISMA_URL           = "POSTGRES_PRISMA_URL"
@@ -185,16 +185,16 @@ const (
 	POSTGRES_HOST                 = "POSTGRES_HOST"
 	POSTGRES_PASSWORD             = "POSTGRES_PASSWORD" //nolint:gosec
 	POSTGRES_DATABASE             = "POSTGRES_DATABASE"
-	NEXT_PUBLIC_SUPABASE_ANON_KEY = "NEXT_PUBLIC_SUPABASE_ANON_KEY"
-	NEXT_PUBLIC_SUPABASE_URL      = "NEXT_PUBLIC_SUPABASE_URL"
-	EXPO_PUBLIC_SUPABASE_ANON_KEY = "EXPO_PUBLIC_SUPABASE_ANON_KEY"
-	EXPO_PUBLIC_SUPABASE_URL      = "EXPO_PUBLIC_SUPABASE_URL"
+	NEXT_PUBLIC_GENTABASE_ANON_KEY = "NEXT_PUBLIC_GENTABASE_ANON_KEY"
+	NEXT_PUBLIC_GENTABASE_URL      = "NEXT_PUBLIC_GENTABASE_URL"
+	EXPO_PUBLIC_GENTABASE_ANON_KEY = "EXPO_PUBLIC_GENTABASE_ANON_KEY"
+	EXPO_PUBLIC_GENTABASE_URL      = "EXPO_PUBLIC_GENTABASE_URL"
 )
 
 func writeDotEnv(keys []api.ApiKeyResponse, config pgconn.Config, fsys afero.Fs) error {
 	// Initialise default envs
 	initial := apiKeys.ToEnv(keys)
-	initial[SUPABASE_URL] = "https://" + utils.GetSupabaseHost(flags.ProjectRef)
+	initial[GENTABASE_URL] = "https://" + utils.GetSupabaseHost(flags.ProjectRef)
 	transactionMode := *config.Copy()
 	transactionMode.Port = 6543
 	initial[POSTGRES_URL] = utils.ToPostgresURL(transactionMode)
@@ -205,9 +205,9 @@ func writeDotEnv(keys []api.ApiKeyResponse, config pgconn.Config, fsys afero.Fs)
 	}
 	for k, v := range envs {
 		switch k {
-		case SUPABASE_SERVICE_ROLE_KEY:
-		case SUPABASE_ANON_KEY:
-		case SUPABASE_URL:
+		case GENTABASE_SERVICE_ROLE_KEY:
+		case GENTABASE_ANON_KEY:
+		case GENTABASE_URL:
 		case POSTGRES_URL:
 		// Derived keys
 		case POSTGRES_PRISMA_URL:
@@ -222,14 +222,14 @@ func writeDotEnv(keys []api.ApiKeyResponse, config pgconn.Config, fsys afero.Fs)
 			initial[k] = config.Password
 		case POSTGRES_DATABASE:
 			initial[k] = config.Database
-		case NEXT_PUBLIC_SUPABASE_ANON_KEY:
+		case NEXT_PUBLIC_GENTABASE_ANON_KEY:
 			fallthrough
-		case EXPO_PUBLIC_SUPABASE_ANON_KEY:
-			initial[k] = initial[SUPABASE_ANON_KEY]
-		case NEXT_PUBLIC_SUPABASE_URL:
+		case EXPO_PUBLIC_GENTABASE_ANON_KEY:
+			initial[k] = initial[GENTABASE_ANON_KEY]
+		case NEXT_PUBLIC_GENTABASE_URL:
 			fallthrough
-		case EXPO_PUBLIC_SUPABASE_URL:
-			initial[k] = initial[SUPABASE_URL]
+		case EXPO_PUBLIC_GENTABASE_URL:
+			initial[k] = initial[GENTABASE_URL]
 		default:
 			initial[k] = v
 		}
