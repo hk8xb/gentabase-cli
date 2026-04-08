@@ -8,38 +8,62 @@ import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/supabase/cli/internal/login"
 	"github.com/supabase/cli/internal/utils"
+	"golang.org/x/term"
 )
 
 var (
-	loginToken string
+	params = login.RunParams{
+		OpenBrowser: term.IsTerminal(int(os.Stdin.Fd())),
+		Fsys:        afero.NewOsFs(),
+	}
 
 	loginCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "login",
 		Short:   "Authenticate using an access token",
-		Long: `Authenticate with a personal access token (PAT).
+		Long: `Authenticate with the Gentabase platform.
 
-Create a PAT in the Gentabase dashboard at Account → Access Tokens,
-then run:
+Interactive (opens browser):
+  gentabase login
 
+Non-interactive (CI / paste token):
   gentabase login --token gbp_<your-token>
 
-Alternatively, set the GENTABASE_ACCESS_TOKEN environment variable.`,
+Or set the GENTABASE_ACCESS_TOKEN environment variable.`,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if loginToken == "" {
-				return errors.New("Please provide a token with --token flag or set GENTABASE_ACCESS_TOKEN")
+			// If --token provided, save directly (non-interactive)
+			if params.Token != "" {
+				if !utils.AccessTokenPattern.MatchString(params.Token) {
+					return errors.New(utils.ErrInvalidToken)
+				}
+				if err := utils.SaveAccessToken(params.Token, params.Fsys); err != nil {
+					return err
+				}
+				fmt.Fprintln(os.Stdout, "Access token saved to profile:", utils.CurrentProfile.Name)
+				return nil
 			}
-			// Validate format
-			if !utils.AccessTokenPattern.MatchString(loginToken) {
-				return errors.New(utils.ErrInvalidToken)
+			// Try stdin (piped token)
+			params.Token = login.ParseAccessToken(os.Stdin)
+			if params.Token != "" {
+				if !utils.AccessTokenPattern.MatchString(params.Token) {
+					return errors.New(utils.ErrInvalidToken)
+				}
+				if err := utils.SaveAccessToken(params.Token, params.Fsys); err != nil {
+					return err
+				}
+				fmt.Fprintln(os.Stdout, "Access token saved to profile:", utils.CurrentProfile.Name)
+				return nil
 			}
-			// Save token
-			if err := utils.SaveAccessToken(loginToken, afero.NewOsFs()); err != nil {
-				return err
+			// Interactive browser flow
+			if !params.OpenBrowser {
+				return errors.Errorf(
+					"Cannot use automatic login flow inside non-TTY environments. "+
+						"Please provide %s flag or set %s.",
+					utils.Aqua("--token"), utils.Aqua("GENTABASE_ACCESS_TOKEN"))
 			}
-			fmt.Fprintln(os.Stdout, "Access token saved to profile:", utils.CurrentProfile.Name)
-			return nil
+			return login.Run(cmd.Context(), os.Stdout, params)
 		},
 		PostRunE: func(cmd *cobra.Command, args []string) error {
 			if prof := viper.GetString("PROFILE"); viper.IsSet("PROFILE") {
@@ -52,7 +76,9 @@ Alternatively, set the GENTABASE_ACCESS_TOKEN environment variable.`,
 
 func init() {
 	loginFlags := loginCmd.Flags()
-	loginFlags.StringVar(&loginToken, "token", "", "Personal access token (PAT) from Gentabase dashboard")
-	loginFlags.StringP("name", "n", "", "Name for this token in local settings")
+	loginFlags.StringVar(&params.Token, "token", "", "Personal access token (PAT) — skip browser flow")
+	loginFlags.StringVar(&params.TokenName, "name", "", "Name for the token created via browser flow")
+	loginFlags.Lookup("name").DefValue = "auto-generated from hostname"
+	loginFlags.Bool("no-browser", false, "Print login URL instead of opening browser")
 	rootCmd.AddCommand(loginCmd)
 }

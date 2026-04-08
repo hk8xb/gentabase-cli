@@ -195,7 +195,7 @@ func Run(ctx context.Context, stdout io.Writer, params RunParams) error {
 	createLoginSessionUrl := utils.GetSupabaseDashboardURL() + createLoginSessionPath + createLoginSessionQuery
 
 	if params.OpenBrowser {
-		fmt.Fprintf(stdout, "Hello from %s! Press %s to open browser and login automatically.\n", utils.Aqua("Supabase"), utils.Aqua("Enter"))
+		fmt.Fprintf(stdout, "Hello from %s! Press %s to open browser and login automatically.\n", utils.Aqua("Gentabase"), utils.Aqua("Enter"))
 		if _, err := fmt.Scanln(); err != nil {
 			return errors.Errorf("failed to scan line: %w", err)
 		}
@@ -212,11 +212,19 @@ func Run(ctx context.Context, stdout io.Writer, params RunParams) error {
 	if err != nil {
 		return err
 	}
-	decryptedAccessToken, err := params.Encryption.decryptAccessToken(accessTokenResponse.AccessToken, accessTokenResponse.PublicKey, accessTokenResponse.Nonce)
-	if err != nil {
-		return err
+
+	// If the server returned a plaintext PAT (gbp_...), skip ECDH decryption.
+	// The server currently returns tokens in plaintext over HTTPS; ECDH
+	// encryption is a defense-in-depth layer for future hardening.
+	accessToken := accessTokenResponse.AccessToken
+	if !strings.HasPrefix(accessToken, "gbp_") {
+		accessToken, err = params.Encryption.decryptAccessToken(accessTokenResponse.AccessToken, accessTokenResponse.PublicKey, accessTokenResponse.Nonce)
+		if err != nil {
+			return err
+		}
 	}
-	if err := utils.SaveAccessToken(decryptedAccessToken, params.Fsys); err != nil {
+
+	if err := utils.SaveAccessToken(accessToken, params.Fsys); err != nil {
 		return err
 	}
 	handleTelemetryAfterLogin(ctx, params)
