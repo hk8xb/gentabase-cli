@@ -34,18 +34,6 @@ release:
   draft: false
   prerelease: auto
 
-brews:
-  - repository:
-      owner: hk8xb
-      name: homebrew-tap
-    name: gentabase
-    description: "Gentabase CLI — manage local development, migrations, and deployments"
-    homepage: "https://gentabase.dev"
-    install: |
-      bin.install "gentabase"
-    test: |
-      assert_match "Gentabase CLI", shell_output("#{bin}/gentabase --help")
-
 changelog:
   sort: asc
   filters:
