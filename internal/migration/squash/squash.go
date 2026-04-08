@@ -40,7 +40,7 @@ func Run(ctx context.Context, version string, config pgconn.Config, fsys afero.F
 	}
 	// 2. Update migration history
 	if utils.IsLocalDatabase(config) {
-		utils.CmdSuggestion = fmt.Sprintf("Run %s to update your remote migration history table.", utils.Aqua("supabase migration repair --status applied"))
+		utils.CmdSuggestion = fmt.Sprintf("Run %s to update your remote migration history table.", utils.Aqua("gentabase migration repair --status applied"))
 		return nil
 	}
 	if shouldUpdate, err := utils.NewConsole().PromptYesNo(ctx, "Update remote migration history table?", true); err != nil {

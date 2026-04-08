@@ -12,7 +12,7 @@ var (
 	snippetsCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "snippets",
-		Short:   "Manage Supabase SQL snippets",
+		Short:   "Manage Gentabase SQL snippets",
 	}
 
 	snippetsListCmd = &cobra.Command{
@@ -36,8 +36,8 @@ var (
 )
 
 func init() {
-	snippetsCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	snippetsCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	snippetsCmd.AddCommand(snippetsListCmd)
 	snippetsCmd.AddCommand(snippetsDownloadCmd)
-	rootCmd.AddCommand(snippetsCmd)
+	// [gentabase] disabled: rootCmd.AddCommand(snippetsCmd)
 }

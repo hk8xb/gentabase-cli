@@ -11,7 +11,7 @@ var (
 	configCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "config",
-		Short:   "Manage Supabase project configurations",
+		Short:   "Manage Gentabase project configurations",
 	}
 
 	configPushCmd = &cobra.Command{
@@ -24,7 +24,7 @@ var (
 )
 
 func init() {
-	configCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	configCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	configCmd.AddCommand(configPushCmd)
 	rootCmd.AddCommand(configCmd)
 }

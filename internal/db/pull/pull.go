@@ -217,10 +217,10 @@ func assertRemoteInSync(ctx context.Context, conn *pgx.Conn, fsys afero.Fs) erro
 func suggestMigrationRepair(extraRemote, extraLocal []string) string {
 	result := fmt.Sprintln("\nMake sure your local git repo is up-to-date. If the error persists, try repairing the migration history table:")
 	for _, version := range extraRemote {
-		result += fmt.Sprintln(utils.Bold("supabase migration repair --status reverted " + version))
+		result += fmt.Sprintln(utils.Bold("gentabase migration repair --status reverted " + version))
 	}
 	for _, version := range extraLocal {
-		result += fmt.Sprintln(utils.Bold("supabase migration repair --status applied " + version))
+		result += fmt.Sprintln(utils.Bold("gentabase migration repair --status applied " + version))
 	}
 	return result
 }

@@ -14,8 +14,8 @@ var (
 	vanityCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "vanity-subdomains",
-		Short:   "Manage vanity subdomains for Supabase projects",
-		Long: `Manage vanity subdomains for Supabase projects.
+		Short:   "Manage vanity subdomains for Gentabase projects",
+		Long: `Manage vanity subdomains for Gentabase projects.
 
 Usage of vanity subdomains and custom domains is mutually exclusive.`,
 	}
@@ -25,9 +25,9 @@ Usage of vanity subdomains and custom domains is mutually exclusive.`,
 	vanityActivateCmd = &cobra.Command{
 		Use:   "activate",
 		Short: "Activate a vanity subdomain",
-		Long: `Activate a vanity subdomain for your Supabase project.
+		Long: `Activate a vanity subdomain for your Gentabase project.
 
-This reconfigures your Supabase project to respond to requests on your vanity subdomain.
+This reconfigures your Gentabase project to respond to requests on your vanity subdomain.
 After the vanity subdomain is activated, your project's auth services will no longer function on the {project-ref}.{supabase-domain} hostname.
 `,
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -62,14 +62,14 @@ After the vanity subdomain is activated, your project's auth services will no lo
 )
 
 func init() {
-	vanityCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
-	vanityActivateCmd.Flags().StringVar(&desiredSubdomain, "desired-subdomain", "", "The desired vanity subdomain to use for your Supabase project.")
+	vanityCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
+	vanityActivateCmd.Flags().StringVar(&desiredSubdomain, "desired-subdomain", "", "The desired vanity subdomain to use for your Gentabase project.")
 	cobra.CheckErr(vanityActivateCmd.MarkFlagRequired("desired-subdomain"))
-	vanityCheckCmd.Flags().StringVar(&desiredSubdomain, "desired-subdomain", "", "The desired vanity subdomain to use for your Supabase project.")
+	vanityCheckCmd.Flags().StringVar(&desiredSubdomain, "desired-subdomain", "", "The desired vanity subdomain to use for your Gentabase project.")
 	cobra.CheckErr(vanityCheckCmd.MarkFlagRequired("desired-subdomain"))
 	vanityCmd.AddCommand(vanityGetCmd)
 	vanityCmd.AddCommand(vanityCheckCmd)
 	vanityCmd.AddCommand(vanityActivateCmd)
 	vanityCmd.AddCommand(vanityDeleteCmd)
-	rootCmd.AddCommand(vanityCmd)
+	// [gentabase] disabled: rootCmd.AddCommand(vanityCmd)
 }

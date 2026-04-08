@@ -9,7 +9,7 @@ import (
 	"github.com/zalando/go-keyring"
 )
 
-const namespace = "Supabase CLI"
+const namespace = "Gentabase CLI"
 
 var ErrNotSupported = errors.New("Keyring is not supported on WSL")
 

@@ -17,13 +17,13 @@ var (
 	starter = bootstrap.StarterTemplate{
 		Name:        "scratch",
 		Description: "An empty project from scratch.",
-		Start:       "supabase start",
+		Start:       "gentabase start",
 	}
 
 	bootstrapCmd = &cobra.Command{
 		GroupID: groupQuickStart,
 		Use:     "bootstrap [template]",
-		Short:   "Bootstrap a Supabase project from a starter template",
+		Short:   "Bootstrap a Gentabase project from a starter template",
 		Args:    cobra.MaximumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			ctx := cmd.Context()
@@ -65,7 +65,7 @@ func init() {
 	bootstrapFlags := bootstrapCmd.Flags()
 	bootstrapFlags.StringVarP(&dbPassword, "password", "p", "", "Password to your remote Postgres database.")
 	cobra.CheckErr(viper.BindPFlag("DB_PASSWORD", bootstrapFlags.Lookup("password")))
-	rootCmd.AddCommand(bootstrapCmd)
+	// [gentabase] disabled: rootCmd.AddCommand(bootstrapCmd)
 }
 
 func promptStarterTemplate(ctx context.Context, templates []bootstrap.StarterTemplate) error {

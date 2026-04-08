@@ -44,6 +44,6 @@ func Run(ctx context.Context, projectRef string, args []string, fsys afero.Fs) e
 	if resp.StatusCode() != http.StatusOK {
 		return errors.New("Unexpected error unsetting project secrets: " + string(resp.Body))
 	}
-	fmt.Println("Finished " + utils.Aqua("supabase secrets unset") + ".")
+	fmt.Println("Finished " + utils.Aqua("gentabase secrets unset") + ".")
 	return nil
 }

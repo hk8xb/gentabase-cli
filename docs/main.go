@@ -55,7 +55,7 @@ func generate(version string) error {
 			Id:          "cli",
 			Version:     version,
 			Title:       strings.TrimSpace(root.Short),
-			Description: forceMultiLine("Supabase CLI provides you with tools to develop your application locally, and deploy your application to the Supabase platform."),
+			Description: forceMultiLine("Gentabase CLI provides you with tools to develop your application locally, and deploy your application to the Gentabase platform."),
 			Language:    "sh",
 			Source:      "https://github.com/supabase/cli",
 			Bugs:        "https://github.com/supabase/cli/issues",

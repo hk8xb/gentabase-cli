@@ -162,7 +162,7 @@ func init() {
 	genTypesCmd.MarkFlagsMutuallyExclusive("linked", "project-id", "query-timeout")
 	genCmd.AddCommand(genTypesCmd)
 	keyFlags := genKeysCmd.Flags()
-	keyFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	keyFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	markFlagTelemetrySafe(keyFlags.Lookup("project-ref"))
 	keyFlags.StringSliceVar(&override, "override-name", []string{}, "Override specific variable names.")
 	genCmd.AddCommand(genKeysCmd)

@@ -176,7 +176,7 @@ var (
 			return pull.Run(cmd.Context(), schema, flags.DbConfig, name, useDelta, afero.NewOsFs())
 		},
 		PostRun: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Finished " + utils.Aqua("supabase db pull") + ".")
+			fmt.Println("Finished " + utils.Aqua("gentabase db pull") + ".")
 		},
 	}
 
@@ -277,7 +277,7 @@ without the envelope.`,
 			if flag := cmd.Flags().Lookup("linked"); flag != nil && flag.Changed {
 				fsys := afero.NewOsFs()
 				if _, err := utils.LoadAccessTokenFS(fsys); err != nil {
-					utils.CmdSuggestion = fmt.Sprintf("Run %s first.", utils.Aqua("supabase login"))
+					utils.CmdSuggestion = fmt.Sprintf("Run %s first.", utils.Aqua("gentabase login"))
 					return err
 				}
 				return flags.LoadProjectRef(fsys)
@@ -329,7 +329,7 @@ without the envelope.`,
 			if flag := cmd.Flags().Lookup("linked"); flag != nil && flag.Changed {
 				fsys := afero.NewOsFs()
 				if _, err := utils.LoadAccessTokenFS(fsys); err != nil {
-					utils.CmdSuggestion = fmt.Sprintf("Run %s first.", utils.Aqua("supabase login"))
+					utils.CmdSuggestion = fmt.Sprintf("Run %s first.", utils.Aqua("gentabase login"))
 					return err
 				}
 				return flags.LoadProjectRef(fsys)

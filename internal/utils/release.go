@@ -31,7 +31,7 @@ func GetGitHubClient(ctx context.Context) *github.Client {
 }
 
 const (
-	CLI_OWNER = "supabase"
+	CLI_OWNER = "gentabase"
 	CLI_REPO  = "cli"
 )
 

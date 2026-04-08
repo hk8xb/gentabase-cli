@@ -48,7 +48,7 @@ func GetDenoPath() (string, error) {
 	if runtime.GOOS == "windows" {
 		denoBinName = "deno.exe"
 	}
-	denoPath := filepath.Join(home, ".supabase", denoBinName)
+	denoPath := filepath.Join(home, ".gentabase", denoBinName)
 	return denoPath, nil
 }
 

@@ -109,7 +109,7 @@ func Run(ctx context.Context, names CustomName, format string, fsys afero.Fs) er
 		fmt.Fprintln(os.Stderr, "Stopped services:", stopped)
 	}
 	if format == utils.OutputPretty {
-		fmt.Fprintf(os.Stderr, "%s local development setup is running.\n\n", utils.Aqua("supabase"))
+		fmt.Fprintf(os.Stderr, "%s local development setup is running.\n\n", utils.Aqua("gentabase"))
 		PrettyPrint(os.Stdout, stopped...)
 		return nil
 	}
@@ -200,7 +200,7 @@ func checkHTTPHead(ctx context.Context, path string) error {
 			utils.Config.Api.ExternalUrl,
 			utils.Config.Auth.SecretKey.Value,
 			fetcher.WithHTTPClient(NewKongClient()),
-			fetcher.WithUserAgent("SupabaseCLI/"+utils.Version),
+			fetcher.WithUserAgent("GentabaseCLI/"+utils.Version),
 		)
 	})
 	// HEAD method does not return response body

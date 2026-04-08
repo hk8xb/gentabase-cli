@@ -28,12 +28,12 @@ type Profile struct {
 }
 
 var allProfiles = []Profile{{
-	Name:         "supabase",
-	APIURL:       "https://api.supabase.com",
-	DashboardURL: "https://supabase.com/dashboard",
-	DocsURL:      "https://supabase.com/docs",
-	ProjectHost:  "supabase.co",
-	PoolerHost:   "supabase.com",
+	Name:         "gentabase",
+	APIURL:       "https://gentabase.dev/management",
+	DashboardURL: "https://gentabase.dev",
+	DocsURL:      "https://gentabase.dev/docs",
+	ProjectHost:  "gentabase.dev",
+	PoolerHost:   "gentabase.dev",
 	ProjectRegions: []api.V1CreateProjectBodyRegion{
 		api.V1CreateProjectBodyRegionApEast1,
 		api.V1CreateProjectBodyRegionApNortheast1,
@@ -55,23 +55,23 @@ var allProfiles = []Profile{{
 		api.V1CreateProjectBodyRegionUsWest2,
 	},
 }, {
-	Name:         "supabase-staging",
-	APIURL:       "https://api.supabase.green",
-	DashboardURL: "https://supabase.green/dashboard",
-	DocsURL:      "https://supabase.com/docs",
-	ProjectHost:  "supabase.red",
-	PoolerHost:   "supabase.green",
+	Name:         "gentabase-staging",
+	APIURL:       "https://gentabase.ai/management",
+	DashboardURL: "https://gentabase.ai",
+	DocsURL:      "https://gentabase.dev/docs",
+	ProjectHost:  "gentabase.ai",
+	PoolerHost:   "gentabase.ai",
 	ProjectRegions: []api.V1CreateProjectBodyRegion{
 		api.V1CreateProjectBodyRegionApSoutheast1,
 		api.V1CreateProjectBodyRegionUsEast1,
 		api.V1CreateProjectBodyRegionEuCentral1,
 	},
 }, {
-	Name:         "supabase-local",
+	Name:         "gentabase-local",
 	APIURL:       "http://localhost:8080",
 	DashboardURL: "http://localhost:8082",
-	DocsURL:      "https://supabase.com/docs",
-	ProjectHost:  "supabase.red",
+	DocsURL:      "https://gentabase.dev/docs",
+	ProjectHost:  "gentabase.ai",
 	ProjectRegions: []api.V1CreateProjectBodyRegion{
 		api.V1CreateProjectBodyRegionApSoutheast1,
 		api.V1CreateProjectBodyRegionUsEast1,
@@ -140,7 +140,7 @@ func getProfilePath() (string, error) {
 	if err != nil {
 		return "", errors.Errorf("failed to get $HOME directory: %w", err)
 	}
-	return filepath.Join(home, ".supabase", "profile"), nil
+	return filepath.Join(home, ".gentabase", "profile"), nil
 }
 
 func SaveProfileName(prof string, fsys afero.Fs) error {

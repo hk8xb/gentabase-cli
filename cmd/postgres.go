@@ -50,7 +50,7 @@ Custom configuration also overrides the optimizations generated based on the com
 )
 
 func init() {
-	postgresCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	postgresCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	postgresCmd.AddCommand(postgresConfigGetCmd)
 	postgresCmd.AddCommand(postgresConfigUpdateCmd)
 	postgresCmd.AddCommand(postgresConfigDeleteCmd)

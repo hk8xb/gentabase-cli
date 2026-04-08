@@ -10,7 +10,7 @@ var (
 	orgsCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "orgs",
-		Short:   "Manage Supabase organizations",
+		Short:   "Manage Gentabase organizations",
 	}
 
 	orgsListCmd = &cobra.Command{

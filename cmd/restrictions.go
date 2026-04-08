@@ -36,11 +36,11 @@ var (
 )
 
 func init() {
-	restrictionsCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	restrictionsCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	restrictionsUpdateCmd.Flags().StringSliceVar(&dbCidrsToAllow, "db-allow-cidr", []string{}, "CIDR to allow DB connections from.")
 	restrictionsUpdateCmd.Flags().BoolVar(&bypassCidrChecks, "bypass-cidr-checks", false, "Bypass some of the CIDR validation checks.")
 	restrictionsUpdateCmd.Flags().BoolVar(&appendMode, "append", false, "Append to existing restrictions instead of replacing them.")
 	restrictionsCmd.AddCommand(restrictionsGetCmd)
 	restrictionsCmd.AddCommand(restrictionsUpdateCmd)
-	rootCmd.AddCommand(restrictionsCmd)
+	// [gentabase] disabled: rootCmd.AddCommand(restrictionsCmd)
 }

@@ -45,7 +45,7 @@ func IsManagementAPI(cmd *cobra.Command) bool {
 
 func promptLogin(fsys afero.Fs) error {
 	if _, err := utils.LoadAccessTokenFS(fsys); err == utils.ErrMissingToken {
-		utils.CmdSuggestion = fmt.Sprintf("Run %s first.", utils.Aqua("supabase login"))
+		utils.CmdSuggestion = fmt.Sprintf("Run %s first.", utils.Aqua("gentabase login"))
 		return errors.New("You need to be logged-in in order to use Management API commands.")
 	} else {
 		return err
@@ -86,8 +86,8 @@ var (
 	createTicket bool
 
 	rootCmd = &cobra.Command{
-		Use:     "supabase",
-		Short:   "Supabase CLI " + utils.Version,
+		Use:     "gentabase",
+		Short:   "Gentabase CLI " + utils.Version,
 		Version: utils.Version,
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			if IsExperimental(cmd) && !viper.GetBool("EXPERIMENTAL") {
@@ -225,7 +225,7 @@ func shouldFetchRelease(fsys afero.Fs) bool {
 
 func suggestUpgrade(version string) string {
 	const guide = "https://supabase.com/docs/guides/cli/getting-started#updating-the-supabase-cli"
-	return fmt.Sprintf(`A new version of Supabase CLI is available: %s (currently installed v%s)
+	return fmt.Sprintf(`A new version of Gentabase CLI is available: %s (currently installed v%s)
 We recommend updating regularly for new features and bug fixes: %s`, utils.Yellow(version), utils.Version, utils.Bold(guide))
 }
 
@@ -278,10 +278,10 @@ func init() {
 	flags := rootCmd.PersistentFlags()
 	flags.Bool("yes", false, "answer yes to all prompts")
 	flags.Bool("debug", false, "output debug logs to stderr")
-	flags.String("workdir", "", "path to a Supabase project directory")
+	flags.String("workdir", "", "path to a Gentabase project directory")
 	flags.Bool("experimental", false, "enable experimental features")
 	flags.String("network-id", "", "use the specified docker network instead of a generated one")
-	flags.String("profile", "supabase", "use a specific profile for connecting to Supabase API")
+	flags.String("profile", "gentabase", "use a specific profile for connecting to Gentabase API")
 	flags.VarP(&utils.OutputFormat, "output", "o", "output format of status variables")
 	flags.Var(&utils.DNSResolver, "dns-resolver", "lookup domain names using the specified resolver")
 	flags.BoolVar(&createTicket, "create-ticket", false, "create a support ticket for any CLI error")

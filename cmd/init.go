@@ -55,7 +55,7 @@ var (
 			return nil
 		},
 		PostRun: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Finished " + utils.Aqua("supabase init") + ".")
+			fmt.Println("Finished " + utils.Aqua("gentabase init") + ".")
 		},
 	}
 )

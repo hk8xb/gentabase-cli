@@ -39,7 +39,7 @@ func Run(ctx context.Context, projectRef, envFilePath string, args []string, fsy
 	} else if resp.StatusCode() != http.StatusCreated {
 		return errors.New("Unexpected error setting project secrets: " + string(resp.Body))
 	}
-	fmt.Println("Finished " + utils.Aqua("supabase secrets set") + ".")
+	fmt.Println("Finished " + utils.Aqua("gentabase secrets set") + ".")
 	return nil
 }
 

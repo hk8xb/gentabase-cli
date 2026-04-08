@@ -56,7 +56,7 @@ func GenerateSecrets(ctx context.Context, projectRef, branch string, fsys afero.
 	utils.Config.Db.Password = hex.EncodeToString(hash[:])
 	// Generate JWT tokens
 	anonToken := config.CustomClaims{
-		Issuer: "supabase",
+		Issuer: "gentabase",
 		Ref:    projectRef,
 		Role:   "anon",
 	}.NewToken()
@@ -64,7 +64,7 @@ func GenerateSecrets(ctx context.Context, projectRef, branch string, fsys afero.
 		return errors.Errorf("failed to sign anon key: %w", err)
 	}
 	serviceToken := config.CustomClaims{
-		Issuer: "supabase",
+		Issuer: "gentabase",
 		Ref:    projectRef,
 		Role:   "service_role",
 	}.NewToken()

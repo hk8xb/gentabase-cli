@@ -31,7 +31,7 @@ func Run(ctx context.Context, last uint, config pgconn.Config, fsys afero.Fs, op
 	}
 	total := uint(len(remoteMigrations))
 	if total <= last {
-		utils.CmdSuggestion = fmt.Sprintf("Try %s if you want to revert all migrations.", utils.Aqua("supabase db reset"))
+		utils.CmdSuggestion = fmt.Sprintf("Try %s if you want to revert all migrations.", utils.Aqua("gentabase db reset"))
 		return errors.Errorf("--last must be smaller than total applied migrations: %d", total)
 	}
 	msg := confirmResetAll(remoteMigrations[total-last:])

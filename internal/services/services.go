@@ -138,6 +138,6 @@ func suggestUpdateCmd(serviceImages map[string]string) string {
 	for k, v := range serviceImages {
 		cmd += fmt.Sprintf("%s => %s\n", k, v)
 	}
-	cmd += fmt.Sprintf("Run %s to update them.", utils.Aqua("supabase link"))
+	cmd += fmt.Sprintf("Run %s to update them.", utils.Aqua("gentabase link"))
 	return cmd
 }

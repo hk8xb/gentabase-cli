@@ -20,7 +20,7 @@ func Run(ctx context.Context, fsys afero.Fs) error {
 	} else if err := Unlink(string(projectRef), fsys); err != nil {
 		return err
 	}
-	fmt.Fprintln(os.Stdout, "Finished "+utils.Aqua("supabase unlink")+".")
+	fmt.Fprintln(os.Stdout, "Finished "+utils.Aqua("gentabase unlink")+".")
 	return nil
 }
 

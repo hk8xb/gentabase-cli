@@ -51,7 +51,7 @@ func AssertRequestsDone(t *testing.T) {
 func MockPlatformAPI(t *testing.T) func() {
 	// Setup valid access token
 	token := RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 	teardown := func() {
 		AssertRequestsDone(t)
 		gock.OffAll()

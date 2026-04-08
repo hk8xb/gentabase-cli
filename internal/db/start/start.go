@@ -168,7 +168,7 @@ EOF`}
 	if utils.NoBackupVolume {
 		fmt.Fprintln(w, "Starting database...")
 	} else if len(fromBackup) > 0 {
-		utils.CmdSuggestion = fmt.Sprintf("Run %s to remove existing docker volumes.", utils.Aqua("supabase stop --no-backup"))
+		utils.CmdSuggestion = fmt.Sprintf("Run %s to remove existing docker volumes.", utils.Aqua("gentabase stop --no-backup"))
 		return errors.Errorf("backup volume already exists")
 	} else {
 		fmt.Fprintln(w, "Starting database from backup...")

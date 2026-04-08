@@ -12,7 +12,7 @@ var (
 	seedCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "seed",
-		Short:   "Seed a Supabase project from " + utils.ConfigPath,
+		Short:   "Seed a Gentabase project from " + utils.ConfigPath,
 	}
 
 	bucketsCmd = &cobra.Command{

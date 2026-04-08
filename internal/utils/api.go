@@ -127,7 +127,7 @@ func GetSupabase() *supabase.ClientWithResponses {
 			GetSupabaseAPIHost(),
 			supabase.WithRequestEditorFn(func(ctx context.Context, req *http.Request) error {
 				req.Header.Set("Authorization", "Bearer "+token)
-				req.Header.Set("User-Agent", "SupabaseCLI/"+Version)
+				req.Header.Set("User-Agent", "GentabaseCLI/"+Version)
 				return nil
 			}),
 		)

@@ -13,12 +13,12 @@ var (
 	secretsCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "secrets",
-		Short:   "Manage Supabase secrets",
+		Short:   "Manage Gentabase secrets",
 	}
 
 	secretsListCmd = &cobra.Command{
 		Use:   "list",
-		Short: "List all secrets on Supabase",
+		Short: "List all secrets on Gentabase",
 		Long:  "List all secrets in the linked project.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return list.Run(cmd.Context(), flags.ProjectRef, afero.NewOsFs())
@@ -27,8 +27,8 @@ var (
 
 	secretsSetCmd = &cobra.Command{
 		Use:   "set <NAME=VALUE> ...",
-		Short: "Set a secret(s) on Supabase",
-		Long:  "Set a secret(s) to the linked Supabase project.",
+		Short: "Set a secret(s) on Gentabase",
+		Long:  "Set a secret(s) to the linked Gentabase project.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return set.Run(cmd.Context(), flags.ProjectRef, envFilePath, args, afero.NewOsFs())
 		},
@@ -36,8 +36,8 @@ var (
 
 	secretsUnsetCmd = &cobra.Command{
 		Use:   "unset [NAME] ...",
-		Short: "Unset a secret(s) on Supabase",
-		Long:  "Unset a secret(s) from the linked Supabase project.",
+		Short: "Unset a secret(s) on Gentabase",
+		Long:  "Unset a secret(s) from the linked Gentabase project.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return unset.Run(cmd.Context(), flags.ProjectRef, args, afero.NewOsFs())
 		},
@@ -45,7 +45,7 @@ var (
 )
 
 func init() {
-	secretsCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	secretsCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	secretsSetCmd.Flags().StringVar(&envFilePath, "env-file", "", "Read secrets from a .env file.")
 	secretsCmd.AddCommand(secretsListCmd)
 	secretsCmd.AddCommand(secretsSetCmd)

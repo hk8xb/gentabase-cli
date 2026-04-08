@@ -18,8 +18,8 @@ import (
 )
 
 const (
-	SUPABASE_REPO  = "supabase"
-	SUPABASE_OWNER = "supabase"
+	SUPABASE_REPO  = "gentabase"
+	SUPABASE_OWNER = "gentabase"
 )
 
 func main() {

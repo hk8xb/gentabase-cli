@@ -112,7 +112,7 @@ func Run(ctx context.Context, dryRun, ignoreVersionMismatch bool, includeRoles, 
 			fmt.Fprintln(os.Stderr, "Seed files are up to date.")
 		}
 	}
-	fmt.Println("Finished " + utils.Aqua("supabase db push") + ".")
+	fmt.Println("Finished " + utils.Aqua("gentabase db push") + ".")
 	return nil
 }
 

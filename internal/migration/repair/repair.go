@@ -50,7 +50,7 @@ func Run(ctx context.Context, config pgconn.Config, version []string, status str
 	defer conn.Close(context.Background())
 	// Update migration history
 	if err = UpdateMigrationTable(ctx, conn, version, status, repairAll, fsys); err == nil {
-		utils.CmdSuggestion = fmt.Sprintf("Run %s to show the updated migration history.", utils.Aqua("supabase migration list"))
+		utils.CmdSuggestion = fmt.Sprintf("Run %s to show the updated migration history.", utils.Aqua("gentabase migration list"))
 	}
 	return err
 }

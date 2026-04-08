@@ -35,7 +35,7 @@ var (
 	declarativeFile      string
 	declarativeName      string
 
-	// dbSchemaCmd groups schema-related subcommands under `supabase db schema`.
+	// dbSchemaCmd groups schema-related subcommands under `gentabase db schema`.
 	dbSchemaCmd = &cobra.Command{
 		Use:   "schema",
 		Short: "Manage database schema",
@@ -81,7 +81,7 @@ var (
 		Short: "Generate declarative schema from a database",
 		RunE:  runDeclarativeGenerate,
 		PostRun: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Finished " + utils.Aqua("supabase db schema declarative generate") + ".")
+			fmt.Println("Finished " + utils.Aqua("gentabase db schema declarative generate") + ".")
 		},
 	}
 )
@@ -278,14 +278,14 @@ func runDeclarativeSync(cmd *cobra.Command, args []string) error {
 	// Step 1: Check if declarative dir has files
 	if !hasDeclarativeFiles(fsys) {
 		if !isTTY() && !viper.GetBool("YES") {
-			return fmt.Errorf("no declarative schema found. Run %s first", utils.Aqua("supabase db schema declarative generate"))
+			return fmt.Errorf("no declarative schema found. Run %s first", utils.Aqua("gentabase db schema declarative generate"))
 		}
 		ok, err := console.PromptYesNo(ctx, "No declarative schema found. Generate a new one ?", true)
 		if err != nil {
 			return err
 		}
 		if !ok {
-			return fmt.Errorf("no declarative schema found. Run %s first", utils.Aqua("supabase db schema declarative generate"))
+			return fmt.Errorf("no declarative schema found. Run %s first", utils.Aqua("gentabase db schema declarative generate"))
 		}
 		// Run smart generate flow
 		if err := runDeclarativeGenerate(cmd, args); err != nil {

@@ -15,7 +15,7 @@ var (
 	storageCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "storage",
-		Short:   "Manage Supabase Storage objects",
+		Short:   "Manage Gentabase Storage objects",
 	}
 
 	recursive bool

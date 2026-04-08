@@ -40,12 +40,12 @@ var (
 )
 
 func init() {
-	sslEnforcementCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	sslEnforcementCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	sslEnforcementUpdateCmd.Flags().BoolVar(&dbEnforceSsl, "enable-db-ssl-enforcement", false, "Whether the DB should enable SSL enforcement for all external connections.")
 	sslEnforcementUpdateCmd.Flags().BoolVar(&dbDisableSsl, "disable-db-ssl-enforcement", false, "Whether the DB should disable SSL enforcement for all external connections.")
 	sslEnforcementUpdateCmd.MarkFlagsMutuallyExclusive("enable-db-ssl-enforcement", "disable-db-ssl-enforcement")
 	sslEnforcementCmd.AddCommand(sslEnforcementUpdateCmd)
 	sslEnforcementCmd.AddCommand(sslEnforcementGetCmd)
 
-	rootCmd.AddCommand(sslEnforcementCmd)
+	// [gentabase] disabled: rootCmd.AddCommand(sslEnforcementCmd)
 }

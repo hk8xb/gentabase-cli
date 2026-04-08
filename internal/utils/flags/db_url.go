@@ -150,7 +150,7 @@ func NewDbConfigWithPassword(ctx context.Context, projectRef string) (pgconn.Con
 		}
 		return *poolerConfig, nil
 	} else {
-		utils.CmdSuggestion = fmt.Sprintf("Run %s to setup IPv4 connection.", utils.Aqua("supabase link --project-ref "+projectRef))
+		utils.CmdSuggestion = fmt.Sprintf("Run %s to setup IPv4 connection.", utils.Aqua("gentabase link --project-ref "+projectRef))
 		return config, errors.Errorf("IPv6 is not supported on your current network: %w", err)
 	}
 	// Connect via direct connection

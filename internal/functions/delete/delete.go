@@ -30,7 +30,7 @@ func Undeploy(ctx context.Context, projectRef string, slug string) error {
 	}
 	switch resp.StatusCode() {
 	case http.StatusNotFound:
-		return errors.Errorf("Function %s does not exist on the Supabase project: %w", slug, ErrNoDelete)
+		return errors.Errorf("Function %s does not exist on the Gentabase project: %w", slug, ErrNoDelete)
 	case http.StatusOK:
 		return nil
 	default:

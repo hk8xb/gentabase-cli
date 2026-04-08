@@ -41,7 +41,7 @@ type pathBuilder struct {
 
 func NewPathBuilder(configPath string) pathBuilder {
 	if filepath.Base(configPath) == "." {
-		configPath = filepath.Join("supabase", "config.toml")
+		configPath = filepath.Join("gentabase", "config.toml")
 	}
 	// TODO: make base path configurable from toml
 	base := filepath.Dir(configPath)

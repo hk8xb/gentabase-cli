@@ -68,11 +68,11 @@ func getFunctionMetadata(ctx context.Context, projectRef, slug string) (*api.Fun
 
 	switch resp.StatusCode() {
 	case http.StatusNotFound:
-		return nil, errors.Errorf("Function %s does not exist on the Supabase project.", utils.Aqua(slug))
+		return nil, errors.Errorf("Function %s does not exist on the Gentabase project.", utils.Aqua(slug))
 	case http.StatusOK:
 		break
 	default:
-		return nil, errors.Errorf("Failed to download Function %s on the Supabase project: %s", utils.Aqua(slug), string(resp.Body))
+		return nil, errors.Errorf("Failed to download Function %s on the Gentabase project: %s", utils.Aqua(slug), string(resp.Body))
 	}
 
 	if resp.JSON200.EntrypointPath == nil {
@@ -285,7 +285,7 @@ deno_version = 2
 }
 
 func suggestLegacyBundle(slug string) string {
-	return fmt.Sprintf("\nIf your function is deployed using CLI < 1.120.0, trying running %s instead.", utils.Aqua("supabase functions download --legacy-bundle "+slug))
+	return fmt.Sprintf("\nIf your function is deployed using CLI < 1.120.0, trying running %s instead.", utils.Aqua("gentabase functions download --legacy-bundle "+slug))
 }
 
 type bundleMetadata struct {

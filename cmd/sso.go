@@ -48,7 +48,7 @@ var (
 	ssoAddCmd = &cobra.Command{
 		Use:     "add",
 		Short:   "Add a new SSO identity provider",
-		Long:    "Add and configure a new connection to a SSO identity provider to your Supabase project.",
+		Long:    "Add and configure a new connection to a SSO identity provider to your Gentabase project.",
 		Example: `  supabase sso add --type saml --project-ref mwjylndxudmiehsxhmmz --metadata-url 'https://...' --domains example.com`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return create.Run(cmd.Context(), create.RunParams{
@@ -131,7 +131,7 @@ var (
 	ssoListCmd = &cobra.Command{
 		Use:     "list",
 		Short:   "List all SSO identity providers for a project",
-		Long:    "List all connections to a SSO identity provider to your Supabase project.",
+		Long:    "List all connections to a SSO identity provider to your Gentabase project.",
 		Example: `  supabase sso list --project-ref mwjylndxudmiehsxhmmz`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return list.Run(cmd.Context(), flags.ProjectRef, utils.OutputFormat.Value)
@@ -151,7 +151,7 @@ var (
 
 func init() {
 	persistentFlags := ssoCmd.PersistentFlags()
-	persistentFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	persistentFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	markFlagTelemetrySafe(persistentFlags.Lookup("project-ref"))
 	ssoAddFlags := ssoAddCmd.Flags()
 	ssoAddFlags.VarP(&ssoProviderType, "type", "t", "Type of identity provider (according to supported protocol).")
@@ -191,5 +191,5 @@ func init() {
 	ssoCmd.AddCommand(ssoListCmd)
 	ssoCmd.AddCommand(ssoInfoCmd)
 
-	rootCmd.AddCommand(ssoCmd)
+	// [gentabase] disabled: rootCmd.AddCommand(ssoCmd)
 }

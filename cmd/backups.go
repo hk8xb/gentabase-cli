@@ -11,7 +11,7 @@ var (
 	backupsCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "backups",
-		Short:   "Manage Supabase physical backups",
+		Short:   "Manage Gentabase physical backups",
 	}
 
 	backupListCmd = &cobra.Command{
@@ -37,10 +37,10 @@ var (
 
 func init() {
 	backupFlags := backupsCmd.PersistentFlags()
-	backupFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	backupFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	backupsCmd.AddCommand(backupListCmd)
 	restoreFlags := backupRestoreCmd.Flags()
 	restoreFlags.Int64VarP(&timestamp, "timestamp", "t", 0, "The recovery time target in seconds since epoch.")
 	backupsCmd.AddCommand(backupRestoreCmd)
-	rootCmd.AddCommand(backupsCmd)
+	// [gentabase] disabled: rootCmd.AddCommand(backupsCmd)
 }

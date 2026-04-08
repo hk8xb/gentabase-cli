@@ -23,6 +23,6 @@ func Run(ctx context.Context, projectRef string) error {
 	} else if resp.JSON200 == nil {
 		return errors.Errorf("unexpected update pgsodium config status %d: %s", resp.StatusCode(), string(resp.Body))
 	}
-	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("supabase root-key update")+".")
+	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("gentabase root-key update")+".")
 	return nil
 }

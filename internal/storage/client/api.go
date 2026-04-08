@@ -32,7 +32,7 @@ func newLocalClient() *fetcher.Fetcher {
 		utils.Config.Api.ExternalUrl,
 		utils.Config.Auth.ServiceRoleKey.Value,
 		fetcher.WithHTTPClient(status.NewKongClient()),
-		fetcher.WithUserAgent("SupabaseCLI/"+utils.Version),
+		fetcher.WithUserAgent("GentabaseCLI/"+utils.Version),
 	)
 }
 
@@ -41,6 +41,6 @@ func newRemoteClient(projectRef, token string) *fetcher.Fetcher {
 		"https://"+utils.GetSupabaseHost(projectRef),
 		token,
 		fetcher.WithHTTPClient(http.DefaultClient),
-		fetcher.WithUserAgent("SupabaseCLI/"+utils.Version),
+		fetcher.WithUserAgent("GentabaseCLI/"+utils.Version),
 	)
 }

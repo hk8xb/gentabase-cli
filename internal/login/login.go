@@ -229,7 +229,7 @@ func Run(ctx context.Context, stdout io.Writer, params RunParams) error {
 
 func ParseAccessToken(stdin afero.File) string {
 	// Not using viper so we can reset env easily in tests
-	token := os.Getenv("SUPABASE_ACCESS_TOKEN")
+	token := os.Getenv("GENTABASE_ACCESS_TOKEN")
 	if len(token) == 0 {
 		var buf bytes.Buffer
 		if err := new.CopyStdinIfExists(stdin, &buf); err != nil {

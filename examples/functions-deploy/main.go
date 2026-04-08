@@ -21,7 +21,7 @@ func main() {
 
 func deploy(ctx context.Context, fsys fs.FS) error {
 	project := os.Getenv("SUPABASE_PROJECT_ID")
-	apiClient := newAPIClient(os.Getenv("SUPABASE_ACCESS_TOKEN"))
+	apiClient := newAPIClient(os.Getenv("GENTABASE_ACCESS_TOKEN"))
 	functionClient := function.NewEdgeRuntimeAPI(project, apiClient)
 	fc := config.FunctionConfig{"my-slug": {
 		Entrypoint: "supabase/functions/my-slug/index.ts",

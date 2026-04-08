@@ -26,7 +26,7 @@ var (
 	branchesCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "branches",
-		Short:   "Manage Supabase preview branches",
+		Short:   "Manage Gentabase preview branches",
 	}
 
 	persistent bool
@@ -200,7 +200,7 @@ var (
 
 func init() {
 	branchFlags := branchesCmd.PersistentFlags()
-	branchFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	branchFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	markFlagTelemetrySafe(branchFlags.Lookup("project-ref"))
 	createFlags := branchCreateCmd.Flags()
 	createFlags.Var(&region, "region", "Select a region to deploy the branch database.")
@@ -222,7 +222,7 @@ func init() {
 	branchesCmd.AddCommand(branchDisableCmd)
 	branchesCmd.AddCommand(branchPauseCmd)
 	branchesCmd.AddCommand(branchUnpauseCmd)
-	rootCmd.AddCommand(branchesCmd)
+	// [gentabase] disabled: rootCmd.AddCommand(branchesCmd)
 }
 
 func promptBranchId(ctx context.Context, fsys afero.Fs) error {
@@ -247,7 +247,7 @@ func promptBranchId(ctx context.Context, fsys afero.Fs) error {
 	if err != nil {
 		return err
 	} else if len(branches) == 0 {
-		utils.CmdSuggestion = fmt.Sprintf("Create your first branch with: %s", utils.Aqua("supabase branches create"))
+		utils.CmdSuggestion = fmt.Sprintf("Create your first branch with: %s", utils.Aqua("gentabase branches create"))
 		return errors.Errorf("branching is disabled")
 	}
 	// Let user choose from a list of branches

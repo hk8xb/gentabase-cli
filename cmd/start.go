@@ -44,7 +44,7 @@ var (
 	startCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "start",
-		Short:   "Start containers for Supabase local development",
+		Short:   "Start containers for Gentabase local development",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			validateExcludedContainers(excludedContainers)
 			return start.Run(cmd.Context(), afero.NewOsFs(), excludedContainers, ignoreHealthCheck)

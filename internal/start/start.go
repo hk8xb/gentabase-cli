@@ -52,7 +52,7 @@ func Run(ctx context.Context, fsys afero.Fs, excludedContainers []string, ignore
 			return err
 		}
 		if err := utils.AssertSupabaseDbIsRunning(); err == nil {
-			fmt.Fprintln(os.Stderr, utils.Aqua("supabase start")+" is already running.")
+			fmt.Fprintln(os.Stderr, utils.Aqua("gentabase start")+" is already running.")
 			names := status.CustomName{}
 			return status.Run(ctx, names, utils.OutputPretty, fsys)
 		} else if !errors.Is(err, utils.ErrNotRunning) {
@@ -81,7 +81,7 @@ func Run(ctx context.Context, fsys afero.Fs, excludedContainers []string, ignore
 		}
 	}
 
-	fmt.Fprintf(os.Stderr, "Started %s local development setup.\n\n", utils.Aqua("supabase"))
+	fmt.Fprintf(os.Stderr, "Started %s local development setup.\n\n", utils.Aqua("gentabase"))
 	status.PrettyPrint(os.Stdout, excludedContainers...)
 	printSecurityNotice()
 	return nil

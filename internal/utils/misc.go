@@ -60,7 +60,7 @@ var (
 	PgSchemas       = migration.InternalSchemas[:2]
 	InternalSchemas = migration.InternalSchemas
 
-	SupabaseDirPath      = "supabase"
+	SupabaseDirPath      = "gentabase"
 	ConfigPath           = filepath.Join(SupabaseDirPath, "config.toml")
 	GitIgnorePath        = filepath.Join(SupabaseDirPath, ".gitignore")
 	TempDir              = filepath.Join(SupabaseDirPath, ".temp")
@@ -79,7 +79,7 @@ var (
 	CliVersionPath       = filepath.Join(TempDir, "cli-latest")
 	CurrBranchPath       = filepath.Join(SupabaseDirPath, ".branches", "_current_branch")
 	// DeclarativeDir is the canonical location for pg-delta declarative schema
-	// files generated or synced by `supabase db schema declarative` commands.
+	// files generated or synced by `gentabase db schema declarative` commands.
 	DeclarativeDir        = filepath.Join(SupabaseDirPath, "declarative")
 	ClusterDir            = filepath.Join(SupabaseDirPath, "cluster")
 	SchemasDir            = filepath.Join(SupabaseDirPath, "schemas")
@@ -91,10 +91,10 @@ var (
 	DbTestsDir            = filepath.Join(SupabaseDirPath, "tests")
 	CustomRolesPath       = filepath.Join(SupabaseDirPath, "roles.sql")
 
-	ErrNotLinked   = errors.Errorf("Cannot find project ref. Have you run %s?", Aqua("supabase link"))
+	ErrNotLinked   = errors.Errorf("Cannot find project ref. Have you run %s?", Aqua("gentabase link"))
 	ErrInvalidRef  = errors.New("Invalid project ref format. Must be like `abcdefghijklmnopqrst`.")
 	ErrInvalidSlug = errors.New("Invalid Function name. Must start with at least one letter, and only include alphanumeric characters, underscores, and hyphens. (^[A-Za-z][A-Za-z0-9_-]*$)")
-	ErrNotRunning  = errors.Errorf("%s is not running.", Aqua("supabase start"))
+	ErrNotRunning  = errors.Errorf("%s is not running.", Aqua("gentabase start"))
 )
 
 func GetDeclarativeDir() string {

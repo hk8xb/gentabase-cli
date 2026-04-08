@@ -28,7 +28,7 @@ func PrintStatus(response *api.UpdateCustomHostnameResponse, w io.Writer) {
 	case api.N4OriginSetupCompleted:
 		fmt.Fprintf(w, `Custom hostname configuration complete, and ready for activation.
 
-Please ensure that your custom domain is set up as a CNAME record to your Supabase subdomain:
+Please ensure that your custom domain is set up as a CNAME record to your Gentabase subdomain:
 %s CNAME -> %s`, response.CustomHostname, response.Data.Result.CustomOriginServer)
 	case api.N3ChallengeVerified, api.N2Initiated:
 		if ssl := response.Data.Result.Ssl; ssl.Status == "initializing" {

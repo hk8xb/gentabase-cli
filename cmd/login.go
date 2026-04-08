@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	ErrMissingToken = errors.Errorf("Cannot use automatic login flow inside non-TTY environments. Please provide %s flag or set the %s environment variable.", utils.Aqua("--token"), utils.Aqua("SUPABASE_ACCESS_TOKEN"))
+	ErrMissingToken = errors.Errorf("Cannot use automatic login flow inside non-TTY environments. Please provide %s flag or set the %s environment variable.", utils.Aqua("--token"), utils.Aqua("GENTABASE_ACCESS_TOKEN"))
 )
 
 var (

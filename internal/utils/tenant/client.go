@@ -92,6 +92,6 @@ func NewTenantAPI(ctx context.Context, projectRef, serviceKey string) TenantAPI 
 	return TenantAPI{Fetcher: fetcher.NewServiceGateway(
 		"https://"+utils.GetSupabaseHost(projectRef),
 		serviceKey,
-		fetcher.WithUserAgent("SupabaseCLI/"+utils.Version),
+		fetcher.WithUserAgent("GentabaseCLI/"+utils.Version),
 	)}
 }

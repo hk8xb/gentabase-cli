@@ -14,7 +14,7 @@ const (
 	//     none added directly by this event.
 	EventCommandExecuted = "cli_command_executed"
 	//   - EventProjectLinked: sent after the local CLI directory is linked to a
-	//     Supabase project. This helps measure project-linking adoption and connect
+	//     Gentabase project. This helps measure project-linking adoption and connect
 	//     future events to the right project and organization. Event-specific
 	//     properties: none. Related groups: GroupOrganization and GroupProject.
 	//     Related group-identify payloads sent during linking are:
@@ -85,10 +85,10 @@ const (
 
 // Group identifiers associate events with higher-level entities in PostHog.
 const (
-	// GroupOrganization identifies the Supabase organization related to the
+	// GroupOrganization identifies the Gentabase organization related to the
 	// event.
 	GroupOrganization = "organization"
-	// GroupProject identifies the Supabase project related to the event.
+	// GroupProject identifies the Gentabase project related to the event.
 	GroupProject = "project"
 )
 
@@ -124,7 +124,7 @@ var (
 		"GITHUB_HEAD_REF",
 		"BITBUCKET_CLONE_DIR",
 		// Supabase environment signals
-		"SUPABASE_ACCESS_TOKEN",
+		"GENTABASE_ACCESS_TOKEN",
 		"SUPABASE_HOME",
 		"SYSTEMROOT",
 		"SUPABASE_SSL_DEBUG",

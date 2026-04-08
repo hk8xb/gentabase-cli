@@ -73,7 +73,7 @@ func Run(ctx context.Context, version string, last uint, config pgconn.Config, f
 		}
 	}
 	branch := utils.GetGitBranch(fsys)
-	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("supabase db reset")+" on branch "+utils.Aqua(branch)+".")
+	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("gentabase db reset")+" on branch "+utils.Aqua(branch)+".")
 	return nil
 }
 

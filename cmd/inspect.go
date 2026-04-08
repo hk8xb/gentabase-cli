@@ -24,12 +24,12 @@ var (
 	inspectCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "inspect",
-		Short:   "Tools to inspect your Supabase project",
+		Short:   "Tools to inspect your Gentabase project",
 	}
 
 	inspectDBCmd = &cobra.Command{
 		Use:   "db",
-		Short: "Tools to inspect your Supabase database",
+		Short: "Tools to inspect your Gentabase database",
 	}
 
 	inspectDBStatsCmd = &cobra.Command{

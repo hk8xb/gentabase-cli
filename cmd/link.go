@@ -19,7 +19,7 @@ var (
 	linkCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "link",
-		Short:   "Link to a Supabase project",
+		Short:   "Link to a Gentabase project",
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if !term.IsTerminal(int(os.Stdin.Fd())) && !viper.IsSet("PROJECT_ID") {
 				return cmd.MarkFlagRequired("project-ref")
@@ -41,14 +41,14 @@ var (
 			return link.Run(ctx, flags.ProjectRef, skipPooler, fsys)
 		},
 		PostRun: func(cmd *cobra.Command, args []string) {
-			fmt.Fprintln(os.Stdout, "Finished "+utils.Aqua("supabase link")+".")
+			fmt.Fprintln(os.Stdout, "Finished "+utils.Aqua("gentabase link")+".")
 		},
 	}
 )
 
 func init() {
 	linkFlags := linkCmd.Flags()
-	linkFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	linkFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	markFlagTelemetrySafe(linkFlags.Lookup("project-ref"))
 	linkFlags.StringVarP(&dbPassword, "password", "p", "", "Password to your remote Postgres database.")
 	linkFlags.BoolVar(&skipPooler, "skip-pooler", false, "Use direct connection instead of pooler.")

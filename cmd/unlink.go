@@ -10,7 +10,7 @@ var (
 	unlinkCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "unlink",
-		Short:   "Unlink a Supabase project",
+		Short:   "Unlink a Gentabase project",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return unlink.Run(cmd.Context(), afero.NewOsFs())
 		},

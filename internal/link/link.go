@@ -254,7 +254,7 @@ func checkRemoteProjectStatus(ctx context.Context, projectRef string, fsys afero
 
 	switch resp.JSON200.Status {
 	case api.V1ProjectWithDatabaseResponseStatusINACTIVE:
-		utils.CmdSuggestion = fmt.Sprintf("An admin must unpause it from the Supabase dashboard at %s", utils.Aqua(fmt.Sprintf("%s/project/%s", utils.GetSupabaseDashboardURL(), projectRef)))
+		utils.CmdSuggestion = fmt.Sprintf("An admin must unpause it from the Gentabase dashboard at %s", utils.Aqua(fmt.Sprintf("%s/project/%s", utils.GetSupabaseDashboardURL(), projectRef)))
 		return nil, errors.New(errProjectPaused)
 	case api.V1ProjectWithDatabaseResponseStatusACTIVEHEALTHY:
 		// Project is in the desired state, do nothing

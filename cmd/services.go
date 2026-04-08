@@ -10,7 +10,7 @@ var (
 	servicesCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "services",
-		Short:   "Show versions of all Supabase services",
+		Short:   "Show versions of all Gentabase services",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return services.Run(cmd.Context(), afero.NewOsFs())
 		},

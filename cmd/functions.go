@@ -21,13 +21,13 @@ var (
 	functionsCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "functions",
-		Short:   "Manage Supabase Edge functions",
+		Short:   "Manage Gentabase Edge functions",
 	}
 
 	functionsListCmd = &cobra.Command{
 		Use:   "list",
-		Short: "List all Functions in Supabase",
-		Long:  "List all Functions in the linked Supabase project.",
+		Short: "List all Functions in Gentabase",
+		Long:  "List all Functions in the linked Gentabase project.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return list.Run(cmd.Context(), flags.ProjectRef, afero.NewOsFs())
 		},
@@ -35,8 +35,8 @@ var (
 
 	functionsDeleteCmd = &cobra.Command{
 		Use:   "delete <Function name>",
-		Short: "Delete a Function from Supabase",
-		Long:  "Delete a Function from the linked Supabase project. This does NOT remove the Function locally.",
+		Short: "Delete a Function from Gentabase",
+		Long:  "Delete a Function from the linked Gentabase project. This does NOT remove the Function locally.",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return delete.Run(cmd.Context(), args[0], flags.ProjectRef, afero.NewOsFs())
@@ -45,8 +45,8 @@ var (
 
 	functionsDownloadCmd = &cobra.Command{
 		Use:   "download [Function name]",
-		Short: "Download a Function from Supabase",
-		Long:  "Download the source code for a Function from the linked Supabase project. If no function name is provided, downloads all functions.",
+		Short: "Download a Function from Gentabase",
+		Long:  "Download the source code for a Function from the linked Gentabase project. If no function name is provided, downloads all functions.",
 		Args:  cobra.MaximumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if useApi {
@@ -69,8 +69,8 @@ var (
 
 	functionsDeployCmd = &cobra.Command{
 		Use:   "deploy [Function name]",
-		Short: "Deploy a Function to Supabase",
-		Long:  "Deploy a Function to the linked Supabase project.",
+		Short: "Deploy a Function to Gentabase",
+		Long:  "Deploy a Function to the linked Gentabase project.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			// Fallback to config if user did not set the flag.
 			if !cmd.Flags().Changed("no-verify-jwt") {
@@ -137,9 +137,9 @@ var (
 )
 
 func init() {
-	functionsListCmd.Flags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	functionsListCmd.Flags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	markFlagTelemetrySafe(functionsListCmd.Flags().Lookup("project-ref"))
-	functionsDeleteCmd.Flags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	functionsDeleteCmd.Flags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	markFlagTelemetrySafe(functionsDeleteCmd.Flags().Lookup("project-ref"))
 	deployFlags := functionsDeployCmd.Flags()
 	deployFlags.BoolVar(&useApi, "use-api", false, "Bundle functions server-side without using Docker.")
@@ -150,8 +150,8 @@ func init() {
 	cobra.CheckErr(deployFlags.MarkHidden("use-docker"))
 	deployFlags.UintVarP(&maxJobs, "jobs", "j", 1, "Maximum number of parallel jobs.")
 	deployFlags.BoolVar(noVerifyJWT, "no-verify-jwt", false, "Disable JWT verification for the Function.")
-	deployFlags.BoolVar(&prune, "prune", false, "Delete Functions that exist in Supabase project but not locally.")
-	deployFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	deployFlags.BoolVar(&prune, "prune", false, "Delete Functions that exist in Gentabase project but not locally.")
+	deployFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	markFlagTelemetrySafe(deployFlags.Lookup("project-ref"))
 	deployFlags.StringVar(&importMapPath, "import-map", "", "Path to import map file.")
 	functionsServeCmd.Flags().BoolVar(noVerifyJWT, "no-verify-jwt", false, "Disable JWT verification for the Function.")
@@ -164,7 +164,7 @@ func init() {
 	functionsServeCmd.Flags().Bool("all", true, "Serve all Functions.")
 	cobra.CheckErr(functionsServeCmd.Flags().MarkHidden("all"))
 	downloadFlags := functionsDownloadCmd.Flags()
-	downloadFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	downloadFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Gentabase project.")
 	markFlagTelemetrySafe(downloadFlags.Lookup("project-ref"))
 	downloadFlags.BoolVar(&useLegacyBundle, "legacy-bundle", false, "Use legacy bundling mechanism.")
 	downloadFlags.BoolVar(&useApi, "use-api", false, "Unbundle functions server-side without using Docker.")

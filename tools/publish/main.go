@@ -22,7 +22,7 @@ import (
 )
 
 const (
-	SUPABASE_OWNER = "supabase"
+	SUPABASE_OWNER = "gentabase"
 	HOMEBREW_REPO  = "homebrew-tap"
 	SCOOP_REPO     = "scoop-bucket"
 )
@@ -59,8 +59,8 @@ func publishPackages(ctx context.Context, version string, beta bool) error {
 		return err
 	}
 	config.FormulaName = "Supabase"
-	config.Description = "Supabase CLI"
-	filename := "supabase"
+	config.Description = "Gentabase CLI"
+	filename := "gentabase"
 	if beta {
 		config.FormulaName += "Beta"
 		config.Description += " (Beta)"

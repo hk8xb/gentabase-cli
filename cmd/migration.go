@@ -57,7 +57,7 @@ var (
 			return repair.Run(cmd.Context(), flags.DbConfig, args, targetStatus.Value, afero.NewOsFs())
 		},
 		PostRun: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Finished " + utils.Aqua("supabase migration repair") + ".")
+			fmt.Println("Finished " + utils.Aqua("gentabase migration repair") + ".")
 		},
 	}
 
@@ -70,7 +70,7 @@ var (
 			return squash.Run(cmd.Context(), migrationVersion, flags.DbConfig, afero.NewOsFs())
 		},
 		PostRun: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Finished " + utils.Aqua("supabase migration squash") + ".")
+			fmt.Println("Finished " + utils.Aqua("gentabase migration squash") + ".")
 		},
 	}
 

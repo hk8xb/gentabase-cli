@@ -15,7 +15,7 @@ var (
 	statusCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "status",
-		Short:   "Show status of local Supabase containers",
+		Short:   "Show status of local Gentabase containers",
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			es, err := env.EnvironToEnvSet(override)
 			if err != nil {

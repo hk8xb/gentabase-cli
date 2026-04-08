@@ -34,7 +34,7 @@ func telemetryPath() (string, error) {
 	if err != nil {
 		return "", errors.Errorf("failed to get $HOME directory: %w", err)
 	}
-	return filepath.Join(home, ".supabase", "telemetry.json"), nil
+	return filepath.Join(home, ".gentabase", "telemetry.json"), nil
 }
 
 func LoadState(fsys afero.Fs) (State, error) {

@@ -183,7 +183,7 @@ func GetRegistryAuth() string {
 	return registryAuth
 }
 
-// Defaults to Supabase public ECR for faster image pull
+// Defaults to Gentabase public ECR for faster image pull
 const defaultRegistry = "public.ecr.aws"
 
 func GetRegistry() string {
@@ -492,7 +492,7 @@ func suggestDockerStop(ctx context.Context, hostPort string) string {
 			for _, p := range c.Ports {
 				if fmt.Sprintf("%s:%d", p.IP, p.PublicPort) == hostPort {
 					if project, ok := c.Labels[CliProjectLabel]; ok {
-						return "\nTry stopping the running project with " + Aqua("supabase stop --project-id "+project)
+						return "\nTry stopping the running project with " + Aqua("gentabase stop --project-id "+project)
 					} else {
 						name := c.ID
 						if len(c.Names) > 0 {

@@ -37,7 +37,7 @@ func Run(ctx context.Context, fsys afero.Fs, interactive bool, params utils.Init
 	// 1. Write `config.toml`.
 	if err := utils.InitConfig(params, fsys); err != nil {
 		if errors.Is(err, os.ErrExist) {
-			utils.CmdSuggestion = fmt.Sprintf("Run %s to overwrite existing config file.", utils.Aqua("supabase init --force"))
+			utils.CmdSuggestion = fmt.Sprintf("Run %s to overwrite existing config file.", utils.Aqua("gentabase init --force"))
 		}
 		return err
 	}

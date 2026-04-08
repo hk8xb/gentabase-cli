@@ -54,9 +54,9 @@ func GetPendingMigrations(ctx context.Context, includeAll bool, conn *pgx.Conn, 
 
 func suggestRevertHistory(versions []string) string {
 	result := fmt.Sprintln("\nMake sure your local git repo is up-to-date. If the error persists, try repairing the migration history table:")
-	result += fmt.Sprintln(utils.Bold("supabase migration repair --status reverted " + strings.Join(versions, " ")))
+	result += fmt.Sprintln(utils.Bold("gentabase migration repair --status reverted " + strings.Join(versions, " ")))
 	result += fmt.Sprintln("\nAnd update local migrations to match remote database:")
-	result += fmt.Sprintln(utils.Bold("supabase db pull"))
+	result += fmt.Sprintln(utils.Bold("gentabase db pull"))
 	return result
 }
 

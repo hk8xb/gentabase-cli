@@ -38,7 +38,7 @@ func Run(ctx context.Context, schema []string, file string, config pgconn.Config
 		return err
 	}
 	branch := utils.GetGitBranch(fsys)
-	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("supabase db diff")+" on branch "+utils.Aqua(branch)+".\n")
+	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("gentabase db diff")+" on branch "+utils.Aqua(branch)+".\n")
 	if err := SaveDiff(out, file, fsys); err != nil {
 		return err
 	}
