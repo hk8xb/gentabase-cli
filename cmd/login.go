@@ -1,47 +1,48 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/login"
 	"github.com/supabase/cli/internal/utils"
-	"golang.org/x/term"
 )
 
 var (
-	ErrMissingToken = errors.Errorf("Cannot use automatic login flow inside non-TTY environments. Please provide %s flag or set the %s environment variable.", utils.Aqua("--token"), utils.Aqua("GENTABASE_ACCESS_TOKEN"))
-)
-
-var (
-	params = login.RunParams{
-		// Skip the browser if we are inside non-TTY environment, which is the case for any CI.
-		OpenBrowser: term.IsTerminal(int(os.Stdin.Fd())),
-		Fsys:        afero.NewOsFs(),
-	}
+	loginToken string
 
 	loginCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "login",
 		Short:   "Authenticate using an access token",
+		Long: `Authenticate with a personal access token (PAT).
+
+Create a PAT in the Gentabase dashboard at Account → Access Tokens,
+then run:
+
+  gentabase login --token gbp_<your-token>
+
+Alternatively, set the GENTABASE_ACCESS_TOKEN environment variable.`,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if params.Token == "" {
-				params.Token = login.ParseAccessToken(os.Stdin)
+			if loginToken == "" {
+				return errors.New("Please provide a token with --token flag or set GENTABASE_ACCESS_TOKEN")
 			}
-			if params.Token == "" && !params.OpenBrowser {
-				return ErrMissingToken
+			// Validate format
+			if !utils.AccessTokenPattern.MatchString(loginToken) {
+				return errors.New(utils.ErrInvalidToken)
 			}
-			if cmd.Flags().Changed("no-browser") {
-				params.OpenBrowser = false
+			// Save token
+			if err := utils.SaveAccessToken(loginToken, afero.NewOsFs()); err != nil {
+				return err
 			}
-			return login.Run(cmd.Context(), os.Stdout, params)
+			fmt.Fprintln(os.Stdout, "Access token saved to profile:", utils.CurrentProfile.Name)
+			return nil
 		},
 		PostRunE: func(cmd *cobra.Command, args []string) error {
 			if prof := viper.GetString("PROFILE"); viper.IsSet("PROFILE") {
-				// Failure to save should block subsequent commands on CI
 				return utils.SaveProfileName(prof, afero.NewOsFs())
 			}
 			return nil
@@ -51,9 +52,7 @@ var (
 
 func init() {
 	loginFlags := loginCmd.Flags()
-	loginFlags.StringVar(&params.Token, "token", "", "Use provided token instead of automatic login flow")
-	loginFlags.StringVar(&params.TokenName, "name", "", "Name that will be used to store token in your settings")
-	loginFlags.Lookup("name").DefValue = "built-in token name generator"
-	loginFlags.Bool("no-browser", false, "Do not open browser automatically")
+	loginFlags.StringVar(&loginToken, "token", "", "Personal access token (PAT) from Gentabase dashboard")
+	loginFlags.StringP("name", "n", "", "Name for this token in local settings")
 	rootCmd.AddCommand(loginCmd)
 }
