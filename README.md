@@ -1,177 +1,119 @@
-# Supabase CLI
+# Gentabase CLI
 
-[![Coverage Status](https://coveralls.io/repos/github/supabase/cli/badge.svg?branch=develop)](https://coveralls.io/github/supabase/cli?branch=develop) [![Bitbucket Pipelines](https://img.shields.io/bitbucket/pipelines/supabase-cli/setup-cli/master?style=flat-square&label=Bitbucket%20Canary)](https://bitbucket.org/supabase-cli/setup-cli/pipelines) [![Gitlab Pipeline Status](https://img.shields.io/gitlab/pipeline-status/sweatybridge%2Fsetup-cli?label=Gitlab%20Canary)
-](https://gitlab.com/sweatybridge/setup-cli/-/pipelines)
+Manage your Gentabase projects from the command line.
 
-[Supabase](https://supabase.io) is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools.
-
-This repository contains all the functionality for Supabase CLI.
-
-- [x] Running Supabase locally
-- [x] Managing database migrations
-- [x] Creating and deploying Supabase Functions
-- [x] Generating types directly from your database schema
-- [x] Making authenticated HTTP requests to [Management API](https://supabase.com/docs/reference/api/introduction)
-
-## Getting started
-
-### Install the CLI
-
-Available via [NPM](https://www.npmjs.com) as dev dependency. To install:
+## Installation
 
 ```bash
-npm i supabase --save-dev
+# Recommended — one command, any platform
+curl -fsSL https://gentabase.dev/install.sh | sh
+
+# Homebrew (macOS / Linux)
+brew install hk8xb/tap/gentabase
+
+# npm
+npm install -g @gentabase/cli
 ```
 
-When installing with yarn 4, you need to disable experimental fetch with the following nodejs config.
-
-```
-NODE_OPTIONS=--no-experimental-fetch yarn add supabase
-```
-
-> **Note**
-For Bun versions below v1.0.17, you must add `supabase` as a [trusted dependency](https://bun.sh/guides/install/trusted) before running `bun add -D supabase`.
-
-<details>
-  <summary><b>macOS</b></summary>
-
-  Available via [Homebrew](https://brew.sh). To install:
-
-  ```sh
-  brew install supabase/tap/supabase
-  ```
-
-  To install the beta release channel:
-  
-  ```sh
-  brew install supabase/tap/supabase-beta
-  brew link --overwrite supabase-beta
-  ```
-  
-  To upgrade:
-
-  ```sh
-  brew upgrade supabase
-  ```
-</details>
-
-<details>
-  <summary><b>Windows</b></summary>
-
-  Available via [Scoop](https://scoop.sh). To install:
-
-  ```powershell
-  scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
-  scoop install supabase
-  ```
-
-  To upgrade:
-
-  ```powershell
-  scoop update supabase
-  ```
-</details>
-
-<details>
-  <summary><b>Linux</b></summary>
-
-  Available via [Homebrew](https://brew.sh) and Linux packages.
-
-  #### via Homebrew
-
-  To install:
-
-  ```sh
-  brew install supabase/tap/supabase
-  ```
-
-  To upgrade:
-
-  ```sh
-  brew upgrade supabase
-  ```
-
-  #### via Linux packages
-
-  Linux packages are provided in [Releases](https://github.com/supabase/cli/releases). To install, download the `.apk`/`.deb`/`.rpm`/`.pkg.tar.zst` file depending on your package manager and run the respective commands.
-
-  ```sh
-  sudo apk add --allow-untrusted <...>.apk
-  ```
-
-  ```sh
-  sudo dpkg -i <...>.deb
-  ```
-
-  ```sh
-  sudo rpm -i <...>.rpm
-  ```
-
-  ```sh
-  sudo pacman -U <...>.pkg.tar.zst
-  ```
-</details>
-
-<details>
-  <summary><b>Other Platforms</b></summary>
-
-  You can also install the CLI via [go modules](https://go.dev/ref/mod#go-install) without the help of package managers.
-
-  ```sh
-  go install github.com/supabase/cli@latest
-  ```
-
-  Add a symlink to the binary in `$PATH` for easier access:
-
-  ```sh
-  ln -s "$(go env GOPATH)/bin/cli" /usr/bin/supabase
-  ```
-
-  This works on other non-standard Linux distros.
-</details>
-
-<details>
-  <summary><b>Community Maintained Packages</b></summary>
-
-  Available via [pkgx](https://pkgx.sh/). Package script [here](https://github.com/pkgxdev/pantry/blob/main/projects/supabase.com/cli/package.yml).
-  To install in your working directory:
-
-  ```bash
-  pkgx install supabase
-  ```
-
-  Available via [Nixpkgs](https://nixos.org/). Package script [here](https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/supabase-cli/default.nix).
-</details>
-
-### Run the CLI
+## Quick Start
 
 ```bash
-supabase bootstrap
+# Authenticate
+gentabase login
+
+# Initialize a new project
+gentabase init
+
+# Start local development
+gentabase start
+
+# Create a migration
+gentabase migration new create_todos_table
+
+# Push migrations to your project
+gentabase db push
+
+# Generate TypeScript types
+gentabase gen types typescript --local > types/gentabase.ts
+
+# Deploy edge functions
+gentabase functions deploy my-function
+
+# Stop local containers
+gentabase stop
 ```
 
-Or using npx:
+## Commands
 
+### Local Development
+| Command | Description |
+|---|---|
+| `gentabase init` | Initialize a local project |
+| `gentabase start` | Start containers for local development |
+| `gentabase stop` | Stop all local containers |
+| `gentabase status` | Show status of local containers |
+| `gentabase services` | Show versions of all services |
+
+### Database
+| Command | Description |
+|---|---|
+| `gentabase db push` | Push migrations to remote database |
+| `gentabase db pull` | Pull schema from remote database |
+| `gentabase db reset` | Reset local database to migrations |
+| `gentabase db diff` | Generate a migration by diffing schemas |
+| `gentabase db dump` | Dump remote database to SQL |
+| `gentabase db lint` | Lint local database |
+
+### Migrations
+| Command | Description |
+|---|---|
+| `gentabase migration new` | Create a new migration |
+| `gentabase migration list` | List all migrations |
+
+### Edge Functions
+| Command | Description |
+|---|---|
+| `gentabase functions new` | Create a new edge function |
+| `gentabase functions serve` | Serve functions locally |
+| `gentabase functions deploy` | Deploy functions to your project |
+
+### Code Generation
+| Command | Description |
+|---|---|
+| `gentabase gen types` | Generate TypeScript types from your schema |
+
+### Authentication
+| Command | Description |
+|---|---|
+| `gentabase login` | Authenticate (opens browser) |
+| `gentabase login --token` | Authenticate with a PAT (CI/non-interactive) |
+| `gentabase logout` | Log out |
+| `gentabase link` | Link to a remote project |
+
+## Authentication
+
+**Interactive (opens browser):**
 ```bash
-npx supabase bootstrap
+gentabase login
 ```
 
-The bootstrap command will guide you through the process of setting up a Supabase project using one of the [starter](https://github.com/supabase-community/supabase-samples/blob/main/samples.json) templates.
-
-## Docs
-
-Command & config reference can be found [here](https://supabase.com/docs/reference/cli/about).
-
-## Breaking changes
-
-We follow semantic versioning for changes that directly impact CLI commands, flags, and configurations.
-
-However, due to dependencies on other service images, we cannot guarantee that schema migrations, seed.sql, and generated types will always work for the same CLI major version. If you need such guarantees, we encourage you to pin a specific version of CLI in package.json.
-
-## Developing
-
-To run from source:
-
-```sh
-# Go >= 1.22
-go run . help
+**Non-interactive (CI/CD):**
+```bash
+gentabase login --token gbp_<your-personal-access-token>
 ```
+
+**Environment variable:**
+```bash
+export GENTABASE_ACCESS_TOKEN=gbp_<your-token>
+gentabase projects list
+```
+
+Create personal access tokens in the Gentabase dashboard at **Account → Access Tokens**.
+
+## Configuration
+
+Projects are configured via `gentabase/config.toml`. Run `gentabase init` to generate one.
+
+## License
+
+Proprietary — see LICENSE for details.
