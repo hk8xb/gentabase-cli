@@ -9,8 +9,8 @@ import (
 	"github.com/jackc/pgconn"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestCheckRLSAdvisoryWithUnprotectedTables(t *testing.T) {

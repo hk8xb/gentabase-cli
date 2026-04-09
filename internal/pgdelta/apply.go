@@ -12,7 +12,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/jackc/pgconn"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 //go:embed templates/pgdelta_declarative_apply.ts
@@ -31,7 +31,7 @@ type ApplyResult struct {
 	StuckStatements []string `json:"stuckStatements"`
 }
 
-// ApplyDeclarative applies files from supabase/declarative to the target
+// ApplyDeclarative applies files from gentabase/declarative to the target
 // database using pg-delta's declarative apply engine.
 //
 // This is intentionally separate from migration apply so declarative workflows

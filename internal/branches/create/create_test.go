@@ -11,11 +11,11 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 func TestCreateCommand(t *testing.T) {
@@ -97,7 +97,7 @@ func TestCreateCommand(t *testing.T) {
 				"region":            "us-east-1",
 				"created_at":        "2024-01-01T00:00:00Z",
 				"status":            "ACTIVE_HEALTHY",
-				"database":          map[string]interface{}{"host": "db.example.supabase.co", "version": "15.1.0.117"},
+				"database":          map[string]interface{}{"host": "db.example.gentabase.dev", "version": "15.1.0.117"},
 			})
 		// Mock entitlements
 		gock.New(utils.DefaultApiHost).

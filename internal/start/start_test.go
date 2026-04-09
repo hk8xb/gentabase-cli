@@ -19,13 +19,13 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	phtelemetry "github.com/supabase/cli/internal/telemetry"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	supabaseapi "github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/pkg/pgtest"
-	"github.com/supabase/cli/pkg/storage"
+	phtelemetry "github.com/hk8xb/gentabase-cli/internal/telemetry"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	gbapi "github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 type fakeAnalytics struct {
@@ -99,7 +99,7 @@ func TestStartCommand(t *testing.T) {
 			JSON(container.InspectResponse{})
 
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_start/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/gentabase_db_start/json").
 			Reply(http.StatusOK).
 			JSON(container.InspectResponse{ContainerJSONBase: &container.ContainerJSONBase{
 				State: &container.State{
@@ -122,14 +122,14 @@ func TestDatabaseStart(t *testing.T) {
 	t.Run("starts database locally", func(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		analytics := &fakeAnalytics{enabled: true}
 		service, err := phtelemetry.NewService(fsys, phtelemetry.Options{
 			Analytics: analytics,
 			Now:       func() time.Time { return time.Date(2026, time.April, 1, 12, 0, 0, 0, time.UTC) },
 		})
 		require.NoError(t, err)
-		require.NoError(t, phtelemetry.SaveLinkedProject(supabaseapi.V1ProjectWithDatabaseResponse{
+		require.NoError(t, phtelemetry.SaveLinkedProject(gbapi.V1ProjectWithDatabaseResponse{
 			Ref:            "proj_123",
 			OrganizationId: "org_123",
 		}, fsys))

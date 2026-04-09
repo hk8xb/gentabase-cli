@@ -6,8 +6,8 @@ import (
 	"os"
 
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/storage/client"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/storage/client"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, projectRef string, interactive bool, fsys afero.Fs) error {

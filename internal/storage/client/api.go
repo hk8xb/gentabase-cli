@@ -5,11 +5,11 @@ import (
 	"net/http"
 
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/status"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/tenant"
-	"github.com/supabase/cli/pkg/fetcher"
-	"github.com/supabase/cli/pkg/storage"
+	"github.com/hk8xb/gentabase-cli/internal/status"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/tenant"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 func NewStorageAPI(ctx context.Context, projectRef string) (storage.StorageAPI, error) {
@@ -38,7 +38,7 @@ func newLocalClient() *fetcher.Fetcher {
 
 func newRemoteClient(projectRef, token string) *fetcher.Fetcher {
 	return fetcher.NewServiceGateway(
-		"https://"+utils.GetSupabaseHost(projectRef),
+		"https://"+utils.GetGentabaseHost(projectRef),
 		token,
 		fetcher.WithHTTPClient(http.DefaultClient),
 		fetcher.WithUserAgent("GentabaseCLI/"+utils.Version),

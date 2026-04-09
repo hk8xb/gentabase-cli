@@ -22,18 +22,18 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/migration/repair"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/testing/helper"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/migration/repair"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/helper"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 var dbConfig = pgconn.Config{
-	Host:     "db.supabase.co",
+	Host:     "db.gentabase.dev",
 	Port:     5432,
 	User:     "admin",
 	Password: "password",
@@ -120,7 +120,7 @@ func TestSquashCommand(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		helper.MockMigrationHistory(conn).
-			Query(fmt.Sprintf("DELETE FROM supabase_migrations.schema_migrations WHERE version <=  '0' ;INSERT INTO supabase_migrations.schema_migrations(version, name, statements) VALUES( '0' ,  'init' ,  '{%s}' )", sql)).
+			Query(fmt.Sprintf("DELETE FROM gentabase_migrations.schema_migrations WHERE version <=  '0' ;INSERT INTO gentabase_migrations.schema_migrations(version, name, statements) VALUES( '0' ,  'init' ,  '{%s}' )", sql)).
 			Reply("INSERT 0 1")
 		// Run test
 		err := Run(context.Background(), "0", dbConfig, fsys, conn.Intercept, func(cc *pgx.ConnConfig) {
@@ -340,7 +340,7 @@ func TestBaselineMigration(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		helper.MockMigrationHistory(conn).
-			Query(fmt.Sprintf("DELETE FROM supabase_migrations.schema_migrations WHERE version <=  '0' ;INSERT INTO supabase_migrations.schema_migrations(version, name, statements) VALUES( '0' ,  'init' ,  '{%s}' )", sql)).
+			Query(fmt.Sprintf("DELETE FROM gentabase_migrations.schema_migrations WHERE version <=  '0' ;INSERT INTO gentabase_migrations.schema_migrations(version, name, statements) VALUES( '0' ,  'init' ,  '{%s}' )", sql)).
 			Reply("INSERT 0 1")
 		// Run test
 		err := baselineMigrations(context.Background(), dbConfig, "", fsys, conn.Intercept, func(cc *pgx.ConnConfig) {
@@ -368,14 +368,14 @@ func TestBaselineMigration(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		helper.MockMigrationHistory(conn).
-			Query(fmt.Sprintf("DELETE FROM supabase_migrations.schema_migrations WHERE version <=  '%[1]s' ;INSERT INTO supabase_migrations.schema_migrations(version, name, statements) VALUES( '%[1]s' ,  'init' ,  null )", "0")).
-			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation supabase_migrations")
+			Query(fmt.Sprintf("DELETE FROM gentabase_migrations.schema_migrations WHERE version <=  '%[1]s' ;INSERT INTO gentabase_migrations.schema_migrations(version, name, statements) VALUES( '%[1]s' ,  'init' ,  null )", "0")).
+			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation gentabase_migrations")
 		// Run test
 		err := baselineMigrations(context.Background(), dbConfig, "0", fsys, conn.Intercept, func(cc *pgx.ConnConfig) {
 			cc.PreferSimpleProtocol = true
 		})
 		// Check error
-		assert.ErrorContains(t, err, `ERROR: permission denied for relation supabase_migrations (SQLSTATE 42501)`)
+		assert.ErrorContains(t, err, `ERROR: permission denied for relation gentabase_migrations (SQLSTATE 42501)`)
 	})
 
 	t.Run("throws error on missing file", func(t *testing.T) {

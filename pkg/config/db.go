@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/go-errors/errors"
-	v1API "github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/diff"
+	v1API "github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/diff"
 )
 
 type PoolMode string
@@ -178,7 +178,7 @@ func (a *settings) FromRemotePostgresConfig(remoteConfig v1API.PostgresConfigRes
 	a.WorkMem = remoteConfig.WorkMem
 }
 
-const pgConfHeader = "\n# supabase [db.settings] configuration\n"
+const pgConfHeader = "\n# gentabase [db.settings] configuration\n"
 
 // create a valid string to append to /etc/postgresql/postgresql.conf
 func (a *settings) ToPostgresConfig() string {

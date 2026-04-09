@@ -15,10 +15,10 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/gen/signingkeys"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/gen/signingkeys"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 func TestGenerateToken(t *testing.T) {
@@ -50,13 +50,13 @@ func TestGenerateToken(t *testing.T) {
 		}
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		require.NoError(t, utils.WriteFile("supabase/config.toml", []byte(`
+		require.NoError(t, utils.WriteFile("gentabase/config.toml", []byte(`
 			[auth]
 			signing_keys_path = "./keys.json"
 		`), fsys))
 		testKey, err := json.Marshal([]config.JWK{*privateKeyECDSA})
 		require.NoError(t, err)
-		require.NoError(t, utils.WriteFile("supabase/keys.json", testKey, fsys))
+		require.NoError(t, utils.WriteFile("gentabase/keys.json", testKey, fsys))
 		// Run test
 		var buf bytes.Buffer
 		err = Run(context.Background(), claims, &buf, fsys)
@@ -82,13 +82,13 @@ func TestGenerateToken(t *testing.T) {
 		claims := jwt.MapClaims{}
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		require.NoError(t, utils.WriteFile("supabase/config.toml", []byte(`
+		require.NoError(t, utils.WriteFile("gentabase/config.toml", []byte(`
 			[auth]
 			signing_keys_path = "./keys.json"
 		`), fsys))
 		testKey, err := json.Marshal([]config.JWK{{KeyType: "oct"}})
 		require.NoError(t, err)
-		require.NoError(t, utils.WriteFile("supabase/keys.json", testKey, fsys))
+		require.NoError(t, utils.WriteFile("gentabase/keys.json", testKey, fsys))
 		// Run test
 		err = Run(context.Background(), claims, io.Discard, fsys)
 		// Check error
@@ -144,7 +144,7 @@ func TestGenerateToken(t *testing.T) {
 		}
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		require.NoError(t, utils.WriteFile("supabase/config.toml", []byte(`
+		require.NoError(t, utils.WriteFile("gentabase/config.toml", []byte(`
 			[auth]
 			signing_keys_path = "./keys.json"
 		`), fsys))
@@ -153,7 +153,7 @@ func TestGenerateToken(t *testing.T) {
 			*privateKeyRSA,
 		})
 		require.NoError(t, err)
-		require.NoError(t, utils.WriteFile("supabase/keys.json", testKey, fsys))
+		require.NoError(t, utils.WriteFile("gentabase/keys.json", testKey, fsys))
 		t.Cleanup(fstest.MockStdin(t, privateKeyRSA.KeyID))
 		// Run test
 		var buf bytes.Buffer
@@ -180,8 +180,8 @@ func TestGenerateToken(t *testing.T) {
 		claims := jwt.MapClaims{}
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		require.NoError(t, utils.WriteFile("supabase/keys.json", []byte("[]"), fsys))
-		require.NoError(t, utils.WriteFile("supabase/config.toml", []byte(`
+		require.NoError(t, utils.WriteFile("gentabase/keys.json", []byte("[]"), fsys))
+		require.NoError(t, utils.WriteFile("gentabase/config.toml", []byte(`
 			[auth]
 			signing_keys_path = "./keys.json"
 		`), fsys))

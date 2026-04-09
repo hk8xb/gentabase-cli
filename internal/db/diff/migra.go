@@ -11,10 +11,10 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
-	"github.com/supabase/cli/internal/gen/types"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/internal/gen/types"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
 )
 
 var (
@@ -49,10 +49,10 @@ var (
 		"_timescaledb_debug",
 		"_timescaledb_functions",
 		"_timescaledb_internal",
-		// Managed by Supabase
+		// Managed by Gentabase
 		"pgbouncer",
-		"supabase_functions",
-		"supabase_migrations",
+		"gentabase_functions",
+		"gentabase_migrations",
 	}
 )
 
@@ -70,7 +70,7 @@ func DiffSchemaMigraBash(ctx context.Context, source, target pgconn.Config, sche
 		"TARGET=" + utils.ToPostgresURL(target),
 	}
 	if types.IsSSLDebugEnabled() {
-		env = append(env, "SUPABASE_SSL_DEBUG=true")
+		env = append(env, "GENTABASE_SSL_DEBUG=true")
 	}
 	// Passing in script string means command line args must be set manually, ie. "$@"
 	args := "set -- " + strings.Join(schema, " ") + ";"
@@ -114,7 +114,7 @@ func DiffSchemaMigra(ctx context.Context, source, target pgconn.Config, schema [
 	debugf := func(string, ...any) {}
 	if types.IsSSLDebugEnabled() {
 		debugf = types.LogSSLDebugf
-		env = append(env, "SUPABASE_SSL_DEBUG=true")
+		env = append(env, "GENTABASE_SSL_DEBUG=true")
 		debugf("DiffSchemaMigra source_host=%s source_port=%d target_host=%s target_port=%d target_db=%s",
 			source.Host,
 			source.Port,

@@ -7,10 +7,10 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/branches/list"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/branches/list"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, body api.CreateBranchBody, fsys afero.Fs) error {
@@ -26,7 +26,7 @@ func Run(ctx context.Context, body api.CreateBranchBody, fsys afero.Fs) error {
 		body.GitBranch = &gitBranch
 	}
 
-	resp, err := utils.GetSupabase().V1CreateABranchWithResponse(ctx, flags.ProjectRef, body)
+	resp, err := utils.GetGentabaseAPI().V1CreateABranchWithResponse(ctx, flags.ProjectRef, body)
 	if err != nil {
 		return errors.Errorf("failed to create preview branch: %w", err)
 	} else if resp.JSON201 == nil {

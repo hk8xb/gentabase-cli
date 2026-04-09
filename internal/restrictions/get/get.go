@@ -5,12 +5,12 @@ import (
 	"fmt"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, projectRef string) error {
-	resp, err := utils.GetSupabase().V1GetNetworkRestrictionsWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetNetworkRestrictionsWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to retrieve network restrictions: %w", err)
 	}

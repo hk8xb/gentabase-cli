@@ -10,7 +10,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 	"golang.org/x/term"
 )
 
@@ -28,7 +28,7 @@ func ParseProjectRef(ctx context.Context, fsys afero.Fs) error {
 }
 
 func PromptProjectRef(ctx context.Context, title string, opts ...tea.ProgramOption) error {
-	resp, err := utils.GetSupabase().V1ListAllProjectsWithResponse(ctx)
+	resp, err := utils.GetGentabaseAPI().V1ListAllProjectsWithResponse(ctx)
 	if err != nil {
 		return errors.Errorf("failed to retrieve projects: %w", err)
 	}

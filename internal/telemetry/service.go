@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 type commandContextKey struct{}
@@ -230,5 +230,5 @@ func (s *Service) canSend() bool {
 		s.analytics.Enabled() &&
 		s.state.Enabled &&
 		os.Getenv("DO_NOT_TRACK") != "1" &&
-		os.Getenv("SUPABASE_TELEMETRY_DISABLED") != "1"
+		os.Getenv("GENTABASE_TELEMETRY_DISABLED") != "1"
 }

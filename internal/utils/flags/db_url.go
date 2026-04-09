@@ -18,10 +18,10 @@ import (
 	"github.com/spf13/afero"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/credentials"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/credentials"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 type connection int
@@ -96,7 +96,7 @@ func ParseDatabaseConfig(ctx context.Context, flagSet *pflag.FlagSet, fsys afero
 		if err := LoadProjectRef(fsys); err != nil {
 			return err
 		}
-		DbConfig.Host = utils.GetSupabaseAPIHost()
+		DbConfig.Host = utils.GetGentabaseAPIHost()
 		DbConfig.Port = 443
 		DbConfig.User = "postgres"
 		DbConfig.Password = token
@@ -122,7 +122,7 @@ func RandomString(size int) (string, error) {
 
 func NewDbConfigWithPassword(ctx context.Context, projectRef string) (pgconn.Config, error) {
 	config := pgconn.Config{
-		Host:     utils.GetSupabaseDbHost(projectRef),
+		Host:     utils.GetGentabaseDbHost(projectRef),
 		Port:     5432,
 		User:     "postgres",
 		Password: viper.GetString("DB_PASSWORD"),
@@ -167,7 +167,7 @@ func NewDbConfigWithPassword(ctx context.Context, projectRef string) (pgconn.Con
 func initLoginRole(ctx context.Context, projectRef string, config *pgconn.Config) error {
 	fmt.Fprintln(os.Stderr, "Initialising login role...")
 	body := api.CreateRoleBody{ReadOnly: false}
-	resp, err := utils.GetSupabase().V1CreateLoginRoleWithResponse(ctx, projectRef, body)
+	resp, err := utils.GetGentabaseAPI().V1CreateLoginRoleWithResponse(ctx, projectRef, body)
 	if err != nil {
 		return errors.Errorf("failed to initialise login role: %w", err)
 	} else if resp.JSON201 == nil {
@@ -210,7 +210,7 @@ func initPoolerLogin(ctx context.Context, projectRef string, poolerConfig *pgcon
 }
 
 func ListNetworkBans(ctx context.Context, projectRef string) ([]string, error) {
-	resp, err := utils.GetSupabase().V1ListAllNetworkBansWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1ListAllNetworkBansWithResponse(ctx, projectRef)
 	if err != nil {
 		return nil, errors.Errorf("failed to list network bans: %w", err)
 	} else if resp.JSON201 == nil {
@@ -225,7 +225,7 @@ func UnbanIP(ctx context.Context, projectRef string, addrs ...string) error {
 		Ipv4Addresses: append([]string{}, addrs...),
 		RequesterIp:   &includeSelf,
 	}
-	if resp, err := utils.GetSupabase().V1DeleteNetworkBansWithResponse(ctx, projectRef, body); err != nil {
+	if resp, err := utils.GetGentabaseAPI().V1DeleteNetworkBansWithResponse(ctx, projectRef, body); err != nil {
 		return errors.Errorf("failed to remove network bans: %w", err)
 	} else if resp.StatusCode() != http.StatusOK {
 		return errors.Errorf("unexpected unban status %d: %s", resp.StatusCode(), string(resp.Body))

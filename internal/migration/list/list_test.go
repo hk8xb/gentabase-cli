@@ -12,10 +12,10 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 var dbConfig = pgconn.Config{
@@ -91,7 +91,7 @@ func TestRemoteMigrations(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		conn.Query(migration.LIST_MIGRATION_VERSION).
-			ReplyError(pgerrcode.UndefinedTable, "relation \"supabase_migrations.schema_migrations\" does not exist")
+			ReplyError(pgerrcode.UndefinedTable, "relation \"gentabase_migrations.schema_migrations\" does not exist")
 		// Run test
 		versions, err := loadRemoteVersions(context.Background(), dbConfig, conn.Intercept)
 		// Check error

@@ -7,7 +7,7 @@ import (
 )
 
 func GetOrgSlugFromProjectRef(ctx context.Context, projectRef string) (string, error) {
-	resp, err := GetSupabase().V1GetProjectWithResponse(ctx, projectRef)
+	resp, err := GetGentabaseAPI().V1GetProjectWithResponse(ctx, projectRef)
 	if err != nil {
 		return "", fmt.Errorf("failed to get project: %w", err)
 	}
@@ -18,7 +18,7 @@ func GetOrgSlugFromProjectRef(ctx context.Context, projectRef string) (string, e
 }
 
 func GetOrgBillingURL(orgSlug string) string {
-	return fmt.Sprintf("%s/org/%s/billing", GetSupabaseDashboardURL(), orgSlug)
+	return fmt.Sprintf("%s/org/%s/billing", GetGentabaseDashboardURL(), orgSlug)
 }
 
 // SuggestUpgradeOnError checks if a failed API response is due to plan limitations
@@ -31,13 +31,13 @@ func SuggestUpgradeOnError(ctx context.Context, projectRef, featureKey string, s
 
 	orgSlug, err := GetOrgSlugFromProjectRef(ctx, projectRef)
 	if err != nil {
-		CmdSuggestion = fmt.Sprintf("This feature may require a plan upgrade. Manage billing: %s", Bold(GetSupabaseDashboardURL()))
+		CmdSuggestion = fmt.Sprintf("This feature may require a plan upgrade. Manage billing: %s", Bold(GetGentabaseDashboardURL()))
 		return
 	}
 
 	billingURL := GetOrgBillingURL(orgSlug)
 
-	resp, err := GetSupabase().V1GetOrganizationEntitlementsWithResponse(ctx, orgSlug)
+	resp, err := GetGentabaseAPI().V1GetOrganizationEntitlementsWithResponse(ctx, orgSlug)
 	if err != nil || resp.JSON200 == nil {
 		CmdSuggestion = fmt.Sprintf("This feature may require a plan upgrade. Manage billing: %s", Bold(billingURL))
 		return

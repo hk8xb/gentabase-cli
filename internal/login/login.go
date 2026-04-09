@@ -20,10 +20,10 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/google/uuid"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/migration/new"
-	phtelemetry "github.com/supabase/cli/internal/telemetry"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/internal/migration/new"
+	phtelemetry "github.com/hk8xb/gentabase-cli/internal/telemetry"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
 )
 
 type RunParams struct {
@@ -132,7 +132,7 @@ const maxRetries = 2
 func pollForAccessToken(ctx context.Context, url string) (AccessTokenResponse, error) {
 	// TODO: Move to OpenAPI-generated http client once we reach v1 on API schema.
 	client := fetcher.NewFetcher(
-		utils.GetSupabaseAPIHost(),
+		utils.GetGentabaseAPIHost(),
 		fetcher.WithHTTPClient(&http.Client{
 			Timeout: 10 * time.Second,
 		}),
@@ -192,7 +192,7 @@ func Run(ctx context.Context, stdout io.Writer, params RunParams) error {
 	encodedPublicKey := params.Encryption.encodedPublicKey()
 	createLoginSessionPath := "/cli/login"
 	createLoginSessionQuery := "?session_id=" + params.SessionId + "&token_name=" + params.TokenName + "&public_key=" + encodedPublicKey
-	createLoginSessionUrl := utils.GetSupabaseDashboardURL() + createLoginSessionPath + createLoginSessionQuery
+	createLoginSessionUrl := utils.GetGentabaseDashboardURL() + createLoginSessionPath + createLoginSessionQuery
 
 	if params.OpenBrowser {
 		fmt.Fprintf(stdout, "Hello from %s! Press %s to open browser and login automatically.\n", utils.Aqua("Gentabase"), utils.Aqua("Enter"))
@@ -301,7 +301,7 @@ func handleTelemetryAfterLogin(ctx context.Context, params RunParams) {
 }
 
 func getProfileGotrueID(ctx context.Context) (string, error) {
-	resp, err := utils.GetSupabase().V1GetProfileWithResponse(ctx)
+	resp, err := utils.GetGentabaseAPI().V1GetProfileWithResponse(ctx)
 	if err != nil {
 		return "", errors.Errorf("failed to fetch profile: %w", err)
 	}

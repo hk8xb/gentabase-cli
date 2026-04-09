@@ -8,10 +8,10 @@ import (
 
 	"github.com/jackc/pgconn"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/db/start"
-	"github.com/supabase/cli/internal/migration/new"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/db/start"
+	"github.com/hk8xb/gentabase-cli/internal/migration/new"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 var warnDiff = `WARNING: The diff tool is not foolproof, so you may need to manually rearrange and modify the generated migration.
@@ -34,7 +34,7 @@ func SaveDiff(out, file string, fsys afero.Fs) error {
 
 func RunPgAdmin(ctx context.Context, schema []string, file string, config pgconn.Config, fsys afero.Fs) error {
 	// Sanity checks.
-	if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+	if err := utils.AssertGentabaseDbIsRunning(); err != nil {
 		return err
 	}
 

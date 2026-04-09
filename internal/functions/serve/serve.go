@@ -18,10 +18,10 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/functions/deploy"
-	"github.com/supabase/cli/internal/secrets/set"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/functions/deploy"
+	"github.com/hk8xb/gentabase-cli/internal/secrets/set"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 )
 
 type InspectMode string
@@ -105,7 +105,7 @@ func restartEdgeRuntime(ctx context.Context, envFilePath string, noVerifyJWT *bo
 	if err := flags.LoadConfig(fsys); err != nil {
 		return err
 	}
-	if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+	if err := utils.AssertGentabaseDbIsRunning(); err != nil {
 		return err
 	}
 	// 2. Remove existing container.
@@ -135,19 +135,19 @@ func ServeFunctions(ctx context.Context, envFilePath string, noVerifyJWT *bool, 
 	}
 	jwks, _ := utils.Config.Auth.ResolveJWKS(ctx)
 	env = append(env,
-		fmt.Sprintf("SUPABASE_URL=http://%s:8000", utils.KongAliases[0]),
-		"SUPABASE_ANON_KEY="+utils.Config.Auth.AnonKey.Value,
-		"SUPABASE_SERVICE_ROLE_KEY="+utils.Config.Auth.ServiceRoleKey.Value,
+		fmt.Sprintf("GENTABASE_URL=http://%s:8000", utils.KongAliases[0]),
+		"GENTABASE_ANON_KEY="+utils.Config.Auth.AnonKey.Value,
+		"GENTABASE_SERVICE_ROLE_KEY="+utils.Config.Auth.ServiceRoleKey.Value,
 		"GENTABASE_DB_URL="+dbUrl,
-		"SUPABASE_INTERNAL_JWT_SECRET="+utils.Config.Auth.JwtSecret.Value,
-		"SUPABASE_JWKS="+jwks,
-		fmt.Sprintf("SUPABASE_INTERNAL_HOST_PORT=%d", utils.Config.Api.Port),
+		"GENTABASE_INTERNAL_JWT_SECRET="+utils.Config.Auth.JwtSecret.Value,
+		"GENTABASE_JWKS="+jwks,
+		fmt.Sprintf("GENTABASE_INTERNAL_HOST_PORT=%d", utils.Config.Api.Port),
 	)
 	if viper.GetBool("DEBUG") {
-		env = append(env, "SUPABASE_INTERNAL_DEBUG=true")
+		env = append(env, "GENTABASE_INTERNAL_DEBUG=true")
 	}
 	if runtimeOption.InspectMode != nil {
-		env = append(env, "SUPABASE_INTERNAL_WALLCLOCK_LIMIT_SEC=0")
+		env = append(env, "GENTABASE_INTERNAL_WALLCLOCK_LIMIT_SEC=0")
 	}
 	// 2. Parse custom import map
 	cwd, err := os.Getwd()
@@ -179,7 +179,7 @@ func ServeFunctions(ctx context.Context, envFilePath string, noVerifyJWT *bool, 
 			return err
 		}
 	}
-	env = append(env, "SUPABASE_INTERNAL_FUNCTIONS_CONFIG="+functionsConfigString)
+	env = append(env, "GENTABASE_INTERNAL_FUNCTIONS_CONFIG="+functionsConfigString)
 	// 3. Parse entrypoint script
 	cmd := append([]string{
 		"edge-runtime",

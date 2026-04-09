@@ -9,9 +9,9 @@ import (
 	"github.com/google/uuid"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"github.com/supabase/cli/internal/telemetry"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/agent"
+	"github.com/hk8xb/gentabase-cli/internal/telemetry"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/agent"
 	"golang.org/x/term"
 )
 

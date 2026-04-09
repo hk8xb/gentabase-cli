@@ -9,11 +9,11 @@ import (
 	"github.com/oapi-codegen/nullable"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/internal/utils/tenant"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/utils/tenant"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func TestServicesCommand(t *testing.T) {
@@ -56,7 +56,7 @@ func TestCheckVersions(t *testing.T) {
 	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 	// Setup valid project ref
 	flags.ProjectRef = apitest.RandomProjectRef()
-	projectHost := "https://" + utils.GetSupabaseHost(flags.ProjectRef)
+	projectHost := "https://" + utils.GetGentabaseHost(flags.ProjectRef)
 	// Setup mock project
 	mockProject := api.V1ProjectWithDatabaseResponse{}
 	mockProject.Database.Version = "14.1.0.99"

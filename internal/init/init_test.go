@@ -9,8 +9,8 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func TestInitCommand(t *testing.T) {
@@ -68,7 +68,7 @@ func TestInitCommand(t *testing.T) {
 }
 
 func TestUpdateGitIgnore(t *testing.T) {
-	const ignorePath = "/home/supabase/.gitignore"
+	const ignorePath = "/home/gentabase/.gitignore"
 
 	t.Run("appends to git ignore", func(t *testing.T) {
 		// Setup in-memory fs

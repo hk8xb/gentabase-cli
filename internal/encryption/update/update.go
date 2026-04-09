@@ -7,15 +7,15 @@ import (
 	"strings"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/credentials"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/credentials"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, projectRef string) error {
 	fmt.Fprintf(os.Stderr, "Enter a new root key: ")
 	input := credentials.PromptMasked(os.Stdin)
-	resp, err := utils.GetSupabase().V1UpdatePgsodiumConfigWithResponse(ctx, projectRef, api.UpdatePgsodiumConfigBody{
+	resp, err := utils.GetGentabaseAPI().V1UpdatePgsodiumConfigWithResponse(ctx, projectRef, api.UpdatePgsodiumConfigBody{
 		RootKey: strings.TrimSpace(input),
 	})
 	if err != nil {

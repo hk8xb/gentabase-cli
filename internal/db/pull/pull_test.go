@@ -13,15 +13,15 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 var dbConfig = pgconn.Config{
-	Host:     "db.supabase.co",
+	Host:     "db.gentabase.dev",
 	Port:     5432,
 	User:     "admin",
 	Password: "password",

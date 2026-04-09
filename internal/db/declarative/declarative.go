@@ -18,13 +18,13 @@ import (
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/db/diff"
-	"github.com/supabase/cli/internal/db/pgcache"
-	"github.com/supabase/cli/internal/db/start"
-	"github.com/supabase/cli/internal/pgdelta"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/parser"
+	"github.com/hk8xb/gentabase-cli/internal/db/diff"
+	"github.com/hk8xb/gentabase-cli/internal/db/pgcache"
+	"github.com/hk8xb/gentabase-cli/internal/db/start"
+	"github.com/hk8xb/gentabase-cli/internal/pgdelta"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/parser"
 )
 
 const (
@@ -84,7 +84,7 @@ type generateBaselineCatalogRef struct {
 	shadow *shadowSession
 }
 
-// Generate exports a live database schema into files under supabase/declarative.
+// Generate exports a live database schema into files under gentabase/declarative.
 //
 // The workflow uses pg-delta catalogs so output can be deterministic and filtered
 // by schema, then optionally prompts before replacing existing files.
@@ -253,8 +253,8 @@ func WriteDeclarativeSchemas(output diff.DeclarativeOutput, fsys afero.Fs) error
 // This makes declarative output the active source of truth for commands that
 // read schema paths from config.
 func updateDeclarativeSchemaPathsConfig(fsys afero.Fs) error {
-	// Remove the `supabase` prefix from the declarative directory
-	declarativeDir := strings.TrimPrefix(utils.GetDeclarativeDir(), "supabase/")
+	// Remove the `gentabase/` prefix from the declarative directory path for config.toml
+	declarativeDir := strings.TrimPrefix(utils.GetDeclarativeDir(), "gentabase/")
 	lines := []string{
 		"\nschema_paths = [",
 		fmt.Sprintf(`  "%s",`, declarativeDir),

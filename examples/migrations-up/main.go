@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/pgxv5"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/pgxv5"
 )
 
 func main() {
@@ -18,12 +18,12 @@ func main() {
 
 // Applies local migrations to a remote database, and tracks the history of executed statements.
 func migrate(ctx context.Context, fsys fs.FS) error {
-	conn, err := pgxv5.Connect(ctx, os.Getenv("SUPABASE_POSTGRES_URL"))
+	conn, err := pgxv5.Connect(ctx, os.Getenv("GENTABASE_POSTGRES_URL"))
 	if err != nil {
 		return err
 	}
 	defer conn.Close(ctx)
-	files, err := migration.ListLocalMigrations("supabase/migrations", fsys)
+	files, err := migration.ListLocalMigrations("gentabase/migrations", fsys)
 	if err != nil {
 		return err
 	}

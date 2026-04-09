@@ -13,11 +13,11 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/testing/helper"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/helper"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 var dbConfig = pgconn.Config{
@@ -78,7 +78,7 @@ func TestMigrationPush(t *testing.T) {
 			ReplyError(pgerrcode.InvalidCatalogName, `database "target" does not exist`)
 		// Run test
 		err := Run(context.Background(), false, false, false, false, pgconn.Config{
-			Host:     "db.supabase.co",
+			Host:     "db.gentabase.dev",
 			Port:     5432,
 			User:     "admin",
 			Password: "password",
@@ -168,7 +168,7 @@ func TestPushAll(t *testing.T) {
 
 	t.Run("throws error on seed failure", func(t *testing.T) {
 		digest := hex.EncodeToString(sha256.New().Sum(nil))
-		seedPath := filepath.Join(utils.SupabaseDirPath, "seed.sql")
+		seedPath := filepath.Join(utils.GentabaseDirPath, "seed.sql")
 		utils.Config.Db.Seed.SqlPaths = []string{seedPath}
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()

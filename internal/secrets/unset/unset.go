@@ -9,8 +9,8 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/secrets/list"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/secrets/list"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, projectRef string, args []string, fsys afero.Fs) error {
@@ -20,7 +20,7 @@ func Run(ctx context.Context, projectRef string, args []string, fsys afero.Fs) e
 			return err
 		}
 		for _, secret := range secrets {
-			if !strings.HasPrefix(secret.Name, "SUPABASE_") {
+			if !strings.HasPrefix(secret.Name, "GENTABASE_") {
 				args = append(args, secret.Name)
 			}
 		}
@@ -37,7 +37,7 @@ func Run(ctx context.Context, projectRef string, args []string, fsys afero.Fs) e
 		return errors.New(context.Canceled)
 	}
 	// 2. Unset secret(s).
-	resp, err := utils.GetSupabase().V1BulkDeleteSecretsWithResponse(ctx, projectRef, args)
+	resp, err := utils.GetGentabaseAPI().V1BulkDeleteSecretsWithResponse(ctx, projectRef, args)
 	if err != nil {
 		return errors.Errorf("failed to delete secrets: %w", err)
 	}

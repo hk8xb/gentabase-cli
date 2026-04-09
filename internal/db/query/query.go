@@ -17,8 +17,8 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/olekukonko/tablewriter"
 	"github.com/olekukonko/tablewriter/tw"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 	"golang.org/x/term"
 )
 
@@ -81,7 +81,7 @@ func RunLocal(ctx context.Context, sql string, config pgconn.Config, format stri
 
 // RunLinked executes SQL against the linked project via Management API.
 func RunLinked(ctx context.Context, sql string, projectRef string, format string, agentMode bool, w io.Writer) error {
-	resp, err := utils.GetSupabase().V1RunAQueryWithResponse(ctx, projectRef, api.V1RunAQueryJSONRequestBody{
+	resp, err := utils.GetGentabaseAPI().V1RunAQueryWithResponse(ctx, projectRef, api.V1RunAQueryJSONRequestBody{
 		Query: sql,
 	})
 	if err != nil {

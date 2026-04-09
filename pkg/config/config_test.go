@@ -43,8 +43,8 @@ func TestConfigParsing(t *testing.T) {
 		config := NewConfig()
 		// Setup in-memory fs
 		fsys := fs.MapFS{
-			"supabase/config.toml":           &fs.MapFile{Data: testInitConfigEmbed},
-			"supabase/templates/invite.html": &fs.MapFile{},
+			"gentabase/config.toml":           &fs.MapFile{Data: testInitConfigEmbed},
+			"gentabase/templates/invite.html": &fs.MapFile{},
 			"certs/my-cert.pem":              &fs.MapFile{},
 			"certs/my-key.pem":               &fs.MapFile{},
 		}
@@ -69,7 +69,7 @@ func TestConfigParsing(t *testing.T) {
 		config := NewConfig()
 		// Setup in-memory fs
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: testInitConfigEmbed},
+			"gentabase/config.toml": &fs.MapFile{Data: testInitConfigEmbed},
 		}
 		// Run test
 		assert.Error(t, config.Load("", fsys))
@@ -77,7 +77,7 @@ func TestConfigParsing(t *testing.T) {
 	t.Run("config file with passkey settings", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 [auth]
 enabled = true
 site_url = "http://127.0.0.1:3000"
@@ -105,7 +105,7 @@ rp_origins = ["http://127.0.0.1:3000", "https://localhost:3000"]
 	t.Run("passkey enabled requires rp_id", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 [auth]
 enabled = true
 site_url = "http://127.0.0.1:3000"
@@ -123,7 +123,7 @@ rp_origins = ["http://127.0.0.1:3000"]
 	t.Run("passkey enabled requires rp_origins", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 [auth]
 enabled = true
 site_url = "http://127.0.0.1:3000"
@@ -141,7 +141,7 @@ rp_id = "localhost"
 	t.Run("parses experimental pgdelta config", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 [experimental.pgdelta]
 enabled = true
 declarative_schema_path = "./db/decl"
@@ -152,14 +152,14 @@ format_options = "{\"keywordCase\":\"upper\",\"indent\":2}"
 		require.NoError(t, config.Load("", fsys))
 		require.NotNil(t, config.Experimental.PgDelta)
 		assert.True(t, config.Experimental.PgDelta.Enabled)
-		assert.Equal(t, path.Join("supabase", "db", "decl"), config.Experimental.PgDelta.DeclarativeSchemaPath)
+		assert.Equal(t, path.Join("gentabase", "db", "decl"), config.Experimental.PgDelta.DeclarativeSchemaPath)
 		assert.Equal(t, `{"keywordCase":"upper","indent":2}`, config.Experimental.PgDelta.FormatOptions)
 	})
 
 	t.Run("rejects invalid experimental pgdelta format options", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 [experimental.pgdelta]
 format_options = "not-json"
 `)},
@@ -176,11 +176,11 @@ func TestRemoteOverride(t *testing.T) {
 		config.ProjectId = "bvikqvbczudanvggcord"
 		// Setup in-memory fs
 		fsys := fs.MapFS{
-			"supabase/config.toml":           &fs.MapFile{Data: testInitConfigEmbed},
-			"supabase/templates/invite.html": &fs.MapFile{},
+			"gentabase/config.toml":           &fs.MapFile{Data: testInitConfigEmbed},
+			"gentabase/templates/invite.html": &fs.MapFile{},
 		}
 		// Run test
-		t.Setenv("SUPABASE_AUTH_SITE_URL", "http://preview.com")
+		t.Setenv("GENTABASE_AUTH_SITE_URL", "http://preview.com")
 		t.Setenv("AUTH_SEND_SMS_SECRETS", "v1,whsec_aWxpa2VzdXBhYmFzZXZlcnltdWNoYW5kaWhvcGV5b3Vkb3Rvbw==")
 		assert.NoError(t, config.Load("", fsys))
 		// Check error
@@ -194,11 +194,11 @@ func TestRemoteOverride(t *testing.T) {
 		config.ProjectId = "vpefcjyosynxeiebfscx"
 		// Setup in-memory fs
 		fsys := fs.MapFS{
-			"supabase/config.toml":           &fs.MapFile{Data: testInitConfigEmbed},
-			"supabase/templates/invite.html": &fs.MapFile{},
+			"gentabase/config.toml":           &fs.MapFile{Data: testInitConfigEmbed},
+			"gentabase/templates/invite.html": &fs.MapFile{},
 		}
 		// Run test
-		t.Setenv("SUPABASE_AUTH_SITE_URL", "http://preview.com")
+		t.Setenv("GENTABASE_AUTH_SITE_URL", "http://preview.com")
 		t.Setenv("AUTH_SEND_SMS_SECRETS", "v1,whsec_aWxpa2VzdXBhYmFzZXZlcnltdWNoYW5kaWhvcGV5b3Vkb3Rvbw==")
 		assert.NoError(t, config.Load("", fsys))
 		// Check error
@@ -212,8 +212,8 @@ func TestRemoteOverride(t *testing.T) {
 		config := NewConfig()
 		// Setup in-memory fs
 		fsys := fs.MapFS{
-			"supabase/config.toml":           &fs.MapFile{Data: testInitConfigEmbed},
-			"supabase/templates/invite.html": &fs.MapFile{},
+			"gentabase/config.toml":           &fs.MapFile{Data: testInitConfigEmbed},
+			"gentabase/templates/invite.html": &fs.MapFile{},
 		}
 		// Run test
 		t.Setenv("TWILIO_AUTH_TOKEN", "token")
@@ -432,16 +432,16 @@ func TestGlobFiles(t *testing.T) {
 	t.Run("returns seed files matching patterns", func(t *testing.T) {
 		// Setup in-memory fs
 		fsys := fs.MapFS{
-			"supabase/seeds/seed1.sql":   &fs.MapFile{Data: []byte("INSERT INTO table1 VALUES (1);")},
-			"supabase/seeds/seed2.sql":   &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
-			"supabase/seeds/seed3.sql":   &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
-			"supabase/seeds/another.sql": &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
-			"supabase/seeds/ignore.sql":  &fs.MapFile{Data: []byte("INSERT INTO table3 VALUES (3);")},
+			"gentabase/seeds/seed1.sql":   &fs.MapFile{Data: []byte("INSERT INTO table1 VALUES (1);")},
+			"gentabase/seeds/seed2.sql":   &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
+			"gentabase/seeds/seed3.sql":   &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
+			"gentabase/seeds/another.sql": &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
+			"gentabase/seeds/ignore.sql":  &fs.MapFile{Data: []byte("INSERT INTO table3 VALUES (3);")},
 		}
 		// Mock config patterns
 		g := Glob{
-			"supabase/seeds/seed[12].sql",
-			"supabase/seeds/ano*.sql",
+			"gentabase/seeds/seed[12].sql",
+			"gentabase/seeds/ano*.sql",
 		}
 		// Run test
 		files, err := g.Files(fsys)
@@ -449,26 +449,26 @@ func TestGlobFiles(t *testing.T) {
 		assert.NoError(t, err)
 		// Validate files
 		assert.ElementsMatch(t, []string{
-			"supabase/seeds/seed1.sql",
-			"supabase/seeds/seed2.sql",
-			"supabase/seeds/another.sql",
+			"gentabase/seeds/seed1.sql",
+			"gentabase/seeds/seed2.sql",
+			"gentabase/seeds/another.sql",
 		}, files)
 	})
 
 	t.Run("returns seed files matching patterns skip duplicates", func(t *testing.T) {
 		// Setup in-memory fs
 		fsys := fs.MapFS{
-			"supabase/seeds/seed1.sql":   &fs.MapFile{Data: []byte("INSERT INTO table1 VALUES (1);")},
-			"supabase/seeds/seed2.sql":   &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
-			"supabase/seeds/seed3.sql":   &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
-			"supabase/seeds/another.sql": &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
-			"supabase/seeds/ignore.sql":  &fs.MapFile{Data: []byte("INSERT INTO table3 VALUES (3);")},
+			"gentabase/seeds/seed1.sql":   &fs.MapFile{Data: []byte("INSERT INTO table1 VALUES (1);")},
+			"gentabase/seeds/seed2.sql":   &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
+			"gentabase/seeds/seed3.sql":   &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
+			"gentabase/seeds/another.sql": &fs.MapFile{Data: []byte("INSERT INTO table2 VALUES (2);")},
+			"gentabase/seeds/ignore.sql":  &fs.MapFile{Data: []byte("INSERT INTO table3 VALUES (3);")},
 		}
 		// Mock config patterns
 		g := Glob{
-			"supabase/seeds/seed[12].sql",
-			"supabase/seeds/ano*.sql",
-			"supabase/seeds/seed*.sql",
+			"gentabase/seeds/seed[12].sql",
+			"gentabase/seeds/ano*.sql",
+			"gentabase/seeds/seed*.sql",
 		}
 		// Run test
 		files, err := g.Files(fsys)
@@ -476,10 +476,10 @@ func TestGlobFiles(t *testing.T) {
 		assert.NoError(t, err)
 		// Validate files
 		assert.ElementsMatch(t, []string{
-			"supabase/seeds/seed1.sql",
-			"supabase/seeds/seed2.sql",
-			"supabase/seeds/another.sql",
-			"supabase/seeds/seed3.sql",
+			"gentabase/seeds/seed1.sql",
+			"gentabase/seeds/seed2.sql",
+			"gentabase/seeds/another.sql",
+			"gentabase/seeds/seed3.sql",
 		}, files)
 	})
 
@@ -514,50 +514,50 @@ func TestLoadFunctionImportMap(t *testing.T) {
 	t.Run("uses deno.json as import map when present", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 			project_id = "bvikqvbczudanvggcord"
 			[functions.hello]
 			`)},
-			"supabase/functions/hello/deno.json": &fs.MapFile{},
-			"supabase/functions/hello/index.ts":  &fs.MapFile{},
+			"gentabase/functions/hello/deno.json": &fs.MapFile{},
+			"gentabase/functions/hello/index.ts":  &fs.MapFile{},
 		}
 		// Run test
 		assert.NoError(t, config.Load("", fsys))
 		// Check that deno.json was set as import map
-		assert.Equal(t, "supabase/functions/hello/deno.json", config.Functions["hello"].ImportMap)
+		assert.Equal(t, "gentabase/functions/hello/deno.json", config.Functions["hello"].ImportMap)
 	})
 
 	t.Run("uses deno.jsonc as import map when present", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 			project_id = "bvikqvbczudanvggcord"
 			[functions.hello]
 			`)},
-			"supabase/functions/hello/deno.jsonc": &fs.MapFile{},
-			"supabase/functions/hello/index.ts":   &fs.MapFile{},
+			"gentabase/functions/hello/deno.jsonc": &fs.MapFile{},
+			"gentabase/functions/hello/index.ts":   &fs.MapFile{},
 		}
 		// Run test
 		assert.NoError(t, config.Load("", fsys))
 		// Check that deno.jsonc was set as import map
-		assert.Equal(t, "supabase/functions/hello/deno.jsonc", config.Functions["hello"].ImportMap)
+		assert.Equal(t, "gentabase/functions/hello/deno.jsonc", config.Functions["hello"].ImportMap)
 	})
 
 	t.Run("config.toml takes precedence over deno.json", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 			project_id = "bvikqvbczudanvggcord"
 			[functions]
 			hello.import_map = "custom_import_map.json"
 			`)},
-			"supabase/functions/hello/deno.json": &fs.MapFile{},
-			"supabase/functions/hello/index.ts":  &fs.MapFile{},
+			"gentabase/functions/hello/deno.json": &fs.MapFile{},
+			"gentabase/functions/hello/index.ts":  &fs.MapFile{},
 		}
 		// Run test
 		assert.NoError(t, config.Load("", fsys))
 		// Check that config.toml takes precedence over deno.json
-		assert.Equal(t, "supabase/custom_import_map.json", config.Functions["hello"].ImportMap)
+		assert.Equal(t, "gentabase/custom_import_map.json", config.Functions["hello"].ImportMap)
 	})
 }
 
@@ -565,7 +565,7 @@ func TestLoadFunctionErrorMessageParsing(t *testing.T) {
 	t.Run("returns error for array-style function config", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 			project_id = "bvikqvbczudanvggcord"
 			[[functions]]
 			name = "hello"
@@ -581,7 +581,7 @@ func TestLoadFunctionErrorMessageParsing(t *testing.T) {
 	t.Run("returns error with function slug for invalid non-existent field", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 			project_id = "bvikqvbczudanvggcord"
 			[functions.hello]
 			unknown_field = true
@@ -596,7 +596,7 @@ func TestLoadFunctionErrorMessageParsing(t *testing.T) {
 	t.Run("returns error with function slug for invalid field value", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 			project_id = "bvikqvbczudanvggcord"
 			[functions.hello]
 			verify_jwt = "not-a-bool"
@@ -611,7 +611,7 @@ func TestLoadFunctionErrorMessageParsing(t *testing.T) {
 	t.Run("returns error for unknown function fields", func(t *testing.T) {
 		config := NewConfig()
 		fsys := fs.MapFS{
-			"supabase/config.toml": &fs.MapFile{Data: []byte(`
+			"gentabase/config.toml": &fs.MapFile{Data: []byte(`
 			project_id = "bvikqvbczudanvggcord"
 			[functions]
 			name = "hello"

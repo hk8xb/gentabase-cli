@@ -12,9 +12,9 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/joho/godotenv"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, projectRef, envFilePath string, args []string, fsys afero.Fs) error {
@@ -33,7 +33,7 @@ func Run(ctx context.Context, projectRef, envFilePath string, args []string, fsy
 		return errors.New("No arguments found. Use --env-file to read from a .env file.")
 	}
 	// 2. Set secret(s).
-	resp, err := utils.GetSupabase().V1BulkCreateSecretsWithResponse(ctx, projectRef, secrets)
+	resp, err := utils.GetGentabaseAPI().V1BulkCreateSecretsWithResponse(ctx, projectRef, secrets)
 	if err != nil {
 		return errors.Errorf("failed to set secrets: %w", err)
 	} else if resp.StatusCode() != http.StatusCreated {
@@ -67,8 +67,8 @@ func ListSecrets(envFilePath string, fsys afero.Fs, envArgs ...string) (api.Crea
 	var result api.CreateSecretBody
 	for name, value := range envMap {
 		// Lower case prefix is accepted by API
-		if strings.HasPrefix(name, "SUPABASE_") {
-			fmt.Fprintln(os.Stderr, "Env name cannot start with SUPABASE_, skipping: "+name)
+		if strings.HasPrefix(name, "GENTABASE_") {
+			fmt.Fprintln(os.Stderr, "Env name cannot start with GENTABASE_, skipping: "+name)
 			continue
 		}
 		result = append(result, api.CreateSecretBody{{

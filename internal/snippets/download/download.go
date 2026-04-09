@@ -7,7 +7,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/google/uuid"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, snippetId string, fsys afero.Fs) error {
@@ -16,7 +16,7 @@ func Run(ctx context.Context, snippetId string, fsys afero.Fs) error {
 	if err != nil {
 		return fmt.Errorf("invalid snippet ID: %w", err)
 	}
-	resp, err := utils.GetSupabase().V1GetASnippetWithResponse(ctx, id)
+	resp, err := utils.GetGentabaseAPI().V1GetASnippetWithResponse(ctx, id)
 	if err != nil {
 		return errors.Errorf("failed to download snippet: %w", err)
 	} else if resp.JSON200 == nil {

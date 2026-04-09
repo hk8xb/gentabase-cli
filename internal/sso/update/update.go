@@ -8,11 +8,11 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/google/uuid"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/sso/internal/render"
-	"github.com/supabase/cli/internal/sso/internal/saml"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/sso/internal/render"
+	"github.com/hk8xb/gentabase-cli/internal/sso/internal/saml"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 var Fs = afero.NewOsFs()
@@ -38,7 +38,7 @@ func Run(ctx context.Context, params RunParams) error {
 	if err != nil {
 		return errors.Errorf("failed to parse provider ID: %w", err)
 	}
-	getResp, err := utils.GetSupabase().V1GetASsoProviderWithResponse(ctx, params.ProjectRef, parsed)
+	getResp, err := utils.GetGentabaseAPI().V1GetASsoProviderWithResponse(ctx, params.ProjectRef, parsed)
 	if err != nil {
 		return errors.Errorf("failed to get sso provider: %w", err)
 	}
@@ -117,7 +117,7 @@ func Run(ctx context.Context, params RunParams) error {
 		body.NameIdFormat = cast.Ptr(api.UpdateProviderBodyNameIdFormat(params.NameIDFormat))
 	}
 
-	putResp, err := utils.GetSupabase().V1UpdateASsoProviderWithResponse(ctx, params.ProjectRef, parsed, body)
+	putResp, err := utils.GetGentabaseAPI().V1UpdateASsoProviderWithResponse(ctx, params.ProjectRef, parsed, body)
 	if err != nil {
 		return errors.Errorf("failed to update sso provider: %w", err)
 	}

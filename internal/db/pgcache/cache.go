@@ -17,9 +17,9 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/gen/types"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/internal/gen/types"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
 )
 
 const (
@@ -34,7 +34,7 @@ import {
   extractCatalog,
   serializeCatalog,
   stringifyCatalogSnapshot,
-} from "npm:@supabase/pg-delta@1.0.0-alpha.9";
+} from "npm:@hk8xb/pg-delta@1.0.0-alpha.9";
 const target = Deno.env.get("TARGET");
 const role = Deno.env.get("ROLE") ?? undefined;
 if (!target) {

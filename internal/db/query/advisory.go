@@ -38,7 +38,7 @@ WHERE c.relkind = 'r'
     '_timescaledb_cache', '_timescaledb_catalog', '_timescaledb_config', '_timescaledb_internal',
     'auth', 'cron', 'extensions', 'graphql', 'graphql_public', 'information_schema',
     'net', 'pgbouncer', 'pg_catalog', 'pgmq', 'pgroonga', 'pgsodium', 'pgsodium_masks',
-    'pgtle', 'realtime', 'repack', 'storage', 'supabase_functions', 'supabase_migrations',
+    'pgtle', 'realtime', 'repack', 'storage', 'gentabase_functions', 'gentabase_migrations',
     'tiger', 'topology', 'vault'
   )
 ORDER BY n.nspname, c.relname

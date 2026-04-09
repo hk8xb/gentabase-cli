@@ -2,7 +2,7 @@
 set -eou pipefail
 
 # 0. Create test table with RLS
-# supabase --workdir tests migrations up
+# gentabase --workdir tests migrations up
 
 # 1. Create todo as service role
 output=$(curl -sS "$API_URL/rest/v1/todos" \

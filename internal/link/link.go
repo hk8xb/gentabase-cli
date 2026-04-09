@@ -12,13 +12,13 @@ import (
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
-	phtelemetry "github.com/supabase/cli/internal/telemetry"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/tenant"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
-	cliConfig "github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/pkg/queue"
+	phtelemetry "github.com/hk8xb/gentabase-cli/internal/telemetry"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/tenant"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	cliConfig "github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/queue"
 )
 
 func Run(ctx context.Context, projectRef string, skipPooler bool, fsys afero.Fs, options ...func(*pgx.ConnConfig)) error {
@@ -101,7 +101,7 @@ func LinkServices(ctx context.Context, projectRef, serviceKey string, skipPooler
 }
 
 func linkPostgrest(ctx context.Context, projectRef string) error {
-	resp, err := utils.GetSupabase().V1GetPostgrestServiceConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetPostgrestServiceConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to read API config: %w", err)
 	} else if resp.JSON200 == nil {
@@ -120,7 +120,7 @@ func linkPostgrestVersion(ctx context.Context, api tenant.TenantAPI, fsys afero.
 }
 
 func linkGotrue(ctx context.Context, projectRef string) error {
-	resp, err := utils.GetSupabase().V1GetAuthServiceConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetAuthServiceConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to read Auth config: %w", err)
 	} else if resp.JSON200 == nil {
@@ -139,7 +139,7 @@ func linkGotrueVersion(ctx context.Context, api tenant.TenantAPI, fsys afero.Fs)
 }
 
 func linkStorage(ctx context.Context, projectRef string, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().V1GetStorageConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetStorageConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to read Storage config: %w", err)
 	} else if resp.JSON200 == nil {
@@ -168,7 +168,7 @@ func linkStorageMigration(ctx context.Context, conn *pgx.Conn, fsys afero.Fs) er
 }
 
 func linkDatabaseSettings(ctx context.Context, projectRef string) error {
-	resp, err := utils.GetSupabase().V1GetPostgresConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetPostgresConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to read DB config: %w", err)
 	} else if resp.JSON200 == nil {
@@ -179,7 +179,7 @@ func linkDatabaseSettings(ctx context.Context, projectRef string) error {
 }
 
 func linkNetworkRestrictions(ctx context.Context, projectRef string) error {
-	resp, err := utils.GetSupabase().V1GetNetworkRestrictionsWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetNetworkRestrictionsWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to read network restrictions: %w", err)
 	} else if resp.JSON200 == nil {
@@ -238,7 +238,7 @@ func updatePoolerConfig(config api.SupavisorConfigResponse) {
 var errProjectPaused = errors.New("project is paused")
 
 func checkRemoteProjectStatus(ctx context.Context, projectRef string, fsys afero.Fs) (*api.V1ProjectWithDatabaseResponse, error) {
-	resp, err := utils.GetSupabase().V1GetProjectWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetProjectWithResponse(ctx, projectRef)
 	if err != nil {
 		return nil, errors.Errorf("failed to retrieve remote project status: %w", err)
 	}
@@ -254,7 +254,7 @@ func checkRemoteProjectStatus(ctx context.Context, projectRef string, fsys afero
 
 	switch resp.JSON200.Status {
 	case api.V1ProjectWithDatabaseResponseStatusINACTIVE:
-		utils.CmdSuggestion = fmt.Sprintf("An admin must unpause it from the Gentabase dashboard at %s", utils.Aqua(fmt.Sprintf("%s/project/%s", utils.GetSupabaseDashboardURL(), projectRef)))
+		utils.CmdSuggestion = fmt.Sprintf("An admin must unpause it from the Gentabase dashboard at %s", utils.Aqua(fmt.Sprintf("%s/project/%s", utils.GetGentabaseDashboardURL(), projectRef)))
 		return nil, errors.New(errProjectPaused)
 	case api.V1ProjectWithDatabaseResponseStatusACTIVEHEALTHY:
 		// Project is in the desired state, do nothing

@@ -10,14 +10,14 @@ import (
 	"github.com/oapi-codegen/nullable"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/storage/client"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/fetcher"
-	"github.com/supabase/cli/pkg/storage"
+	"github.com/hk8xb/gentabase-cli/internal/storage/client"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 var mockFile = storage.ObjectResponse{
@@ -60,7 +60,7 @@ func TestStorageLS(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]storage.BucketResponse{})
@@ -88,7 +88,7 @@ func TestStorageLS(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]storage.BucketResponse{{
@@ -97,7 +97,7 @@ func TestStorageLS(t *testing.T) {
 				CreatedAt: "2023-10-13T17:48:58.491Z",
 				UpdatedAt: "2023-10-13T17:48:58.491Z",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Post("/storage/v1/object/list/private").
 			Reply(http.StatusOK).
 			JSON([]storage.ObjectResponse{})

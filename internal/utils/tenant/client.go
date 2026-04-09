@@ -5,10 +5,10 @@ import (
 	"strings"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
 )
 
 var (
@@ -68,7 +68,7 @@ func isServiceRole(key api.ApiKeyResponse) bool {
 }
 
 func GetApiKeys(ctx context.Context, projectRef string) (ApiKey, error) {
-	resp, err := utils.GetSupabase().V1GetProjectApiKeysWithResponse(ctx, projectRef, &api.V1GetProjectApiKeysParams{
+	resp, err := utils.GetGentabaseAPI().V1GetProjectApiKeysWithResponse(ctx, projectRef, &api.V1GetProjectApiKeysParams{
 		Reveal: cast.Ptr(true),
 	})
 	if err != nil {
@@ -90,7 +90,7 @@ type TenantAPI struct {
 
 func NewTenantAPI(ctx context.Context, projectRef, serviceKey string) TenantAPI {
 	return TenantAPI{Fetcher: fetcher.NewServiceGateway(
-		"https://"+utils.GetSupabaseHost(projectRef),
+		"https://"+utils.GetGentabaseHost(projectRef),
 		serviceKey,
 		fetcher.WithUserAgent("GentabaseCLI/"+utils.Version),
 	)}

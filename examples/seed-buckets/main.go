@@ -8,9 +8,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/pkg/fetcher"
-	"github.com/supabase/cli/pkg/storage"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 func main() {
@@ -20,8 +20,8 @@ func main() {
 }
 
 func seed(ctx context.Context) error {
-	project := os.Getenv("SUPABASE_PROJECT_ID")
-	serviceRoleKey := os.Getenv("SUPABASE_SERVICE_ROLE_KEY")
+	project := os.Getenv("GENTABASE_PROJECT_ID")
+	serviceRoleKey := os.Getenv("GENTABASE_SERVICE_ROLE_KEY")
 	storageClient := newStorageClient(project, serviceRoleKey)
 	public := false
 	sc := config.BucketConfig{"my-bucket": {
@@ -32,7 +32,7 @@ func seed(ctx context.Context) error {
 
 func newStorageClient(project, serviceRoleKey string) storage.StorageAPI {
 	return storage.StorageAPI{Fetcher: fetcher.NewFetcher(
-		fmt.Sprintf("https://db.%s.supabase.co", project),
+		fmt.Sprintf("https://db.%s.gentabase.dev", project),
 		fetcher.WithBearerToken(serviceRoleKey),
 		fetcher.WithHTTPClient(&http.Client{
 			Timeout: time.Second * 10,

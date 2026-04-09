@@ -9,11 +9,11 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/testing/helper"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/helper"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestMigrateDatabase(t *testing.T) {
@@ -45,7 +45,7 @@ func TestMigrateDatabase(t *testing.T) {
 		path := filepath.Join(utils.MigrationsDir, "0_test.sql")
 		sql := "create schema public"
 		require.NoError(t, afero.WriteFile(fsys, path, []byte(sql), 0644))
-		seedPath := filepath.Join(utils.SupabaseDirPath, "seed.sql")
+		seedPath := filepath.Join(utils.GentabaseDirPath, "seed.sql")
 		// This will raise an error when seeding
 		require.NoError(t, afero.WriteFile(fsys, seedPath, []byte("INSERT INTO test_table;"), 0644))
 		// Setup mock postgres

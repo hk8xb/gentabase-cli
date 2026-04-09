@@ -7,7 +7,7 @@ import (
 	"reflect"
 
 	"github.com/google/jsonschema-go/jsonschema"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 func main() {

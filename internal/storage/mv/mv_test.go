@@ -9,13 +9,13 @@ import (
 	"github.com/oapi-codegen/nullable"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/fetcher"
-	"github.com/supabase/cli/pkg/storage"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 var mockFile = storage.ObjectResponse{
@@ -58,7 +58,7 @@ func TestStorageMV(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Post("/storage/v1/object/move").
 			JSON(storage.MoveObjectRequest{
 				BucketId:       "private",
@@ -83,7 +83,7 @@ func TestStorageMV(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Post("/storage/v1/object/move").
 			JSON(storage.MoveObjectRequest{
 				BucketId:       "private",
@@ -93,11 +93,11 @@ func TestStorageMV(t *testing.T) {
 			Reply(http.StatusNotFound).
 			JSON(map[string]string{"error": "not_found"})
 		// List bucket /private/
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Post("/storage/v1/object/list/private").
 			Reply(http.StatusOK).
 			JSON([]storage.ObjectResponse{mockFile})
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Post("/storage/v1/object/move").
 			JSON(storage.MoveObjectRequest{
 				BucketId:       "private",

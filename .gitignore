@@ -28,5 +28,4 @@ node_modules
 package-lock.json
 
 # Initialized by cli for local testing
-/supabase
 gentabase

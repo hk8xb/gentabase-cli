@@ -12,13 +12,13 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils/cloudflare"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils/cloudflare"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 var dbConfig = pgconn.Config{
-	Host:     GetSupabaseDbHost(apitest.RandomProjectRef()),
+	Host:     GetGentabaseDbHost(apitest.RandomProjectRef()),
 	Port:     6543,
 	User:     "admin",
 	Password: "password",
@@ -213,12 +213,12 @@ func TestSetConnectSuggestion(t *testing.T) {
 		{
 			name:       "wrong password via SCRAM",
 			err:        errors.New("SCRAM exchange: Wrong password"),
-			suggestion: "Connect to your database by setting the env var correctly: SUPABASE_DB_PASSWORD",
+			suggestion: "Connect to your database by setting the env var correctly: GENTABASE_DB_PASSWORD",
 		},
 		{
 			name:       "failed SASL auth",
 			err:        errors.New("failed SASL auth"),
-			suggestion: "Connect to your database by setting the env var correctly: SUPABASE_DB_PASSWORD",
+			suggestion: "Connect to your database by setting the env var correctly: GENTABASE_DB_PASSWORD",
 		},
 		{
 			name:       "no route to host",

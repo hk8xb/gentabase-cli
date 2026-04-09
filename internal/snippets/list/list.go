@@ -8,14 +8,14 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, fsys afero.Fs) error {
 	opts := api.V1ListAllSnippetsParams{ProjectRef: &flags.ProjectRef}
-	resp, err := utils.GetSupabase().V1ListAllSnippetsWithResponse(ctx, &opts)
+	resp, err := utils.GetGentabaseAPI().V1ListAllSnippetsWithResponse(ctx, &opts)
 	if err != nil {
 		return errors.Errorf("failed to list snippets: %w", err)
 	} else if resp.JSON200 == nil {

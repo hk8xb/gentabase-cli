@@ -7,12 +7,12 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, projectRef string, desiredSubdomain string, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().V1ActivateVanitySubdomainConfigWithResponse(ctx, projectRef, api.V1ActivateVanitySubdomainConfigJSONRequestBody{
+	resp, err := utils.GetGentabaseAPI().V1ActivateVanitySubdomainConfigWithResponse(ctx, projectRef, api.V1ActivateVanitySubdomainConfigJSONRequestBody{
 		VanitySubdomain: desiredSubdomain,
 	})
 	if err != nil {

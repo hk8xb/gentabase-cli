@@ -6,12 +6,12 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/hostnames"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/hostnames"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, projectRef string, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().V1VerifyDnsConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1VerifyDnsConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to re-verify custom hostname: %w", err)
 	} else if resp.JSON201 == nil {

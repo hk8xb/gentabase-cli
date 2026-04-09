@@ -2,8 +2,8 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-// Setup type definitions for built-in Supabase Runtime APIs
-import "@supabase/functions-js/edge-runtime.d.ts"
+// Setup type definitions for built-in Gentabase Runtime APIs
+import "@hk8xb/functions-js/edge-runtime.d.ts"
 
 console.log("Hello from Functions!")
 

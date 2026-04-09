@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	v1API "github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	v1API "github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 func TestDbSettingsToUpdatePostgresConfigBody(t *testing.T) {
@@ -178,7 +178,7 @@ func TestSettingsToPostgresConfig(t *testing.T) {
 		settings := settings{}
 		got := settings.ToPostgresConfig()
 
-		assert.Equal(t, got, "\n# supabase [db.settings] configuration\n")
+		assert.Equal(t, got, "\n# gentabase [db.settings] configuration\n")
 		assert.NotContains(t, got, "=")
 	})
 }

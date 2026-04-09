@@ -8,10 +8,10 @@ import (
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/db/pgcache"
-	"github.com/supabase/cli/internal/db/start"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/db/pgcache"
+	"github.com/hk8xb/gentabase-cli/internal/db/start"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 )
 
 type linkedConfigResolver func(context.Context, afero.Fs) (pgconn.Config, error)

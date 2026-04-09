@@ -12,10 +12,10 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/db/reset"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/db/reset"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestSwitchCommand(t *testing.T) {
@@ -43,7 +43,7 @@ func TestSwitchCommand(t *testing.T) {
 		defer conn.Close(t)
 		conn.Query("ALTER DATABASE postgres ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
-			Query("ALTER DATABASE _supabase ALLOW_CONNECTIONS false").
+			Query("ALTER DATABASE _gentabase ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
 			Query(reset.TERMINATE_BACKENDS).
 			Reply("SELECT 1").
@@ -214,7 +214,7 @@ func TestSwitchDatabase(t *testing.T) {
 		defer conn.Close(t)
 		conn.Query("ALTER DATABASE postgres ALLOW_CONNECTIONS false").
 			ReplyError(pgerrcode.InvalidParameterValue, `cannot disallow connections for current database`).
-			Query("ALTER DATABASE _supabase ALLOW_CONNECTIONS false").
+			Query("ALTER DATABASE _gentabase ALLOW_CONNECTIONS false").
 			Query(reset.TERMINATE_BACKENDS)
 		// Run test
 		err := switchDatabase(context.Background(), "main", "target", conn.Intercept)
@@ -232,7 +232,7 @@ func TestSwitchDatabase(t *testing.T) {
 		defer conn.Close(t)
 		conn.Query("ALTER DATABASE postgres ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
-			Query("ALTER DATABASE _supabase ALLOW_CONNECTIONS false").
+			Query("ALTER DATABASE _gentabase ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
 			Query(reset.TERMINATE_BACKENDS).
 			Reply("SELECT 1").
@@ -262,7 +262,7 @@ func TestSwitchDatabase(t *testing.T) {
 		defer conn.Close(t)
 		conn.Query("ALTER DATABASE postgres ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
-			Query("ALTER DATABASE _supabase ALLOW_CONNECTIONS false").
+			Query("ALTER DATABASE _gentabase ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
 			Query(reset.TERMINATE_BACKENDS).
 			Reply("SELECT 1").

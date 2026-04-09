@@ -6,9 +6,9 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/hostnames"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/hostnames"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, projectRef string, customHostname string, fsys afero.Fs) error {
@@ -18,7 +18,7 @@ func Run(ctx context.Context, projectRef string, customHostname string, fsys afe
 		return err
 	}
 	// 2. create custom hostname
-	resp, err := utils.GetSupabase().V1UpdateHostnameConfigWithResponse(ctx, projectRef, api.V1UpdateHostnameConfigJSONRequestBody{
+	resp, err := utils.GetGentabaseAPI().V1UpdateHostnameConfigWithResponse(ctx, projectRef, api.V1UpdateHostnameConfigJSONRequestBody{
 		CustomHostname: customHostname,
 	})
 	if err != nil {

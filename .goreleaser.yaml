@@ -14,7 +14,7 @@ builds:
       - arm64
     ldflags:
       - -s -w
-      - -X github.com/supabase/cli/internal/utils.Version={{.Version}}
+      - -X github.com/hk8xb/gentabase-cli/internal/utils.Version={{.Version}}
 
 archives:
   - format: tar.gz

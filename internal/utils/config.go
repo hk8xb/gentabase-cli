@@ -12,7 +12,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 var (
@@ -33,8 +33,8 @@ var (
 	VectorId      string
 	PoolerId      string
 
-	DbAliases          = []string{"db", "db.supabase.internal"}
-	KongAliases        = []string{"kong", "api.supabase.internal"}
+	DbAliases          = []string{"db", "db.gentabase.internal"}
+	KongAliases        = []string{"kong", "api.gentabase.internal"}
 	GotrueAliases      = []string{"auth"}
 	InbucketAliases    = []string{"inbucket"}
 	RealtimeAliases    = []string{"realtime", Config.Realtime.TenantId}
@@ -55,7 +55,7 @@ var (
 )
 
 func GetId(name string) string {
-	return "supabase_" + name + "_" + Config.ProjectId
+	return "gentabase_" + name + "_" + Config.ProjectId
 }
 
 func UpdateDockerIds() {
@@ -226,7 +226,7 @@ func InitConfig(params InitParams, fsys afero.Fs) error {
 		c.Experimental.OrioleDBVersion = "15.1.0.150"
 	}
 	// Create config file
-	if err := MkdirIfNotExistFS(fsys, SupabaseDirPath); err != nil {
+	if err := MkdirIfNotExistFS(fsys, GentabaseDirPath); err != nil {
 		return err
 	}
 	flag := os.O_WRONLY | os.O_CREATE

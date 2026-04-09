@@ -8,11 +8,11 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, projectRef string, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().V1DeactivateVanitySubdomainConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1DeactivateVanitySubdomainConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to delete vanity subdomain: %w", err)
 	} else if resp.StatusCode() != http.StatusOK {

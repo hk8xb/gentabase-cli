@@ -10,12 +10,12 @@ import (
 	"github.com/h2non/gock"
 	"github.com/oapi-codegen/nullable"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 func TestGetBranch(t *testing.T) {
@@ -24,9 +24,9 @@ func TestGetBranch(t *testing.T) {
 	t.Run("fetches branch details", func(t *testing.T) {
 		t.Cleanup(fstest.MockStdout(t, `
   
-   HOST      | PORT | USER   | PASSWORD | JWT SECRET | POSTGRES VERSION             | STATUS         
-  -----------|------|--------|----------|------------|------------------------------|----------------
-   127.0.0.1 | 5432 | ****** | ******   | ******     | supabase-postgres-17.4.1.074 | ACTIVE_HEALTHY 
+   HOST      | PORT | USER   | PASSWORD | JWT SECRET | POSTGRES VERSION              | STATUS         
+  -----------|------|--------|----------|------------|-------------------------------|----------------
+   127.0.0.1 | 5432 | ****** | ******   | ******     | gentabase-postgres-17.4.1.074 | ACTIVE_HEALTHY 
 
 `))
 		t.Cleanup(apitest.MockPlatformAPI(t))
@@ -37,7 +37,7 @@ func TestGetBranch(t *testing.T) {
 			JSON(api.BranchDetailResponse{
 				DbHost:          "127.0.0.1",
 				DbPort:          5432,
-				PostgresVersion: "supabase-postgres-17.4.1.074",
+				PostgresVersion: "gentabase-postgres-17.4.1.074",
 				Status:          api.BranchDetailResponseStatusACTIVEHEALTHY,
 			})
 		// Run test
@@ -76,12 +76,12 @@ func TestTomlOutput(t *testing.T) {
 	t.Cleanup(func() { utils.OutputFormat.Value = utils.OutputPretty })
 
 	t.Run("encodes toml format", func(t *testing.T) {
-		t.Cleanup(fstest.MockStdout(t, fmt.Sprintf(`POSTGRES_URL = "postgresql://postgres:postgres@127.0.0.1:6543/postgres?connect_timeout=10"
+		t.Cleanup(fstest.MockStdout(t, fmt.Sprintf(`GENTABASE_ANON_KEY = "anon-key"
+GENTABASE_JWT_SECRET = "secret-key"
+GENTABASE_SERVICE_ROLE_KEY = "service-role-key"
+GENTABASE_URL = "https://%s."
+POSTGRES_URL = "postgresql://postgres:postgres@127.0.0.1:6543/postgres?connect_timeout=10"
 POSTGRES_URL_NON_POOLING = "postgresql://postgres:postgres@127.0.0.1:5432/postgres?connect_timeout=10"
-SUPABASE_ANON_KEY = "anon-key"
-SUPABASE_JWT_SECRET = "secret-key"
-SUPABASE_SERVICE_ROLE_KEY = "service-role-key"
-SUPABASE_URL = "https://%s."
 `, flags.ProjectRef)))
 		t.Cleanup(apitest.MockPlatformAPI(t))
 		// Setup mock api

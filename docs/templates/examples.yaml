@@ -1,4 +1,4 @@
-supabase-init:
+gentabase-init:
   - id: basic-usage
     name: Basic usage
     code: gentabase init
@@ -7,7 +7,7 @@ supabase-init:
     name: Initialize from an existing directory
     code: gentabase init --workdir .
     response: Finished gentabase init.
-supabase-login:
+gentabase-login:
   - id: basic-usage
     name: Basic usage
     code: gentabase login
@@ -15,7 +15,7 @@ supabase-login:
       You can generate an access token from https://gentabase.dev/dashboard/account/tokens
       Enter your access token: sbp_****************************************
       Finished gentabase login.
-supabase-link:
+gentabase-link:
   - id: basic-usage
     name: Basic usage
     code: gentabase link --project-ref ********************
@@ -34,29 +34,29 @@ supabase-link:
     response: |
       Enter your database password (or leave blank to skip):
       Finished gentabase link.
-supabase-start:
+gentabase-start:
   - id: basic-usage
     name: Basic usage
     code: gentabase start
     response: |
-      Creating custom roles supabase/roles.sql...
+      Creating custom roles gentabase/roles.sql...
       Applying migration 20220810154536_employee.sql...
-      Seeding data supabase/seed.sql...
+      Seeding data gentabase/seed.sql...
       Started gentabase local development setup.
   - id: without-studio
     name: Start containers without studio and imgproxy
     code: gentabase start -x studio,imgproxy
     response: |
-      Excluding container: supabase/studio:20221214-4eecc99
+      Excluding container: gentabase/studio:20221214-4eecc99
       Excluding container: darthsim/imgproxy:v3.8.0
       Started gentabase local development setup.
   - id: ignore-health-check
     name: Ignore service health checks
     code: gentabase start --ignore-health-check
     response: |
-      service not healthy: [supabase_storage_cli]
+      service not healthy: [gentabase_storage_cli]
       Started gentabase local development setup.
-supabase-stop:
+gentabase-stop:
   - id: basic-usage
     name: Basic usage
     code: gentabase stop
@@ -68,7 +68,7 @@ supabase-stop:
     code: gentabase stop --no-backup
     response: |
       Stopped gentabase local development setup.
-supabase-status:
+gentabase-status:
   - id: basic-usage
     name: Basic usage
     code: gentabase status
@@ -97,15 +97,15 @@ supabase-status:
       STUDIO_URL="http://127.0.0.1:54323"
   - id: output-custom-name
     name: Customize the names of exported variables
-    code: gentabase status -o env --override-name auth.anon_key=SUPABASE_ANON_KEY --override-name auth.service_role_key=SUPABASE_SERVICE_KEY
+    code: gentabase status -o env --override-name auth.anon_key=GENTABASE_ANON_KEY --override-name auth.service_role_key=GENTABASE_SERVICE_KEY
     response: |
-      Stopped services: [supabase_inbucket_cli supabase_rest_cli supabase_studio_cli]
-      SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
+      Stopped services: [gentabase_inbucket_cli gentabase_rest_cli gentabase_studio_cli]
+      GENTABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
       DB_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
       GRAPHQL_URL="http://127.0.0.1:54321/graphql/v1"
       JWT_SECRET="super-secret-jwt-token-with-at-least-32-characters-long"
-      SUPABASE_SERVICE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
-supabase-migration-list:
+      GENTABASE_SERVICE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
+gentabase-migration-list:
   - id: basic-usage
     name: Basic usage
     code: gentabase migration list
@@ -123,18 +123,18 @@ supabase-migration-list:
       ─────────────────┼────────────────┼──────────────────────
         20230103054303 │ 20230103054303 │ 2023-01-03 05:43:03
         20230103093141 │ 20230103093141 │ 2023-01-03 09:31:41
-supabase-migration-new:
+gentabase-migration-new:
   - id: basic-usage
     name: Basic usage
     code: gentabase migration new schema_test
     response: |
-      Created new migration at supabase/migrations/20230306095710_schema_test.sql.
+      Created new migration at gentabase/migrations/20230306095710_schema_test.sql.
   - id: pipe-stdin
     name: With statements piped from stdin
     code: echo "create schema if not exists test;" | gentabase migration new schema_test
     response: |
-      Created new migration at supabase/migrations/20230306095710_schema_test.sql.
-supabase-migration-repair:
+      Created new migration at gentabase/migrations/20230306095710_schema_test.sql.
+gentabase-migration-repair:
   - id: basic-usage
     name: Mark a migration as reverted
     code: gentabase migration repair 20230103054303 --status reverted
@@ -145,7 +145,7 @@ supabase-migration-repair:
     code: gentabase migration repair 20230222032233 --status applied
     response: |
       Repaired migration history: 20230222032233 => applied
-supabase-db-diff:
+gentabase-db-diff:
   - id: basic-usage
     name: Basic usage
     code: gentabase db diff -f my_table
@@ -178,26 +178,26 @@ supabase-db-diff:
       Finished gentabase db diff on branch main.
 
       No schema changes found
-supabase-db-dump:
+gentabase-db-dump:
   - id: basic-usage
     name: Basic usage
-    code: gentabase db dump -f supabase/schema.sql
+    code: gentabase db dump -f gentabase/schema.sql
     response: |
       Dumping schemas from remote database...
-      Dumped schema to supabase/schema.sql.
+      Dumped schema to gentabase/schema.sql.
   - id: role-only
     name: Role only
-    code: gentabase db dump -f supabase/roles.sql --role-only
+    code: gentabase db dump -f gentabase/roles.sql --role-only
     response: |
       Dumping roles from remote database...
-      Dumped schema to supabase/roles.sql.
+      Dumped schema to gentabase/roles.sql.
   - id: data-only
     name: Data only
-    code: gentabase db dump -f supabase/seed.sql --data-only
+    code: gentabase db dump -f gentabase/seed.sql --data-only
     response: |
       Dumping data from remote database...
-      Dumped schema to supabase/seed.sql.
-supabase-db-lint:
+      Dumped schema to gentabase/seed.sql.
+gentabase-db-lint:
   - id: basic-usage
     name: Basic usage
     code: gentabase db lint
@@ -222,13 +222,13 @@ supabase-db-lint:
           ]
         }
       ]
-supabase-db-pull:
+gentabase-db-pull:
   - id: basic-usage
     name: Basic usage
     code: gentabase db pull
     response: |
       Connecting to remote database...
-      Schema written to supabase/migrations/20240414044403_remote_schema.sql
+      Schema written to gentabase/migrations/20240414044403_remote_schema.sql
       Update remote migration history table? [Y/n]
       Repaired migration history: [20240414044403] => applied
       Finished gentabase db pull.
@@ -239,7 +239,7 @@ supabase-db-pull:
     response: |
       Connecting to local database...
       Setting up initial schema....
-      Creating custom roles supabase/roles.sql...
+      Creating custom roles gentabase/roles.sql...
       Applying migration 20240414044403_remote_schema.sql...
       No schema changes found
       The auth and storage schemas are excluded. Run gentabase db pull --schema auth,storage again to diff them.
@@ -250,12 +250,12 @@ supabase-db-pull:
     response: |
       Connecting to remote database...
       Setting up initial schema....
-      Creating custom roles supabase/roles.sql...
+      Creating custom roles gentabase/roles.sql...
       Applying migration 20240414044403_remote_schema.sql...
       No schema changes found
       Try rerunning the command with --debug to troubleshoot the error.
       exit status 1
-supabase-db-push:
+gentabase-db-push:
   - id: basic-usage
     name: Basic usage
     code: gentabase db push
@@ -275,7 +275,7 @@ supabase-db-push:
       Would push migration 20230410135622_create_employees_table.sql...
       Would push migration 20230425064254_my_table.sql...
       Finished gentabase db push.
-supabase-db-reset:
+gentabase-db-reset:
   - id: basic-usage
     name: Basic usage
     code: gentabase db reset
@@ -283,9 +283,9 @@ supabase-db-reset:
       Resetting database...
       Initializing schema...
       Applying migration 20220810154537_create_employees_table.sql...
-      Seeding data supabase/seed.sql...
+      Seeding data gentabase/seed.sql...
       Finished gentabase db reset on branch main.
-supabase-db-schema-declarative-sync:
+gentabase-db-schema-declarative-sync:
   - id: with-pg-delta
     name: Sync declarative schema with pg-delta
     code: |
@@ -296,7 +296,7 @@ supabase-db-schema-declarative-sync:
       Applying declarative schemas via pg-delta...
       Applied 239 statements in 1 round(s).
       Enter a name for this migration (press Enter to keep 'declarative_sync'): add_updated_at
-      Created new migration at supabase/migrations/20260317194051_add_updated_at.sql
+      Created new migration at gentabase/migrations/20260317194051_add_updated_at.sql
       Apply this migration to local database? [Y/n]
       Connecting to local database...
       Applying migration 20260317194051_add_updated_at.sql...
@@ -310,20 +310,20 @@ supabase-db-schema-declarative-sync:
       Reset local database to match migrations first? (local data will be lost) [y/N] y
       Resetting database...
       ...
-      Declarative schema written to supabase/declarative
+      Declarative schema written to gentabase/declarative
       Finished gentabase db schema declarative generate.
-supabase-test-db:
+gentabase-test-db:
   - id: basic-usage
     name: Basic usage
     code: gentabase test db
     response: |
-      /tmp/supabase/tests/nested/order_test.pg .. ok
-      /tmp/supabase/tests/pet_test.sql .......... ok
+      /tmp/gentabase/tests/nested/order_test.pg .. ok
+      /tmp/gentabase/tests/pet_test.sql .......... ok
       All tests successful.
       Files=2, Tests=2,  6 wallclock secs ( 0.03 usr  0.01 sys +  0.05 cusr  0.02 csys =  0.11 CPU)
       Result: PASS
 # TODO: use actual cli response for sso commands
-supabase-sso-show:
+gentabase-sso-show:
   - id: basic-usage
     name: Show information
     code: |-
@@ -342,7 +342,7 @@ supabase-sso-show:
       version used in the authentication project, and if using a SAML 2.0
       Metadata URL it may change depending on the caching information
       contained within the metadata.
-supabase-sso-update:
+gentabase-sso-update:
   - id: basic-usage
     name: Replace domains
     code: |-
@@ -367,7 +367,7 @@ supabase-sso-update:
         --remove-domains company.org
     response: |-
       Information about the updated provider.
-supabase-sso-remove:
+gentabase-sso-remove:
   - id: basic-usage
     name: Remove a provider
     code: |-
@@ -376,7 +376,7 @@ supabase-sso-remove:
     response: |-
       Information about the removed identity provider. It's a good idea to
       save this in case you need it later on.
-supabase-sso-add:
+gentabase-sso-add:
   - id: basic-usage
     name: Add with Metadata URL
     code: |-
@@ -401,7 +401,7 @@ supabase-sso-add:
       Information about the added identity provider. You can use
       company.com as the domain name on the frontend side to initiate a SSO
       request to the identity provider.
-supabase-sso-info:
+gentabase-sso-info:
   - id: basic-usage
     name: Show project information
     code: gentabase sso info --project-ref abcdefghijklmnopqrst

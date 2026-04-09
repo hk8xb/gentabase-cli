@@ -19,11 +19,11 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 func TestMain(m *testing.M) {
@@ -46,9 +46,9 @@ func TestMain(m *testing.M) {
 }
 
 type multipartPart struct {
-	filename     string
-	supabasePath string
-	contents     string
+	filename      string
+	gentabasePath string
+	contents      string
 }
 
 func mockMultipartBody(t *testing.T, projectRef, slug string, metadata bundleMetadata, parts []multipartPart) {
@@ -67,8 +67,8 @@ func mockMultipartBody(t *testing.T, projectRef, slug string, metadata bundleMet
 	for _, part := range parts {
 		headers := textproto.MIMEHeader{}
 		headers.Set("Content-Disposition", fmt.Sprintf(`form-data; name="file"; filename="%s"`, part.filename))
-		if part.supabasePath != "" {
-			headers.Set("Supabase-Path", part.supabasePath)
+		if part.gentabasePath != "" {
+			headers.Set("Gentabase-Path", part.gentabasePath)
 		}
 		pw, err := writer.CreatePart(headers)
 		require.NoError(t, err)
@@ -365,7 +365,7 @@ func TestRunServerSideUnbundle(t *testing.T) {
 		defer gock.OffAll()
 		mockMultipartBody(t, project, slug, bundleMetadata{}, []multipartPart{
 			{filename: "source/index.ts", contents: "console.log('hello')"},
-			{filename: "source/secret.env", supabasePath: "../secret.env", contents: "SECRET=1"},
+			{filename: "source/secret.env", gentabasePath: "../secret.env", contents: "SECRET=1"},
 		})
 
 		gock.New(utils.DefaultApiHost).
@@ -510,9 +510,9 @@ func TestGetMetadata(t *testing.T) {
 func TestGetPartPath(t *testing.T) {
 	t.Parallel()
 
-	t.Run("returns path from Supabase header", func(t *testing.T) {
+	t.Run("returns path from Gentabase header", func(t *testing.T) {
 		header := textproto.MIMEHeader{}
-		header.Set("Supabase-Path", "dir/file.ts")
+		header.Set("Gentabase-Path", "dir/file.ts")
 		got, err := getPartPath(header)
 		require.NoError(t, err)
 		assert.Equal(t, "dir/file.ts", got)

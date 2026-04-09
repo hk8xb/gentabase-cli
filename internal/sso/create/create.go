@@ -7,11 +7,11 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/sso/internal/render"
-	"github.com/supabase/cli/internal/sso/internal/saml"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/sso/internal/render"
+	"github.com/hk8xb/gentabase-cli/internal/sso/internal/saml"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 var Fs = afero.NewOsFs()
@@ -72,7 +72,7 @@ func Run(ctx context.Context, params RunParams) error {
 		body.NameIdFormat = cast.Ptr(api.CreateProviderBodyNameIdFormat(params.NameIDFormat))
 	}
 
-	resp, err := utils.GetSupabase().V1CreateASsoProviderWithResponse(ctx, params.ProjectRef, body)
+	resp, err := utils.GetGentabaseAPI().V1CreateASsoProviderWithResponse(ctx, params.ProjectRef, body)
 	if err != nil {
 		return errors.Errorf("failed to create sso provider: %w", err)
 	}

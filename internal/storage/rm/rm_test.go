@@ -9,14 +9,14 @@ import (
 	"github.com/oapi-codegen/nullable"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/fetcher"
-	"github.com/supabase/cli/pkg/storage"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 var mockFile = storage.ObjectResponse{
@@ -87,7 +87,7 @@ func TestStorageRM(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Delete("/storage/v1/object/private").
 			JSON(storage.DeleteObjectsRequest{Prefixes: []string{
 				"abstract.pdf",
@@ -124,38 +124,38 @@ func TestStorageRM(t *testing.T) {
 			Reply(http.StatusOK).
 			JSON(apiKeys)
 		// Delete /test/ bucket
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Post("/storage/v1/object/list/test").
 			Reply(http.StatusOK).
 			JSON([]storage.ObjectResponse{})
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Delete("/storage/v1/object/test").
 			JSON(storage.DeleteObjectsRequest{Prefixes: []string{
 				"",
 			}}).
 			Reply(http.StatusOK).
 			JSON([]storage.DeleteObjectsResponse{})
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Post("/storage/v1/object/list/test").
 			Reply(http.StatusOK).
 			JSON([]storage.ObjectResponse{})
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Delete("/storage/v1/bucket/test").
 			Reply(http.StatusNotFound).
 			JSON(map[string]string{"error": "Bucket not found"})
 		// Delete /private/docs/ directory
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Delete("/storage/v1/object/private").
 			JSON(storage.DeleteObjectsRequest{Prefixes: []string{
 				"docs",
 			}}).
 			Reply(http.StatusOK).
 			JSON([]storage.DeleteObjectsResponse{})
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Post("/storage/v1/object/list/private").
 			Reply(http.StatusOK).
 			JSON([]storage.ObjectResponse{mockFile})
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Delete("/storage/v1/object/private").
 			JSON(storage.DeleteObjectsRequest{Prefixes: []string{
 				"docs/abstract.pdf",
@@ -190,7 +190,7 @@ func TestStorageRM(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Delete("/storage/v1/object/private").
 			Reply(http.StatusServiceUnavailable)
 		// Run test

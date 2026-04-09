@@ -12,8 +12,8 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 var (
@@ -160,7 +160,7 @@ func splitLintsSQL() (string, string) {
 }
 
 func fetchSecurityAdvisors(ctx context.Context, projectRef string) ([]Lint, error) {
-	resp, err := utils.GetSupabase().V1GetSecurityAdvisorsWithResponse(ctx, projectRef, &api.V1GetSecurityAdvisorsParams{})
+	resp, err := utils.GetGentabaseAPI().V1GetSecurityAdvisorsWithResponse(ctx, projectRef, &api.V1GetSecurityAdvisorsParams{})
 	if err != nil {
 		return nil, errors.Errorf("failed to fetch security advisors: %w", err)
 	}
@@ -171,7 +171,7 @@ func fetchSecurityAdvisors(ctx context.Context, projectRef string) ([]Lint, erro
 }
 
 func fetchPerformanceAdvisors(ctx context.Context, projectRef string) ([]Lint, error) {
-	resp, err := utils.GetSupabase().V1GetPerformanceAdvisorsWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetPerformanceAdvisorsWithResponse(ctx, projectRef)
 	if err != nil {
 		return nil, errors.Errorf("failed to fetch performance advisors: %w", err)
 	}

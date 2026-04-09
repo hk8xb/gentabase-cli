@@ -3,8 +3,8 @@ package cmd
 import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/test/new"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/test/new"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 var (

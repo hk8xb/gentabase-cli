@@ -12,13 +12,13 @@ import (
 	"regexp"
 
 	"github.com/google/go-github/v62/github"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/tools/shared"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/tools/shared"
 )
 
 const (
-	SUPABASE_OWNER = "gentabase"
-	SUPABASE_REPO  = "gentabase"
+	GENTABASE_OWNER = "gentabase"
+	GENTABASE_REPO  = "gentabase"
 )
 
 func main() {
@@ -49,12 +49,12 @@ func updateRefDoc(ctx context.Context, path string, stdin io.Reader) error {
 	client := utils.GetGitHubClient(ctx)
 	branch := "cli/ref-doc"
 	master := "master"
-	if err := shared.CreateGitBranch(ctx, client, SUPABASE_OWNER, SUPABASE_REPO, branch, master); err != nil {
+	if err := shared.CreateGitBranch(ctx, client, GENTABASE_OWNER, GENTABASE_REPO, branch, master); err != nil {
 		return err
 	}
 	// Get original file
 	opts := github.RepositoryContentGetOptions{Ref: "heads/" + branch}
-	file, _, _, err := client.Repositories.GetContents(ctx, SUPABASE_OWNER, SUPABASE_REPO, path, &opts)
+	file, _, _, err := client.Repositories.GetContents(ctx, GENTABASE_OWNER, GENTABASE_REPO, path, &opts)
 	if err != nil {
 		return err
 	}
@@ -74,7 +74,7 @@ func updateRefDoc(ctx context.Context, path string, stdin io.Reader) error {
 		SHA:     file.SHA,
 		Branch:  &branch,
 	}
-	resp, _, err := client.Repositories.UpdateFile(ctx, SUPABASE_OWNER, SUPABASE_REPO, path, &commit)
+	resp, _, err := client.Repositories.UpdateFile(ctx, GENTABASE_OWNER, GENTABASE_REPO, path, &commit)
 	if err != nil {
 		return err
 	}
@@ -85,5 +85,5 @@ func updateRefDoc(ctx context.Context, path string, stdin io.Reader) error {
 		Head:  &branch,
 		Base:  &master,
 	}
-	return shared.CreatePullRequest(ctx, client, SUPABASE_OWNER, SUPABASE_REPO, pr)
+	return shared.CreatePullRequest(ctx, client, GENTABASE_OWNER, GENTABASE_REPO, pr)
 }

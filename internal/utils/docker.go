@@ -56,7 +56,7 @@ func NewDocker() *client.Client {
 
 const (
 	DinDHost            = "host.docker.internal"
-	CliProjectLabel     = "com.supabase.cli.project"
+	CliProjectLabel     = "com.gentabase.cli.project"
 	composeProjectLabel = "com.docker.compose.project"
 )
 
@@ -199,10 +199,13 @@ func GetRegistryImageUrl(imageName string) string {
 	if registry == "docker.io" {
 		return imageName
 	}
-	// Configure mirror registry
 	parts := strings.Split(imageName, "/")
-	imageName = parts[len(parts)-1]
-	return registry + "/supabase/" + imageName
+	if len(parts) > 0 && strings.Contains(parts[0], ".") {
+		// Already a full registry reference (e.g. ghcr.io/hk8xb/postgres:tag)
+		return imageName
+	}
+	imageBase := parts[len(parts)-1]
+	return registry + "/hk8xb/" + imageBase
 }
 
 func DockerImagePull(ctx context.Context, imageTag string, w io.Writer) error {

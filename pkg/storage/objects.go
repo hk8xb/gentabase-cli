@@ -13,7 +13,7 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
 )
 
 type ListObjectsQuery struct {
@@ -69,7 +69,7 @@ func ParseFileOptions(f fs.File, opts ...func(*FileOptions)) (*FileOptions, erro
 	for _, apply := range opts {
 		apply(fo)
 	}
-	// Use default value of storage-js: https://github.com/supabase/storage-js/blob/main/src/packages/StorageFileApi.ts#L22
+	// Default cache control for uploaded objects when not specified (typical CDN-style default).
 	if len(fo.CacheControl) == 0 {
 		fo.CacheControl = "max-age=3600"
 	}

@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func TestResolveExplicitDatabaseRef(t *testing.T) {
@@ -36,7 +36,7 @@ func TestResolveExplicitDatabaseRef(t *testing.T) {
 	t.Run("resolves linked database via provider", func(t *testing.T) {
 		ref, err := resolveExplicitDatabaseRef(context.Background(), "linked", fsys, func(context.Context, afero.Fs) (pgconn.Config, error) {
 			return pgconn.Config{
-				Host:     "db.abcdefghijklmnopqrst.supabase.co",
+				Host:     "db.abcdefghijklmnopqrst.gentabase.dev",
 				Port:     5432,
 				User:     "postgres",
 				Password: "secret",
@@ -45,7 +45,7 @@ func TestResolveExplicitDatabaseRef(t *testing.T) {
 		}, nil)
 
 		require.NoError(t, err)
-		assert.Equal(t, "postgresql://postgres:secret@db.abcdefghijklmnopqrst.supabase.co:5432/postgres?connect_timeout=10", ref)
+		assert.Equal(t, "postgresql://postgres:secret@db.abcdefghijklmnopqrst.gentabase.dev:5432/postgres?connect_timeout=10", ref)
 	})
 
 	t.Run("rejects unknown target", func(t *testing.T) {

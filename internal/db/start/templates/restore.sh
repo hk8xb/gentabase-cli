@@ -21,9 +21,9 @@ export PGPASSWORD="${POSTGRES_PASSWORD:-}"
 echo "$0: restoring roles"
 cat "/etc/backup.sql" \
 | grep 'CREATE ROLE' \
-| grep -v 'supabase_admin' \
+| grep -v 'gentabase_admin' \
 | sed -E 's/^(CREATE ROLE postgres);/\1 WITH SUPERUSER;/' \
-| psql -v ON_ERROR_STOP=1 --no-password --no-psqlrc -U supabase_admin
+| psql -v ON_ERROR_STOP=1 --no-password --no-psqlrc -U gentabase_admin
 
 echo "$0: restoring schema"
 cat "/etc/backup.sql" \
@@ -34,11 +34,11 @@ cat "/etc/backup.sql" \
 | sed -E 's/^GRANT ALL ON FUNCTION graphql_public\./-- &/' \
 | sed -E 's/^CREATE ROLE /-- &/' \
 | sed -e '/ALTER ROLE postgres WITH / { h; $p; d; }' -e '$G' \
-| psql -v ON_ERROR_STOP=1 --no-password --no-psqlrc -U supabase_admin
+| psql -v ON_ERROR_STOP=1 --no-password --no-psqlrc -U gentabase_admin
 
 # run any post migration script to update role passwords
 postinit="/etc/postgresql.schema.sql"
 if [ -e "$postinit" ]; then
     echo "$0: running $postinit"
-    psql -v ON_ERROR_STOP=1 --no-password --no-psqlrc -U supabase_admin -f "$postinit"
+    psql -v ON_ERROR_STOP=1 --no-password --no-psqlrc -U gentabase_admin -f "$postinit"
 fi

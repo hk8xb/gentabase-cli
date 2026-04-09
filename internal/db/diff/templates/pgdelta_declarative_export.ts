@@ -5,8 +5,8 @@ import {
   createPlan,
   deserializeCatalog,
   exportDeclarativeSchema,
-} from "npm:@supabase/pg-delta@1.0.0-alpha.9";
-import { supabase } from "npm:@supabase/pg-delta@1.0.0-alpha.9/integrations/supabase";
+} from "npm:@hk8xb/pg-delta@1.0.0-alpha.9";
+import { gentabase } from "npm:@hk8xb/pg-delta@1.0.0-alpha.9/integrations/gentabase";
 
 async function resolveInput(ref: string | undefined) {
   if (!ref) {
@@ -21,11 +21,11 @@ async function resolveInput(ref: string | undefined) {
 
 const source = Deno.env.get("SOURCE");
 const target = Deno.env.get("TARGET");
-supabase.filter = {
+gentabase.filter = {
   // Also allow dropped extensions from migrations to be capted in the declarative schema export
-  // TODO: fix upstream bug into pgdelta supabase integration
+  // TODO: fix upstream bug into pgdelta gentabase integration
   or: [
-    ...supabase.filter.or,
+    ...(gentabase.filter?.or ?? []),
     { type: "extension", operation: "drop", scope: "object" },
   ],
 };
@@ -33,8 +33,8 @@ supabase.filter = {
 const includedSchemas = Deno.env.get("INCLUDED_SCHEMAS");
 if (includedSchemas) {
   const schemaFilter = { schema: includedSchemas.split(",") };
-  supabase.filter = supabase.filter
-    ? { and: [supabase.filter, schemaFilter] }
+  gentabase.filter = gentabase.filter
+    ? { and: [gentabase.filter, schemaFilter] }
     : schemaFilter;
 }
 
@@ -49,7 +49,7 @@ try {
     await resolveInput(source),
     await resolveInput(target),
     {
-      ...supabase,
+      ...gentabase,
       skipDefaultPrivilegeSubtraction: true,
     },
   );

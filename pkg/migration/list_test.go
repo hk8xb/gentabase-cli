@@ -7,7 +7,7 @@ import (
 
 	"github.com/jackc/pgerrcode"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestRemoteMigrations(t *testing.T) {
@@ -29,7 +29,7 @@ func TestRemoteMigrations(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		conn.Query(LIST_MIGRATION_VERSION).
-			ReplyError(pgerrcode.UndefinedTable, "relation \"supabase_migrations.schema_migrations\" does not exist")
+			ReplyError(pgerrcode.UndefinedTable, "relation \"gentabase_migrations.schema_migrations\" does not exist")
 		// Run test
 		versions, err := ListRemoteMigrations(context.Background(), conn.MockClient(t))
 		// Check error

@@ -15,8 +15,8 @@ import (
 	mg "github.com/multigres/multigres/go/parser"
 	"github.com/multigres/multigres/go/parser/ast"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/parser"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/parser"
 )
 
 var (
@@ -678,7 +678,7 @@ var pattern = regexp.MustCompile(`(?s)\nschema_paths = \[(.*?)\]\n`)
 func appendConfig(fsys afero.Fs) error {
 	lines := []string{"\nschema_paths = ["}
 	for _, fp := range utils.Config.Db.Migrations.SchemaPaths {
-		relPath, err := filepath.Rel(utils.SupabaseDirPath, fp)
+		relPath, err := filepath.Rel(utils.GentabaseDirPath, fp)
 		if err != nil {
 			return errors.Errorf("failed to resolve path: %w", err)
 		}

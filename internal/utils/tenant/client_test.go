@@ -8,9 +8,9 @@ import (
 	"github.com/h2non/gock"
 	"github.com/oapi-codegen/nullable"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func TestApiKey(t *testing.T) {
@@ -138,7 +138,7 @@ func TestNewTenantAPI(t *testing.T) {
 	assert.NotNil(t, api.Fetcher)
 
 	defer gock.OffAll()
-	gock.New("https://"+utils.GetSupabaseHost(projectRef)).
+	gock.New("https://"+utils.GetGentabaseHost(projectRef)).
 		Get("/test").
 		MatchHeader("Authorization", "Bearer "+anonKey).
 		MatchHeader("User-Agent", "GentabaseCLI/"+utils.Version).

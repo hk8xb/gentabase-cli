@@ -9,9 +9,9 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 func TestGenerateKeyPair(t *testing.T) {
@@ -146,7 +146,7 @@ func TestSigningKey(t *testing.T) {
 func TestAppendKey(t *testing.T) {
 	// Setup in-memory fs
 	fsys := afero.NewMemMapFs()
-	keyPath := filepath.Join(utils.SupabaseDirPath, "signing_keys.json")
+	keyPath := filepath.Join(utils.GentabaseDirPath, "signing_keys.json")
 	require.NoError(t, utils.WriteFile(keyPath, []byte(`[]`), fsys))
 	require.NoError(t, utils.WriteFile(utils.ConfigPath, []byte(`
 [auth]

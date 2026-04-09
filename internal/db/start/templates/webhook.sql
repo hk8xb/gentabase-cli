@@ -3,36 +3,36 @@ BEGIN;
 -- Create pg_net extension
 CREATE EXTENSION IF NOT EXISTS pg_net SCHEMA extensions;
 
--- Create supabase_functions schema
-CREATE SCHEMA supabase_functions AUTHORIZATION supabase_admin;
+-- Create gentabase_functions schema
+CREATE SCHEMA gentabase_functions AUTHORIZATION gentabase_admin;
 
-GRANT USAGE ON SCHEMA supabase_functions TO postgres, anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES IN SCHEMA supabase_functions GRANT ALL ON TABLES TO postgres, anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES IN SCHEMA supabase_functions GRANT ALL ON FUNCTIONS TO postgres, anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES IN SCHEMA supabase_functions GRANT ALL ON SEQUENCES TO postgres, anon, authenticated, service_role;
+GRANT USAGE ON SCHEMA gentabase_functions TO postgres, anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA gentabase_functions GRANT ALL ON TABLES TO postgres, anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA gentabase_functions GRANT ALL ON FUNCTIONS TO postgres, anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA gentabase_functions GRANT ALL ON SEQUENCES TO postgres, anon, authenticated, service_role;
 
--- supabase_functions.migrations definition
-CREATE TABLE supabase_functions.migrations (
+-- gentabase_functions.migrations definition
+CREATE TABLE gentabase_functions.migrations (
   version text PRIMARY KEY,
   inserted_at timestamptz NOT NULL DEFAULT NOW()
 );
 
--- Initial supabase_functions migration
-INSERT INTO supabase_functions.migrations (version) VALUES ('initial');
+-- Initial gentabase_functions migration
+INSERT INTO gentabase_functions.migrations (version) VALUES ('initial');
 
--- supabase_functions.hooks definition
-CREATE TABLE supabase_functions.hooks (
+-- gentabase_functions.hooks definition
+CREATE TABLE gentabase_functions.hooks (
   id bigserial PRIMARY KEY,
   hook_table_id integer NOT NULL,
   hook_name text NOT NULL,
   created_at timestamptz NOT NULL DEFAULT NOW(),
   request_id bigint
 );
-CREATE INDEX supabase_functions_hooks_request_id_idx ON supabase_functions.hooks USING btree (request_id);
-CREATE INDEX supabase_functions_hooks_h_table_id_h_name_idx ON supabase_functions.hooks USING btree (hook_table_id, hook_name);
-COMMENT ON TABLE supabase_functions.hooks IS 'Supabase Functions Hooks: Audit trail for triggered hooks.';
+CREATE INDEX gentabase_functions_hooks_request_id_idx ON gentabase_functions.hooks USING btree (request_id);
+CREATE INDEX gentabase_functions_hooks_h_table_id_h_name_idx ON gentabase_functions.hooks USING btree (hook_table_id, hook_name);
+COMMENT ON TABLE gentabase_functions.hooks IS 'Gentabase Functions Hooks: Audit trail for triggered hooks.';
 
-CREATE FUNCTION supabase_functions.http_request()
+CREATE FUNCTION gentabase_functions.http_request()
   RETURNS trigger
   LANGUAGE plpgsql
   AS $function$
@@ -99,7 +99,7 @@ CREATE FUNCTION supabase_functions.http_request()
         RAISE EXCEPTION 'method argument % is invalid', method;
     END CASE;
 
-    INSERT INTO supabase_functions.hooks
+    INSERT INTO gentabase_functions.hooks
       (hook_table_id, hook_name, request_id)
     VALUES
       (TG_RELID, TG_NAME, request_id);
@@ -108,43 +108,43 @@ CREATE FUNCTION supabase_functions.http_request()
   END
 $function$;
 
--- Supabase super admin
+-- Gentabase super admin
 DO
 $$
 BEGIN
   IF NOT EXISTS (
     SELECT 1
     FROM pg_roles
-    WHERE rolname = 'supabase_functions_admin'
+    WHERE rolname = 'gentabase_functions_admin'
   )
   THEN
-    CREATE USER supabase_functions_admin NOINHERIT CREATEROLE LOGIN NOREPLICATION;
+    CREATE USER gentabase_functions_admin NOINHERIT CREATEROLE LOGIN NOREPLICATION;
   END IF;
 END
 $$;
 
-GRANT ALL PRIVILEGES ON SCHEMA supabase_functions TO supabase_functions_admin;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA supabase_functions TO supabase_functions_admin;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA supabase_functions TO supabase_functions_admin;
-ALTER USER supabase_functions_admin SET search_path = "supabase_functions";
-ALTER table "supabase_functions".migrations OWNER TO supabase_functions_admin;
-ALTER table "supabase_functions".hooks OWNER TO supabase_functions_admin;
-ALTER function "supabase_functions".http_request() OWNER TO supabase_functions_admin;
-GRANT supabase_functions_admin TO postgres;
+GRANT ALL PRIVILEGES ON SCHEMA gentabase_functions TO gentabase_functions_admin;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA gentabase_functions TO gentabase_functions_admin;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA gentabase_functions TO gentabase_functions_admin;
+ALTER USER gentabase_functions_admin SET search_path = "gentabase_functions";
+ALTER table "gentabase_functions".migrations OWNER TO gentabase_functions_admin;
+ALTER table "gentabase_functions".hooks OWNER TO gentabase_functions_admin;
+ALTER function "gentabase_functions".http_request() OWNER TO gentabase_functions_admin;
+GRANT gentabase_functions_admin TO postgres;
 
--- Remove unused supabase_pg_net_admin role
+-- Remove unused gentabase_pg_net_admin role
 DO
 $$
 BEGIN
   IF EXISTS (
     SELECT 1
     FROM pg_roles
-    WHERE rolname = 'supabase_pg_net_admin'
+    WHERE rolname = 'gentabase_pg_net_admin'
   )
   THEN
-    REASSIGN OWNED BY supabase_pg_net_admin TO supabase_admin;
-    DROP OWNED BY supabase_pg_net_admin;
-    DROP ROLE supabase_pg_net_admin;
+    REASSIGN OWNED BY gentabase_pg_net_admin TO gentabase_admin;
+    DROP OWNED BY gentabase_pg_net_admin;
+    DROP ROLE gentabase_pg_net_admin;
   END IF;
 END
 $$;
@@ -159,7 +159,7 @@ BEGIN
     WHERE extname = 'pg_net'
   )
   THEN
-    GRANT USAGE ON SCHEMA net TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT USAGE ON SCHEMA net TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
 
     ALTER function net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
     ALTER function net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
@@ -170,8 +170,8 @@ BEGIN
     REVOKE ALL ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) FROM PUBLIC;
     REVOKE ALL ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) FROM PUBLIC;
 
-    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
-    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
   END IF;
 END
 $$;
@@ -190,7 +190,7 @@ BEGIN
     WHERE ext.extname = 'pg_net'
   )
   THEN
-    GRANT USAGE ON SCHEMA net TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT USAGE ON SCHEMA net TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
 
     ALTER function net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
     ALTER function net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
@@ -201,8 +201,8 @@ BEGIN
     REVOKE ALL ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) FROM PUBLIC;
     REVOKE ALL ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) FROM PUBLIC;
 
-    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
-    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
   END IF;
 END;
 $$;
@@ -222,11 +222,11 @@ BEGIN
 END
 $$;
 
-INSERT INTO supabase_functions.migrations (version) VALUES ('20210809183423_update_grants');
+INSERT INTO gentabase_functions.migrations (version) VALUES ('20210809183423_update_grants');
 
-ALTER function supabase_functions.http_request() SECURITY DEFINER;
-ALTER function supabase_functions.http_request() SET search_path = supabase_functions;
-REVOKE ALL ON FUNCTION supabase_functions.http_request() FROM PUBLIC;
-GRANT EXECUTE ON FUNCTION supabase_functions.http_request() TO postgres, anon, authenticated, service_role;
+ALTER function gentabase_functions.http_request() SECURITY DEFINER;
+ALTER function gentabase_functions.http_request() SET search_path = gentabase_functions;
+REVOKE ALL ON FUNCTION gentabase_functions.http_request() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION gentabase_functions.http_request() TO postgres, anon, authenticated, service_role;
 
 COMMIT;

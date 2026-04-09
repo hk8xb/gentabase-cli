@@ -13,7 +13,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 const (
@@ -135,7 +135,7 @@ func (w *debounceFileWatcher) SetWatchPaths(watchPaths []string, fsys afero.Fs) 
 			}
 			return nil
 		}); errors.Is(err, errTooManyFiles) {
-			fmt.Fprintf(os.Stderr, "%s\nYou can increase this limit by setting SUPABASE_FUNCTIONS_WATCH_LIMIT=%d", err.Error(), watchLimit<<2)
+			fmt.Fprintf(os.Stderr, "%s\nYou can increase this limit by setting GENTABASE_FUNCTIONS_WATCH_LIMIT=%d", err.Error(), watchLimit<<2)
 		} else if err != nil {
 			return err
 		}

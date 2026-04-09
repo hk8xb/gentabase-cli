@@ -1,4 +1,4 @@
-module github.com/supabase/cli
+module github.com/hk8xb/gentabase-cli
 
 go 1.25.5
 
@@ -32,6 +32,7 @@ require (
 	github.com/google/jsonschema-go v0.4.2
 	github.com/google/uuid v1.6.0
 	github.com/h2non/gock v1.2.0
+	github.com/hk8xb/gentabase-cli/pkg v1.0.0
 	github.com/jackc/pgconn v1.14.3
 	github.com/jackc/pgerrcode v0.0.0-20240316143900-6e2875d9b438
 	github.com/jackc/pgproto3/v2 v2.3.3
@@ -42,6 +43,7 @@ require (
 	github.com/multigres/multigres v0.0.0-20260126223308-f5a52171bbc4
 	github.com/oapi-codegen/nullable v1.1.0
 	github.com/olekukonko/tablewriter v1.1.4
+	github.com/posthog/posthog-go v1.11.2
 	github.com/slack-go/slack v0.21.0
 	github.com/spf13/afero v1.15.0
 	github.com/spf13/cobra v1.10.2
@@ -49,7 +51,6 @@ require (
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/stripe/pg-schema-diff v1.0.5
-	github.com/supabase/cli/pkg v1.0.0
 	github.com/tidwall/jsonc v0.3.3
 	github.com/withfig/autocomplete-tools/packages/cobra v1.2.0
 	github.com/zalando/go-keyring v0.2.8
@@ -334,7 +335,6 @@ require (
 	github.com/planetscale/vtprotobuf v0.6.1-0.20240319094008-0393e58bdf10 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/polyfloyd/go-errorlint v1.8.0 // indirect
-	github.com/posthog/posthog-go v1.11.2 // indirect
 	github.com/prometheus/client_golang v1.23.2 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.67.4 // indirect
@@ -460,7 +460,7 @@ require (
 	tags.cncf.io/container-device-interface v1.0.1 // indirect
 )
 
-replace github.com/supabase/cli/pkg v1.0.0 => ./pkg
+replace github.com/hk8xb/gentabase-cli/pkg v1.0.0 => ./pkg
 
 replace github.com/fsnotify/fsevents v0.2.0 => ./fsevents
 

@@ -3,10 +3,10 @@ package cmd
 import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/postgresConfig/delete"
-	"github.com/supabase/cli/internal/postgresConfig/get"
-	"github.com/supabase/cli/internal/postgresConfig/update"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/postgresConfig/delete"
+	"github.com/hk8xb/gentabase-cli/internal/postgresConfig/get"
+	"github.com/hk8xb/gentabase-cli/internal/postgresConfig/update"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 )
 
 var (

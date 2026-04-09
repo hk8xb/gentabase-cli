@@ -13,14 +13,14 @@ import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/db/declarative"
-	"github.com/supabase/cli/internal/db/reset"
-	"github.com/supabase/cli/internal/db/start"
-	"github.com/supabase/cli/internal/migration/new"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/internal/db/declarative"
+	"github.com/hk8xb/gentabase-cli/internal/db/reset"
+	"github.com/hk8xb/gentabase-cli/internal/db/start"
+	"github.com/hk8xb/gentabase-cli/internal/migration/new"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
 	"golang.org/x/term"
 )
 
@@ -157,7 +157,7 @@ func runDeclarativeGenerate(cmd *cobra.Command, args []string) error {
 
 	// When an explicit target flag is provided, use the direct path.
 	if hasExplicitTargetFlag(cmd) {
-		if err := ensureLocalDatabaseStarted(ctx, declarativeLocal, utils.AssertSupabaseDbIsRunning, func(ctx context.Context) error {
+		if err := ensureLocalDatabaseStarted(ctx, declarativeLocal, utils.AssertGentabaseDbIsRunning, func(ctx context.Context) error {
 			return start.Run(ctx, "", fsys)
 		}); err != nil {
 			return err
@@ -216,7 +216,7 @@ func runDeclarativeGenerate(cmd *cobra.Command, args []string) error {
 
 		switch choice.Index {
 		case 0: // Local database
-			if err := ensureLocalDatabaseStarted(ctx, true, utils.AssertSupabaseDbIsRunning, func(ctx context.Context) error {
+			if err := ensureLocalDatabaseStarted(ctx, true, utils.AssertGentabaseDbIsRunning, func(ctx context.Context) error {
 				return start.Run(ctx, "", fsys)
 			}); err != nil {
 				return err
@@ -258,7 +258,7 @@ func runDeclarativeGenerate(cmd *cobra.Command, args []string) error {
 		}
 	} else {
 		// No migrations — generate from local DB
-		if err := ensureLocalDatabaseStarted(ctx, true, utils.AssertSupabaseDbIsRunning, func(ctx context.Context) error {
+		if err := ensureLocalDatabaseStarted(ctx, true, utils.AssertGentabaseDbIsRunning, func(ctx context.Context) error {
 			return start.Run(ctx, "", fsys)
 		}); err != nil {
 			return err

@@ -7,14 +7,14 @@ import (
 	"strings"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 func Run(ctx context.Context) error {
-	resp, err := utils.GetSupabase().V1ListAllBackupsWithResponse(ctx, flags.ProjectRef)
+	resp, err := utils.GetGentabaseAPI().V1ListAllBackupsWithResponse(ctx, flags.ProjectRef)
 	if err != nil {
 		return errors.Errorf("failed to list physical backups: %w", err)
 	} else if resp.JSON200 == nil {

@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	cli "github.com/supabase/cli/cmd"
-	"github.com/supabase/cli/internal/utils"
+	cli "github.com/hk8xb/gentabase-cli/cmd"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 	"gopkg.in/yaml.v3"
 )
 
@@ -22,7 +22,7 @@ var (
 	examples map[string][]ExampleDoc
 	//go:embed templates/examples.yaml
 	exampleSpec string
-	//go:embed supabase/*
+	//go:embed gentabase/*
 	docsDir embed.FS
 )
 
@@ -59,7 +59,7 @@ func generate(version string) error {
 			Language:    "sh",
 			Source:      "https://github.com/hk8xb/gentabase-cli",
 			Bugs:        "https://github.com/hk8xb/gentabase-cli/issues",
-			Spec:        "https://github.com/supabase/spec/cli_v1_commands.yaml",
+			Spec:        "https://github.com/hk8xb/gentabase-spec/cli_v1_commands.yaml",
 			Tags:        getTags(root),
 		},
 	}

@@ -16,8 +16,8 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func TestStopCommand(t *testing.T) {
@@ -90,7 +90,7 @@ func TestStopCommand(t *testing.T) {
 			gock.New(utils.Docker.DaemonHost()).
 				Get("/v"+utils.Docker.ClientVersion()+"/containers/json").
 				MatchParam("all", "1").
-				MatchParam("filters", fmt.Sprintf(`{"label":{"com.supabase.cli.project=%s":true}}`, projectId)).
+				MatchParam("filters", fmt.Sprintf(`{"label":{"com.gentabase.cli.project=%s":true}}`, projectId)).
 				Reply(http.StatusOK).
 				JSON([]container.Summary{{ID: "container-" + projectId, State: "running"}})
 
@@ -109,7 +109,7 @@ func TestStopCommand(t *testing.T) {
 				JSON(network.PruneReport{})
 			gock.New(utils.Docker.DaemonHost()).
 				Get("/v"+utils.Docker.ClientVersion()+"/volumes").
-				MatchParam("filters", fmt.Sprintf(`{"label":{"com.supabase.cli.project=%s":true}}`, projectId)).
+				MatchParam("filters", fmt.Sprintf(`{"label":{"com.gentabase.cli.project=%s":true}}`, projectId)).
 				Reply(http.StatusOK).
 				JSON(volume.ListResponse{Volumes: []*volume.Volume{{Name: "volume-" + projectId}}})
 		}

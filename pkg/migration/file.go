@@ -17,7 +17,7 @@ import (
 	"github.com/jackc/pgtype"
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/pkg/parser"
+	"github.com/hk8xb/gentabase-cli/pkg/parser"
 )
 
 type MigrationFile struct {
@@ -105,7 +105,7 @@ func (m *MigrationFile) ExecBatch(ctx context.Context, conn *pgx.Conn) error {
 				msg = append(msg, "Hint: This type may be defined in a schema that's not in your search_path.")
 				msg = append(msg, "      Use schema-qualified type references to avoid this error:")
 				msg = append(msg, fmt.Sprintf("        CREATE TABLE example (col extensions.%s);", typeName))
-				msg = append(msg, "      Learn more: supabase migration new --help")
+				msg = append(msg, "      Learn more: gentabase migration new --help")
 			}
 		}
 		msg = append(msg, fmt.Sprintf("At statement: %d", i), stat)

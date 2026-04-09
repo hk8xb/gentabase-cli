@@ -6,7 +6,7 @@ import (
 
 	"github.com/jackc/pgerrcode"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestDropSchemas(t *testing.T) {
@@ -27,10 +27,10 @@ func TestDropSchemas(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		conn.Query(DropObjects).
-			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation supabase_migrations")
+			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation gentabase_migrations")
 		// Run test
 		err := DropUserSchemas(context.Background(), conn.MockClient(t))
 		// Check error
-		assert.ErrorContains(t, err, "ERROR: permission denied for relation supabase_migrations (SQLSTATE 42501)")
+		assert.ErrorContains(t, err, "ERROR: permission denied for relation gentabase_migrations (SQLSTATE 42501)")
 	})
 }

@@ -29,10 +29,10 @@ Rerun the failing command with `--create-ticket` flag.
  - Version of OS: [e.g. Ubuntu 22.04]
  - Version of CLI: [e.g. v1.60.0]
  - Version of Docker: [e.g. v25.0.3]
- - Versions of services: [output from `supabase services` command]
+ - Versions of services: [output from `gentabase services` command]
 
 **Additional context**
 If applicable, add any other context about the problem here.
  - Browser [e.g. chrome, safari]
- - Version of supabase-js [e.g. v2.22.0]
+ - Version of gentabase-js [e.g. v2.22.0]
  - Version of Node.js [e.g. v16.20.0]

@@ -123,19 +123,19 @@ var (
 		"GITHUB_TOKEN",
 		"GITHUB_HEAD_REF",
 		"BITBUCKET_CLONE_DIR",
-		// Gentabase CLI environment signals (includes SUPABASE_* names for SDK compatibility)
+		// Gentabase CLI environment signals (includes GENTABASE_* names for SDK compatibility)
 		"GENTABASE_ACCESS_TOKEN",
-		"SUPABASE_HOME",
+		"GENTABASE_HOME",
 		"SYSTEMROOT",
-		"SUPABASE_SSL_DEBUG",
-		"SUPABASE_CA_SKIP_VERIFY",
+		"GENTABASE_SSL_DEBUG",
+		"GENTABASE_CA_SKIP_VERIFY",
 		"SSL_CERT_FILE",
 		"SSL_CERT_DIR",
 		"NPM_CONFIG_REGISTRY",
-		"SUPABASE_SERVICE_ROLE_KEY",
-		"SUPABASE_PROJECT_ID",
-		"SUPABASE_POSTGRES_URL",
-		"SUPABASE_ENV",
+		"GENTABASE_SERVICE_ROLE_KEY",
+		"GENTABASE_PROJECT_ID",
+		"GENTABASE_POSTGRES_URL",
+		"GENTABASE_ENV",
 	}
 
 	// EnvSignalValueKeys lists environment variables whose trimmed values may be

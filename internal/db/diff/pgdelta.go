@@ -11,8 +11,8 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
-	"github.com/supabase/cli/internal/gen/types"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/gen/types"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 //go:embed templates/pgdelta.ts

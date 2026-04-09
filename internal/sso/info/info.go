@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/supabase/cli/internal/sso/internal/render"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/sso/internal/render"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, ref string, format string) error {
@@ -15,9 +15,9 @@ func Run(ctx context.Context, ref string, format string) error {
 		return render.InfoMarkdown(ref)
 	default:
 		return utils.EncodeOutput(format, os.Stdout, map[string]string{
-			"acs_url":     fmt.Sprintf("https://%s.supabase.co/auth/v1/sso/saml/acs", ref),
-			"entity_id":   fmt.Sprintf("https://%s.supabase.co/auth/v1/sso/saml/metadata", ref),
-			"relay_state": fmt.Sprintf("https://%s.supabase.co", ref),
+			"acs_url":     fmt.Sprintf("https://%s.gentabase.dev/auth/v1/sso/saml/acs", ref),
+			"entity_id":   fmt.Sprintf("https://%s.gentabase.dev/auth/v1/sso/saml/metadata", ref),
+			"relay_state": fmt.Sprintf("https://%s.gentabase.dev", ref),
 		})
 	}
 }

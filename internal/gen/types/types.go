@@ -17,8 +17,8 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 const (
@@ -45,7 +45,7 @@ func Run(ctx context.Context, projectId string, dbConfig pgconn.Config, lang str
 		if lang != LangTypescript {
 			return errors.Errorf("Unable to generate %s types for selected project. Try using --db-url flag instead.", lang)
 		}
-		resp, err := utils.GetSupabase().V1GenerateTypescriptTypesWithResponse(ctx, projectId, &api.V1GenerateTypescriptTypesParams{
+		resp, err := utils.GetGentabaseAPI().V1GenerateTypescriptTypesWithResponse(ctx, projectId, &api.V1GenerateTypescriptTypesParams{
 			IncludedSchemas: &included,
 		})
 		if err != nil {
@@ -62,7 +62,7 @@ func Run(ctx context.Context, projectId string, dbConfig pgconn.Config, lang str
 
 	hostConfig := container.HostConfig{}
 	if utils.IsLocalDatabase(dbConfig) {
-		if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+		if err := utils.AssertGentabaseDbIsRunning(); err != nil {
 			return err
 		}
 
@@ -127,9 +127,9 @@ func GetRootCA(ctx context.Context, dbURL string, options ...func(*pgx.ConnConfi
 		debugf = LogSSLDebugf
 	}
 	debugf("GetRootCA start db_url=%s", redactPostgresURL(dbURL))
-	debugf("env SUPABASE_CA_SKIP_VERIFY=%q SUPABASE_SSL_DEBUG=%q PGSSLROOTCERT=%q SSL_CERT_FILE=%q SSL_CERT_DIR=%q",
-		os.Getenv("SUPABASE_CA_SKIP_VERIFY"),
-		os.Getenv("SUPABASE_SSL_DEBUG"),
+	debugf("env GENTABASE_CA_SKIP_VERIFY=%q GENTABASE_SSL_DEBUG=%q PGSSLROOTCERT=%q SSL_CERT_FILE=%q SSL_CERT_DIR=%q",
+		os.Getenv("GENTABASE_CA_SKIP_VERIFY"),
+		os.Getenv("GENTABASE_SSL_DEBUG"),
 		os.Getenv("PGSSLROOTCERT"),
 		os.Getenv("SSL_CERT_FILE"),
 		os.Getenv("SSL_CERT_DIR"),
@@ -153,14 +153,14 @@ func isRequireSSL(ctx context.Context, dbUrl string, options ...func(*pgx.ConnCo
 		debugf = LogSSLDebugf
 	}
 	// pgx v4's sslmode=require verifies the server certificate against system CAs,
-	// unlike libpq where require skips verification. When SUPABASE_CA_SKIP_VERIFY=true,
+	// unlike libpq where require skips verification. When GENTABASE_CA_SKIP_VERIFY=true,
 	// skip verification for this probe only (detects whether the server speaks TLS).
 	// pgconn may still install VerifyPeerCertificate callback when sslrootcert is set,
 	// so we also clear custom verification callbacks on all TLS configs.
 	// Cert validation happens downstream in the migra/pgdelta Deno scripts using GetRootCA.
 	opts := append([]func(*pgx.ConnConfig){}, options...)
-	if os.Getenv("SUPABASE_CA_SKIP_VERIFY") == "true" {
-		fmt.Fprintln(os.Stderr, "WARNING: TLS certificate verification disabled for SSL probe (SUPABASE_CA_SKIP_VERIFY=true)")
+	if os.Getenv("GENTABASE_CA_SKIP_VERIFY") == "true" {
+		fmt.Fprintln(os.Stderr, "WARNING: TLS certificate verification disabled for SSL probe (GENTABASE_CA_SKIP_VERIFY=true)")
 		opts = append(opts, func(cc *pgx.ConnConfig) {
 			// #nosec G402 -- Intentionally skipped for this TLS capability probe only.
 			// Downstream migra/pgdelta flows still validate certificates using GetRootCA.
@@ -179,7 +179,7 @@ func isRequireSSL(ctx context.Context, dbUrl string, options ...func(*pgx.ConnCo
 			}
 		})
 	}
-	debugf("isRequireSSL probe db_url=%s skip_verify=%t", redactPostgresURL(dbUrl), os.Getenv("SUPABASE_CA_SKIP_VERIFY") == "true")
+	debugf("isRequireSSL probe db_url=%s skip_verify=%t", redactPostgresURL(dbUrl), os.Getenv("GENTABASE_CA_SKIP_VERIFY") == "true")
 	if IsSSLDebugEnabled() {
 		opts = append(opts, logTLSConfigState("isRequireSSL", dbUrl))
 	}
@@ -199,7 +199,7 @@ func isRequireSSL(ctx context.Context, dbUrl string, options ...func(*pgx.ConnCo
 }
 
 func IsSSLDebugEnabled() bool {
-	return strings.EqualFold(os.Getenv("SUPABASE_SSL_DEBUG"), "true")
+	return strings.EqualFold(os.Getenv("GENTABASE_SSL_DEBUG"), "true")
 }
 
 func LogSSLDebugf(format string, args ...any) {

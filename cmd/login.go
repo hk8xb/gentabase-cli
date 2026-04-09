@@ -8,8 +8,8 @@ import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/login"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/login"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 	"golang.org/x/term"
 )
 

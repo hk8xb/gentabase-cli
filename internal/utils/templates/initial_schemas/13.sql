@@ -35,13 +35,13 @@ CREATE SCHEMA IF NOT EXISTS _realtime;
 ALTER SCHEMA _realtime OWNER TO postgres;
 
 --
--- Name: auth; Type: SCHEMA; Schema: -; Owner: supabase_admin
+-- Name: auth; Type: SCHEMA; Schema: -; Owner: gentabase_admin
 --
 
 CREATE SCHEMA IF NOT EXISTS auth;
 
 
-ALTER SCHEMA auth OWNER TO supabase_admin;
+ALTER SCHEMA auth OWNER TO gentabase_admin;
 
 --
 -- Name: extensions; Type: SCHEMA; Schema: -; Owner: postgres
@@ -53,13 +53,13 @@ CREATE SCHEMA IF NOT EXISTS extensions;
 ALTER SCHEMA extensions OWNER TO postgres;
 
 --
--- Name: graphql_public; Type: SCHEMA; Schema: -; Owner: supabase_admin
+-- Name: graphql_public; Type: SCHEMA; Schema: -; Owner: gentabase_admin
 --
 
 CREATE SCHEMA IF NOT EXISTS graphql_public;
 
 
-ALTER SCHEMA graphql_public OWNER TO supabase_admin;
+ALTER SCHEMA graphql_public OWNER TO gentabase_admin;
 
 --
 -- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
@@ -71,22 +71,22 @@ ALTER SCHEMA graphql_public OWNER TO supabase_admin;
 ALTER SCHEMA public OWNER TO postgres;
 
 --
--- Name: realtime; Type: SCHEMA; Schema: -; Owner: supabase_admin
+-- Name: realtime; Type: SCHEMA; Schema: -; Owner: gentabase_admin
 --
 
 CREATE SCHEMA IF NOT EXISTS realtime;
 
 
-ALTER SCHEMA realtime OWNER TO supabase_admin;
+ALTER SCHEMA realtime OWNER TO gentabase_admin;
 
 --
--- Name: storage; Type: SCHEMA; Schema: -; Owner: supabase_admin
+-- Name: storage; Type: SCHEMA; Schema: -; Owner: gentabase_admin
 --
 
 CREATE SCHEMA IF NOT EXISTS storage;
 
 
-ALTER SCHEMA storage OWNER TO supabase_admin;
+ALTER SCHEMA storage OWNER TO gentabase_admin;
 
 --
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
@@ -131,7 +131,7 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 
 
 --
--- Name: aal_level; Type: TYPE; Schema: auth; Owner: supabase_auth_admin
+-- Name: aal_level; Type: TYPE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TYPE auth.aal_level AS ENUM (
@@ -141,10 +141,10 @@ CREATE TYPE auth.aal_level AS ENUM (
 );
 
 
-ALTER TYPE auth.aal_level OWNER TO supabase_auth_admin;
+ALTER TYPE auth.aal_level OWNER TO gentabase_auth_admin;
 
 --
--- Name: code_challenge_method; Type: TYPE; Schema: auth; Owner: supabase_auth_admin
+-- Name: code_challenge_method; Type: TYPE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TYPE auth.code_challenge_method AS ENUM (
@@ -153,10 +153,10 @@ CREATE TYPE auth.code_challenge_method AS ENUM (
 );
 
 
-ALTER TYPE auth.code_challenge_method OWNER TO supabase_auth_admin;
+ALTER TYPE auth.code_challenge_method OWNER TO gentabase_auth_admin;
 
 --
--- Name: factor_status; Type: TYPE; Schema: auth; Owner: supabase_auth_admin
+-- Name: factor_status; Type: TYPE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TYPE auth.factor_status AS ENUM (
@@ -165,10 +165,10 @@ CREATE TYPE auth.factor_status AS ENUM (
 );
 
 
-ALTER TYPE auth.factor_status OWNER TO supabase_auth_admin;
+ALTER TYPE auth.factor_status OWNER TO gentabase_auth_admin;
 
 --
--- Name: factor_type; Type: TYPE; Schema: auth; Owner: supabase_auth_admin
+-- Name: factor_type; Type: TYPE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TYPE auth.factor_type AS ENUM (
@@ -177,10 +177,10 @@ CREATE TYPE auth.factor_type AS ENUM (
 );
 
 
-ALTER TYPE auth.factor_type OWNER TO supabase_auth_admin;
+ALTER TYPE auth.factor_type OWNER TO gentabase_auth_admin;
 
 --
--- Name: email(); Type: FUNCTION; Schema: auth; Owner: supabase_auth_admin
+-- Name: email(); Type: FUNCTION; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE OR REPLACE FUNCTION auth.email() RETURNS text
@@ -194,17 +194,17 @@ CREATE OR REPLACE FUNCTION auth.email() RETURNS text
 $$;
 
 
-ALTER FUNCTION auth.email() OWNER TO supabase_auth_admin;
+ALTER FUNCTION auth.email() OWNER TO gentabase_auth_admin;
 
 --
--- Name: FUNCTION email(); Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: FUNCTION email(); Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON FUNCTION auth.email() IS 'Deprecated. Use auth.jwt() -> ''email'' instead.';
 
 
 --
--- Name: jwt(); Type: FUNCTION; Schema: auth; Owner: supabase_auth_admin
+-- Name: jwt(); Type: FUNCTION; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE OR REPLACE FUNCTION auth.jwt() RETURNS jsonb
@@ -218,10 +218,10 @@ CREATE OR REPLACE FUNCTION auth.jwt() RETURNS jsonb
 $$;
 
 
-ALTER FUNCTION auth.jwt() OWNER TO supabase_auth_admin;
+ALTER FUNCTION auth.jwt() OWNER TO gentabase_auth_admin;
 
 --
--- Name: role(); Type: FUNCTION; Schema: auth; Owner: supabase_auth_admin
+-- Name: role(); Type: FUNCTION; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE OR REPLACE FUNCTION auth.role() RETURNS text
@@ -235,17 +235,17 @@ CREATE OR REPLACE FUNCTION auth.role() RETURNS text
 $$;
 
 
-ALTER FUNCTION auth.role() OWNER TO supabase_auth_admin;
+ALTER FUNCTION auth.role() OWNER TO gentabase_auth_admin;
 
 --
--- Name: FUNCTION role(); Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: FUNCTION role(); Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON FUNCTION auth.role() IS 'Deprecated. Use auth.jwt() -> ''role'' instead.';
 
 
 --
--- Name: uid(); Type: FUNCTION; Schema: auth; Owner: supabase_auth_admin
+-- Name: uid(); Type: FUNCTION; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE OR REPLACE FUNCTION auth.uid() RETURNS uuid
@@ -259,10 +259,10 @@ CREATE OR REPLACE FUNCTION auth.uid() RETURNS uuid
 $$;
 
 
-ALTER FUNCTION auth.uid() OWNER TO supabase_auth_admin;
+ALTER FUNCTION auth.uid() OWNER TO gentabase_auth_admin;
 
 --
--- Name: FUNCTION uid(); Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: FUNCTION uid(); Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON FUNCTION auth.uid() IS 'Deprecated. Use auth.jwt() -> ''sub'' instead.';
@@ -293,11 +293,11 @@ BEGIN
     alter default privileges in schema cron grant all on functions to postgres with grant option;
     alter default privileges in schema cron grant all on sequences to postgres with grant option;
 
-    alter default privileges for user supabase_admin in schema cron grant all
+    alter default privileges for user gentabase_admin in schema cron grant all
         on sequences to postgres with grant option;
-    alter default privileges for user supabase_admin in schema cron grant all
+    alter default privileges for user gentabase_admin in schema cron grant all
         on tables to postgres with grant option;
-    alter default privileges for user supabase_admin in schema cron grant all
+    alter default privileges for user gentabase_admin in schema cron grant all
         on functions to postgres with grant option;
 
     grant all privileges on all tables in schema cron to postgres with grant option; 
@@ -318,7 +318,7 @@ COMMENT ON FUNCTION extensions.grant_pg_cron_access() IS 'Grants access to pg_cr
 
 
 --
--- Name: grant_pg_graphql_access(); Type: FUNCTION; Schema: extensions; Owner: supabase_admin
+-- Name: grant_pg_graphql_access(); Type: FUNCTION; Schema: extensions; Owner: gentabase_admin
 --
 
 CREATE OR REPLACE FUNCTION extensions.grant_pg_graphql_access() RETURNS event_trigger
@@ -371,10 +371,10 @@ END;
 $_$;
 
 
-ALTER FUNCTION extensions.grant_pg_graphql_access() OWNER TO supabase_admin;
+ALTER FUNCTION extensions.grant_pg_graphql_access() OWNER TO gentabase_admin;
 
 --
--- Name: FUNCTION grant_pg_graphql_access(); Type: COMMENT; Schema: extensions; Owner: supabase_admin
+-- Name: FUNCTION grant_pg_graphql_access(); Type: COMMENT; Schema: extensions; Owner: gentabase_admin
 --
 
 COMMENT ON FUNCTION extensions.grant_pg_graphql_access() IS 'Grants access to pg_graphql';
@@ -399,13 +399,13 @@ BEGIN
     IF NOT EXISTS (
       SELECT 1
       FROM pg_roles
-      WHERE rolname = 'supabase_functions_admin'
+      WHERE rolname = 'gentabase_functions_admin'
     )
     THEN
-      CREATE USER supabase_functions_admin NOINHERIT CREATEROLE LOGIN NOREPLICATION;
+      CREATE USER gentabase_functions_admin NOINHERIT CREATEROLE LOGIN NOREPLICATION;
     END IF;
 
-    GRANT USAGE ON SCHEMA net TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT USAGE ON SCHEMA net TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
 
     ALTER function net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
     ALTER function net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
@@ -419,9 +419,9 @@ BEGIN
     REVOKE ALL ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) FROM PUBLIC;
     REVOKE ALL ON FUNCTION net.http_collect_response(request_id bigint, async boolean) FROM PUBLIC;
 
-    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
-    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
-    GRANT EXECUTE ON FUNCTION net.http_collect_response(request_id bigint, async boolean) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_collect_response(request_id bigint, async boolean) TO gentabase_functions_admin, postgres, anon, authenticated, service_role;
   END IF;
 END;
 $$;
@@ -437,7 +437,7 @@ COMMENT ON FUNCTION extensions.grant_pg_net_access() IS 'Grants access to pg_net
 
 
 --
--- Name: pgrst_ddl_watch(); Type: FUNCTION; Schema: extensions; Owner: supabase_admin
+-- Name: pgrst_ddl_watch(); Type: FUNCTION; Schema: extensions; Owner: gentabase_admin
 --
 
 CREATE OR REPLACE FUNCTION extensions.pgrst_ddl_watch() RETURNS event_trigger
@@ -469,10 +469,10 @@ BEGIN
 END; $$;
 
 
-ALTER FUNCTION extensions.pgrst_ddl_watch() OWNER TO supabase_admin;
+ALTER FUNCTION extensions.pgrst_ddl_watch() OWNER TO gentabase_admin;
 
 --
--- Name: pgrst_drop_watch(); Type: FUNCTION; Schema: extensions; Owner: supabase_admin
+-- Name: pgrst_drop_watch(); Type: FUNCTION; Schema: extensions; Owner: gentabase_admin
 --
 
 CREATE OR REPLACE FUNCTION extensions.pgrst_drop_watch() RETURNS event_trigger
@@ -502,10 +502,10 @@ BEGIN
 END; $$;
 
 
-ALTER FUNCTION extensions.pgrst_drop_watch() OWNER TO supabase_admin;
+ALTER FUNCTION extensions.pgrst_drop_watch() OWNER TO gentabase_admin;
 
 --
--- Name: set_graphql_placeholder(); Type: FUNCTION; Schema: extensions; Owner: supabase_admin
+-- Name: set_graphql_placeholder(); Type: FUNCTION; Schema: extensions; Owner: gentabase_admin
 --
 
 CREATE OR REPLACE FUNCTION extensions.set_graphql_placeholder() RETURNS event_trigger
@@ -561,17 +561,17 @@ CREATE OR REPLACE FUNCTION extensions.set_graphql_placeholder() RETURNS event_tr
 $_$;
 
 
-ALTER FUNCTION extensions.set_graphql_placeholder() OWNER TO supabase_admin;
+ALTER FUNCTION extensions.set_graphql_placeholder() OWNER TO gentabase_admin;
 
 --
--- Name: FUNCTION set_graphql_placeholder(); Type: COMMENT; Schema: extensions; Owner: supabase_admin
+-- Name: FUNCTION set_graphql_placeholder(); Type: COMMENT; Schema: extensions; Owner: gentabase_admin
 --
 
 COMMENT ON FUNCTION extensions.set_graphql_placeholder() IS 'Reintroduces placeholder function for graphql_public.graphql';
 
 
 --
--- Name: graphql(text, text, jsonb, jsonb); Type: FUNCTION; Schema: graphql_public; Owner: supabase_admin
+-- Name: graphql(text, text, jsonb, jsonb); Type: FUNCTION; Schema: graphql_public; Owner: gentabase_admin
 --
 
 CREATE OR REPLACE FUNCTION graphql_public.graphql("operationName" text DEFAULT NULL::text, query text DEFAULT NULL::text, variables jsonb DEFAULT NULL::jsonb, extensions jsonb DEFAULT NULL::jsonb) RETURNS jsonb
@@ -603,10 +603,10 @@ CREATE OR REPLACE FUNCTION graphql_public.graphql("operationName" text DEFAULT N
 $$;
 
 
-ALTER FUNCTION graphql_public.graphql("operationName" text, query text, variables jsonb, extensions jsonb) OWNER TO supabase_admin;
+ALTER FUNCTION graphql_public.graphql("operationName" text, query text, variables jsonb, extensions jsonb) OWNER TO gentabase_admin;
 
 --
--- Name: can_insert_object(text, text, uuid, jsonb); Type: FUNCTION; Schema: storage; Owner: supabase_storage_admin
+-- Name: can_insert_object(text, text, uuid, jsonb); Type: FUNCTION; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE OR REPLACE FUNCTION storage.can_insert_object(bucketid text, name text, owner uuid, metadata jsonb) RETURNS void
@@ -622,10 +622,10 @@ END
 $$;
 
 
-ALTER FUNCTION storage.can_insert_object(bucketid text, name text, owner uuid, metadata jsonb) OWNER TO supabase_storage_admin;
+ALTER FUNCTION storage.can_insert_object(bucketid text, name text, owner uuid, metadata jsonb) OWNER TO gentabase_storage_admin;
 
 --
--- Name: extension(text); Type: FUNCTION; Schema: storage; Owner: supabase_storage_admin
+-- Name: extension(text); Type: FUNCTION; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE OR REPLACE FUNCTION storage.extension(name text) RETURNS text
@@ -643,10 +643,10 @@ END
 $$;
 
 
-ALTER FUNCTION storage.extension(name text) OWNER TO supabase_storage_admin;
+ALTER FUNCTION storage.extension(name text) OWNER TO gentabase_storage_admin;
 
 --
--- Name: filename(text); Type: FUNCTION; Schema: storage; Owner: supabase_storage_admin
+-- Name: filename(text); Type: FUNCTION; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE OR REPLACE FUNCTION storage.filename(name text) RETURNS text
@@ -661,10 +661,10 @@ END
 $$;
 
 
-ALTER FUNCTION storage.filename(name text) OWNER TO supabase_storage_admin;
+ALTER FUNCTION storage.filename(name text) OWNER TO gentabase_storage_admin;
 
 --
--- Name: foldername(text); Type: FUNCTION; Schema: storage; Owner: supabase_storage_admin
+-- Name: foldername(text); Type: FUNCTION; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE OR REPLACE FUNCTION storage.foldername(name text) RETURNS text[]
@@ -679,10 +679,10 @@ END
 $$;
 
 
-ALTER FUNCTION storage.foldername(name text) OWNER TO supabase_storage_admin;
+ALTER FUNCTION storage.foldername(name text) OWNER TO gentabase_storage_admin;
 
 --
--- Name: get_size_by_bucket(); Type: FUNCTION; Schema: storage; Owner: supabase_storage_admin
+-- Name: get_size_by_bucket(); Type: FUNCTION; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE OR REPLACE FUNCTION storage.get_size_by_bucket() RETURNS TABLE(size bigint, bucket_id text)
@@ -697,10 +697,10 @@ END
 $$;
 
 
-ALTER FUNCTION storage.get_size_by_bucket() OWNER TO supabase_storage_admin;
+ALTER FUNCTION storage.get_size_by_bucket() OWNER TO gentabase_storage_admin;
 
 --
--- Name: search(text, text, integer, integer, integer, text, text, text); Type: FUNCTION; Schema: storage; Owner: supabase_storage_admin
+-- Name: search(text, text, integer, integer, integer, text, text, text); Type: FUNCTION; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE OR REPLACE FUNCTION storage.search(prefix text, bucketname text, limits integer DEFAULT 100, levels integer DEFAULT 1, offsets integer DEFAULT 0, search text DEFAULT ''::text, sortcolumn text DEFAULT 'name'::text, sortorder text DEFAULT 'asc'::text) RETURNS TABLE(name text, id uuid, updated_at timestamp with time zone, created_at timestamp with time zone, last_accessed_at timestamp with time zone, metadata jsonb)
@@ -768,10 +768,10 @@ end;
 $_$;
 
 
-ALTER FUNCTION storage.search(prefix text, bucketname text, limits integer, levels integer, offsets integer, search text, sortcolumn text, sortorder text) OWNER TO supabase_storage_admin;
+ALTER FUNCTION storage.search(prefix text, bucketname text, limits integer, levels integer, offsets integer, search text, sortcolumn text, sortorder text) OWNER TO gentabase_storage_admin;
 
 --
--- Name: update_updated_at_column(); Type: FUNCTION; Schema: storage; Owner: supabase_storage_admin
+-- Name: update_updated_at_column(); Type: FUNCTION; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE OR REPLACE FUNCTION storage.update_updated_at_column() RETURNS trigger
@@ -784,7 +784,7 @@ END;
 $$;
 
 
-ALTER FUNCTION storage.update_updated_at_column() OWNER TO supabase_storage_admin;
+ALTER FUNCTION storage.update_updated_at_column() OWNER TO gentabase_storage_admin;
 
 SET default_tablespace = '';
 
@@ -842,7 +842,7 @@ CREATE TABLE IF NOT EXISTS _realtime.tenants (
 ALTER TABLE _realtime.tenants OWNER TO postgres;
 
 --
--- Name: audit_log_entries; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: audit_log_entries; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.audit_log_entries (
@@ -854,17 +854,17 @@ CREATE TABLE IF NOT EXISTS auth.audit_log_entries (
 );
 
 
-ALTER TABLE auth.audit_log_entries OWNER TO supabase_auth_admin;
+ALTER TABLE auth.audit_log_entries OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE audit_log_entries; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE audit_log_entries; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.audit_log_entries IS 'Auth: Audit trail for user actions.';
 
 
 --
--- Name: flow_state; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: flow_state; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.flow_state (
@@ -882,17 +882,17 @@ CREATE TABLE IF NOT EXISTS auth.flow_state (
 );
 
 
-ALTER TABLE auth.flow_state OWNER TO supabase_auth_admin;
+ALTER TABLE auth.flow_state OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE flow_state; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE flow_state; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.flow_state IS 'stores metadata for pkce logins';
 
 
 --
--- Name: identities; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: identities; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.identities (
@@ -908,24 +908,24 @@ CREATE TABLE IF NOT EXISTS auth.identities (
 );
 
 
-ALTER TABLE auth.identities OWNER TO supabase_auth_admin;
+ALTER TABLE auth.identities OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE identities; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE identities; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.identities IS 'Auth: Stores identities associated to a user.';
 
 
 --
--- Name: COLUMN identities.email; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: COLUMN identities.email; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON COLUMN auth.identities.email IS 'Auth: Email is a generated column that references the optional email property in the identity_data';
 
 
 --
--- Name: instances; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: instances; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.instances (
@@ -937,17 +937,17 @@ CREATE TABLE IF NOT EXISTS auth.instances (
 );
 
 
-ALTER TABLE auth.instances OWNER TO supabase_auth_admin;
+ALTER TABLE auth.instances OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE instances; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE instances; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.instances IS 'Auth: Manages users across multiple sites.';
 
 
 --
--- Name: mfa_amr_claims; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_amr_claims; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.mfa_amr_claims (
@@ -959,17 +959,17 @@ CREATE TABLE IF NOT EXISTS auth.mfa_amr_claims (
 );
 
 
-ALTER TABLE auth.mfa_amr_claims OWNER TO supabase_auth_admin;
+ALTER TABLE auth.mfa_amr_claims OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE mfa_amr_claims; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE mfa_amr_claims; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.mfa_amr_claims IS 'auth: stores authenticator method reference claims for multi factor authentication';
 
 
 --
--- Name: mfa_challenges; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_challenges; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.mfa_challenges (
@@ -981,17 +981,17 @@ CREATE TABLE IF NOT EXISTS auth.mfa_challenges (
 );
 
 
-ALTER TABLE auth.mfa_challenges OWNER TO supabase_auth_admin;
+ALTER TABLE auth.mfa_challenges OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE mfa_challenges; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE mfa_challenges; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.mfa_challenges IS 'auth: stores metadata about challenge requests made';
 
 
 --
--- Name: mfa_factors; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_factors; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.mfa_factors (
@@ -1006,17 +1006,17 @@ CREATE TABLE IF NOT EXISTS auth.mfa_factors (
 );
 
 
-ALTER TABLE auth.mfa_factors OWNER TO supabase_auth_admin;
+ALTER TABLE auth.mfa_factors OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE mfa_factors; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE mfa_factors; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.mfa_factors IS 'auth: stores metadata about factors';
 
 
 --
--- Name: refresh_tokens; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.refresh_tokens (
@@ -1032,17 +1032,17 @@ CREATE TABLE IF NOT EXISTS auth.refresh_tokens (
 );
 
 
-ALTER TABLE auth.refresh_tokens OWNER TO supabase_auth_admin;
+ALTER TABLE auth.refresh_tokens OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE refresh_tokens; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE refresh_tokens; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.refresh_tokens IS 'Auth: Store of tokens used to refresh JWT tokens once they expire.';
 
 
 --
--- Name: refresh_tokens_id_seq; Type: SEQUENCE; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens_id_seq; Type: SEQUENCE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE SEQUENCE IF NOT EXISTS auth.refresh_tokens_id_seq
@@ -1053,17 +1053,17 @@ CREATE SEQUENCE IF NOT EXISTS auth.refresh_tokens_id_seq
     CACHE 1;
 
 
-ALTER TABLE auth.refresh_tokens_id_seq OWNER TO supabase_auth_admin;
+ALTER TABLE auth.refresh_tokens_id_seq OWNER TO gentabase_auth_admin;
 
 --
--- Name: refresh_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER SEQUENCE auth.refresh_tokens_id_seq OWNED BY auth.refresh_tokens.id;
 
 
 --
--- Name: saml_providers; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_providers; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.saml_providers (
@@ -1081,17 +1081,17 @@ CREATE TABLE IF NOT EXISTS auth.saml_providers (
 );
 
 
-ALTER TABLE auth.saml_providers OWNER TO supabase_auth_admin;
+ALTER TABLE auth.saml_providers OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE saml_providers; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE saml_providers; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.saml_providers IS 'Auth: Manages SAML Identity Provider connections.';
 
 
 --
--- Name: saml_relay_states; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_relay_states; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.saml_relay_states (
@@ -1108,17 +1108,17 @@ CREATE TABLE IF NOT EXISTS auth.saml_relay_states (
 );
 
 
-ALTER TABLE auth.saml_relay_states OWNER TO supabase_auth_admin;
+ALTER TABLE auth.saml_relay_states OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE saml_relay_states; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE saml_relay_states; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.saml_relay_states IS 'Auth: Contains SAML Relay State information for each Service Provider initiated login.';
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: schema_migrations; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.schema_migrations (
@@ -1126,17 +1126,17 @@ CREATE TABLE IF NOT EXISTS auth.schema_migrations (
 );
 
 
-ALTER TABLE auth.schema_migrations OWNER TO supabase_auth_admin;
+ALTER TABLE auth.schema_migrations OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE schema_migrations; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE schema_migrations; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.schema_migrations IS 'Auth: Manages updates to the auth system.';
 
 
 --
--- Name: sessions; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: sessions; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.sessions (
@@ -1154,24 +1154,24 @@ CREATE TABLE IF NOT EXISTS auth.sessions (
 );
 
 
-ALTER TABLE auth.sessions OWNER TO supabase_auth_admin;
+ALTER TABLE auth.sessions OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE sessions; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE sessions; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.sessions IS 'Auth: Stores session data associated to a user.';
 
 
 --
--- Name: COLUMN sessions.not_after; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: COLUMN sessions.not_after; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON COLUMN auth.sessions.not_after IS 'Auth: Not after is a nullable column that contains a timestamp after which the session should be regarded as expired.';
 
 
 --
--- Name: sso_domains; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: sso_domains; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.sso_domains (
@@ -1184,17 +1184,17 @@ CREATE TABLE IF NOT EXISTS auth.sso_domains (
 );
 
 
-ALTER TABLE auth.sso_domains OWNER TO supabase_auth_admin;
+ALTER TABLE auth.sso_domains OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE sso_domains; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE sso_domains; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.sso_domains IS 'Auth: Manages SSO email address domain mapping to an SSO Identity Provider.';
 
 
 --
--- Name: sso_providers; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: sso_providers; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.sso_providers (
@@ -1206,24 +1206,24 @@ CREATE TABLE IF NOT EXISTS auth.sso_providers (
 );
 
 
-ALTER TABLE auth.sso_providers OWNER TO supabase_auth_admin;
+ALTER TABLE auth.sso_providers OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE sso_providers; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE sso_providers; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.sso_providers IS 'Auth: Manages SSO identity provider information; see saml_providers for SAML.';
 
 
 --
--- Name: COLUMN sso_providers.resource_id; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: COLUMN sso_providers.resource_id; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON COLUMN auth.sso_providers.resource_id IS 'Auth: Uniquely identifies a SSO provider according to a user-chosen resource ID (case insensitive), useful in infrastructure as code.';
 
 
 --
--- Name: users; Type: TABLE; Schema: auth; Owner: supabase_auth_admin
+-- Name: users; Type: TABLE; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE TABLE IF NOT EXISTS auth.users (
@@ -1265,24 +1265,24 @@ CREATE TABLE IF NOT EXISTS auth.users (
 );
 
 
-ALTER TABLE auth.users OWNER TO supabase_auth_admin;
+ALTER TABLE auth.users OWNER TO gentabase_auth_admin;
 
 --
--- Name: TABLE users; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE users; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON TABLE auth.users IS 'Auth: Stores user login data within a secure schema.';
 
 
 --
--- Name: COLUMN users.is_sso_user; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: COLUMN users.is_sso_user; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON COLUMN auth.users.is_sso_user IS 'Auth: Set this column to true when the account comes from SSO. These accounts can have duplicate emails.';
 
 
 --
--- Name: buckets; Type: TABLE; Schema: storage; Owner: supabase_storage_admin
+-- Name: buckets; Type: TABLE; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE TABLE IF NOT EXISTS storage.buckets (
@@ -1299,17 +1299,17 @@ CREATE TABLE IF NOT EXISTS storage.buckets (
 );
 
 
-ALTER TABLE storage.buckets OWNER TO supabase_storage_admin;
+ALTER TABLE storage.buckets OWNER TO gentabase_storage_admin;
 
 --
--- Name: COLUMN buckets.owner; Type: COMMENT; Schema: storage; Owner: supabase_storage_admin
+-- Name: COLUMN buckets.owner; Type: COMMENT; Schema: storage; Owner: gentabase_storage_admin
 --
 
 COMMENT ON COLUMN storage.buckets.owner IS 'Field is deprecated, use owner_id instead';
 
 
 --
--- Name: migrations; Type: TABLE; Schema: storage; Owner: supabase_storage_admin
+-- Name: migrations; Type: TABLE; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE TABLE IF NOT EXISTS storage.migrations (
@@ -1320,10 +1320,10 @@ CREATE TABLE IF NOT EXISTS storage.migrations (
 );
 
 
-ALTER TABLE storage.migrations OWNER TO supabase_storage_admin;
+ALTER TABLE storage.migrations OWNER TO gentabase_storage_admin;
 
 --
--- Name: objects; Type: TABLE; Schema: storage; Owner: supabase_storage_admin
+-- Name: objects; Type: TABLE; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE TABLE IF NOT EXISTS storage.objects (
@@ -1341,17 +1341,17 @@ CREATE TABLE IF NOT EXISTS storage.objects (
 );
 
 
-ALTER TABLE storage.objects OWNER TO supabase_storage_admin;
+ALTER TABLE storage.objects OWNER TO gentabase_storage_admin;
 
 --
--- Name: COLUMN objects.owner; Type: COMMENT; Schema: storage; Owner: supabase_storage_admin
+-- Name: COLUMN objects.owner; Type: COMMENT; Schema: storage; Owner: gentabase_storage_admin
 --
 
 COMMENT ON COLUMN storage.objects.owner IS 'Field is deprecated, use owner_id instead';
 
 
 --
--- Name: refresh_tokens id; Type: DEFAULT; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens id; Type: DEFAULT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.refresh_tokens ALTER COLUMN id SET DEFAULT nextval('auth.refresh_tokens_id_seq'::regclass);
@@ -1361,7 +1361,7 @@ ALTER TABLE ONLY auth.refresh_tokens ALTER COLUMN id SET DEFAULT nextval('auth.r
 -- Data for Name: extensions; Type: TABLE DATA; Schema: _realtime; Owner: postgres
 --
 
-INSERT INTO _realtime.extensions (id, type, settings, tenant_external_id, inserted_at, updated_at) VALUES ('5518e2da-548e-499c-ab1c-664fd6446714', 'postgres_cdc_rls', '{"region": "us-east-1", "db_host": "ABK7kBu27y/PVdL10i/b+A==", "db_name": "sWBpZNdjggEPTQVlI52Zfw==", "db_port": "+enMDFi1J/3IrrquHHwUmA==", "db_user": "uxbEq/zz8DXVD53TOI1zmw==", "slot_name": "supabase_realtime_replication_slot", "ip_version": 4, "db_password": "sWBpZNdjggEPTQVlI52Zfw==", "publication": "supabase_realtime", "ssl_enforced": false, "poll_interval_ms": 100, "poll_max_changes": 100, "poll_max_record_bytes": 1048576}', 'realtime-dev', '2023-12-12 15:25:21', '2023-12-12 15:25:21');
+INSERT INTO _realtime.extensions (id, type, settings, tenant_external_id, inserted_at, updated_at) VALUES ('5518e2da-548e-499c-ab1c-664fd6446714', 'postgres_cdc_rls', '{"region": "us-east-1", "db_host": "ABK7kBu27y/PVdL10i/b+A==", "db_name": "sWBpZNdjggEPTQVlI52Zfw==", "db_port": "+enMDFi1J/3IrrquHHwUmA==", "db_user": "uxbEq/zz8DXVD53TOI1zmw==", "slot_name": "gentabase_realtime_replication_slot", "ip_version": 4, "db_password": "sWBpZNdjggEPTQVlI52Zfw==", "publication": "gentabase_realtime", "ssl_enforced": false, "poll_interval_ms": 100, "poll_max_changes": 100, "poll_max_record_bytes": 1048576}', 'realtime-dev', '2023-12-12 15:25:21', '2023-12-12 15:25:21');
 
 
 --
@@ -1393,67 +1393,67 @@ INSERT INTO _realtime.tenants (id, name, external_id, jwt_secret, max_concurrent
 
 
 --
--- Data for Name: audit_log_entries; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: audit_log_entries; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: flow_state; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: flow_state; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: instances; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: instances; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: mfa_amr_claims; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: mfa_amr_claims; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: mfa_challenges; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: mfa_challenges; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: mfa_factors; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: mfa_factors; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: refresh_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: refresh_tokens; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: saml_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: saml_providers; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: saml_relay_states; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: saml_relay_states; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: schema_migrations; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 INSERT INTO auth.schema_migrations (version) VALUES ('20171026211738');
@@ -1510,37 +1510,37 @@ INSERT INTO auth.schema_migrations (version) VALUES ('20231117164230');
 
 
 --
--- Data for Name: sessions; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: sessions; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: sso_domains; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: sso_domains; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: sso_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: sso_providers; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+-- Data for Name: users; Type: TABLE DATA; Schema: auth; Owner: gentabase_auth_admin
 --
 
 
 
 --
--- Data for Name: buckets; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
+-- Data for Name: buckets; Type: TABLE DATA; Schema: storage; Owner: gentabase_storage_admin
 --
 
 
 
 --
--- Data for Name: migrations; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
+-- Data for Name: migrations; Type: TABLE DATA; Schema: storage; Owner: gentabase_storage_admin
 --
 
 INSERT INTO storage.migrations (id, name, hash, executed_at) VALUES (0, 'create-migrations-table', 'e18db593bcde2aca2a408c4d1100f6abba2195df', '2022-04-14 09:52:39.214681');
@@ -1564,13 +1564,13 @@ INSERT INTO storage.migrations (id, name, hash, executed_at) VALUES (17, 'add_ow
 
 
 --
--- Data for Name: objects; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
+-- Data for Name: objects; Type: TABLE DATA; Schema: storage; Owner: gentabase_storage_admin
 --
 
 
 
 --
--- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: gentabase_auth_admin
 --
 
 SELECT pg_catalog.setval('auth.refresh_tokens_id_seq', 1, false);
@@ -1601,7 +1601,7 @@ ALTER TABLE ONLY _realtime.tenants
 
 
 --
--- Name: mfa_amr_claims amr_id_pk; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_amr_claims amr_id_pk; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.mfa_amr_claims
@@ -1609,7 +1609,7 @@ ALTER TABLE ONLY auth.mfa_amr_claims
 
 
 --
--- Name: audit_log_entries audit_log_entries_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: audit_log_entries audit_log_entries_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.audit_log_entries
@@ -1617,7 +1617,7 @@ ALTER TABLE ONLY auth.audit_log_entries
 
 
 --
--- Name: flow_state flow_state_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: flow_state flow_state_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.flow_state
@@ -1625,7 +1625,7 @@ ALTER TABLE ONLY auth.flow_state
 
 
 --
--- Name: identities identities_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: identities identities_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.identities
@@ -1633,7 +1633,7 @@ ALTER TABLE ONLY auth.identities
 
 
 --
--- Name: identities identities_provider_id_provider_unique; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: identities identities_provider_id_provider_unique; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.identities
@@ -1641,7 +1641,7 @@ ALTER TABLE ONLY auth.identities
 
 
 --
--- Name: instances instances_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: instances instances_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.instances
@@ -1649,7 +1649,7 @@ ALTER TABLE ONLY auth.instances
 
 
 --
--- Name: mfa_amr_claims mfa_amr_claims_session_id_authentication_method_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_amr_claims mfa_amr_claims_session_id_authentication_method_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.mfa_amr_claims
@@ -1657,7 +1657,7 @@ ALTER TABLE ONLY auth.mfa_amr_claims
 
 
 --
--- Name: mfa_challenges mfa_challenges_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_challenges mfa_challenges_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.mfa_challenges
@@ -1665,7 +1665,7 @@ ALTER TABLE ONLY auth.mfa_challenges
 
 
 --
--- Name: mfa_factors mfa_factors_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_factors mfa_factors_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.mfa_factors
@@ -1673,7 +1673,7 @@ ALTER TABLE ONLY auth.mfa_factors
 
 
 --
--- Name: refresh_tokens refresh_tokens_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens refresh_tokens_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.refresh_tokens
@@ -1681,7 +1681,7 @@ ALTER TABLE ONLY auth.refresh_tokens
 
 
 --
--- Name: refresh_tokens refresh_tokens_token_unique; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens refresh_tokens_token_unique; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.refresh_tokens
@@ -1689,7 +1689,7 @@ ALTER TABLE ONLY auth.refresh_tokens
 
 
 --
--- Name: saml_providers saml_providers_entity_id_key; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_providers saml_providers_entity_id_key; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.saml_providers
@@ -1697,7 +1697,7 @@ ALTER TABLE ONLY auth.saml_providers
 
 
 --
--- Name: saml_providers saml_providers_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_providers saml_providers_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.saml_providers
@@ -1705,7 +1705,7 @@ ALTER TABLE ONLY auth.saml_providers
 
 
 --
--- Name: saml_relay_states saml_relay_states_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_relay_states saml_relay_states_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.saml_relay_states
@@ -1713,7 +1713,7 @@ ALTER TABLE ONLY auth.saml_relay_states
 
 
 --
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.schema_migrations
@@ -1721,7 +1721,7 @@ ALTER TABLE ONLY auth.schema_migrations
 
 
 --
--- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.sessions
@@ -1729,7 +1729,7 @@ ALTER TABLE ONLY auth.sessions
 
 
 --
--- Name: sso_domains sso_domains_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: sso_domains sso_domains_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.sso_domains
@@ -1737,7 +1737,7 @@ ALTER TABLE ONLY auth.sso_domains
 
 
 --
--- Name: sso_providers sso_providers_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: sso_providers sso_providers_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.sso_providers
@@ -1745,7 +1745,7 @@ ALTER TABLE ONLY auth.sso_providers
 
 
 --
--- Name: users users_phone_key; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: users users_phone_key; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.users
@@ -1753,7 +1753,7 @@ ALTER TABLE ONLY auth.users
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.users
@@ -1761,7 +1761,7 @@ ALTER TABLE ONLY auth.users
 
 
 --
--- Name: buckets buckets_pkey; Type: CONSTRAINT; Schema: storage; Owner: supabase_storage_admin
+-- Name: buckets buckets_pkey; Type: CONSTRAINT; Schema: storage; Owner: gentabase_storage_admin
 --
 
 ALTER TABLE ONLY storage.buckets
@@ -1769,7 +1769,7 @@ ALTER TABLE ONLY storage.buckets
 
 
 --
--- Name: migrations migrations_name_key; Type: CONSTRAINT; Schema: storage; Owner: supabase_storage_admin
+-- Name: migrations migrations_name_key; Type: CONSTRAINT; Schema: storage; Owner: gentabase_storage_admin
 --
 
 ALTER TABLE ONLY storage.migrations
@@ -1777,7 +1777,7 @@ ALTER TABLE ONLY storage.migrations
 
 
 --
--- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: storage; Owner: supabase_storage_admin
+-- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: storage; Owner: gentabase_storage_admin
 --
 
 ALTER TABLE ONLY storage.migrations
@@ -1785,7 +1785,7 @@ ALTER TABLE ONLY storage.migrations
 
 
 --
--- Name: objects objects_pkey; Type: CONSTRAINT; Schema: storage; Owner: supabase_storage_admin
+-- Name: objects objects_pkey; Type: CONSTRAINT; Schema: storage; Owner: gentabase_storage_admin
 --
 
 ALTER TABLE ONLY storage.objects
@@ -1807,273 +1807,273 @@ CREATE UNIQUE INDEX tenants_external_id_index ON _realtime.tenants USING btree (
 
 
 --
--- Name: audit_logs_instance_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: audit_logs_instance_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX audit_logs_instance_id_idx ON auth.audit_log_entries USING btree (instance_id);
 
 
 --
--- Name: confirmation_token_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: confirmation_token_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE UNIQUE INDEX confirmation_token_idx ON auth.users USING btree (confirmation_token) WHERE ((confirmation_token)::text !~ '^[0-9 ]*$'::text);
 
 
 --
--- Name: email_change_token_current_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: email_change_token_current_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE UNIQUE INDEX email_change_token_current_idx ON auth.users USING btree (email_change_token_current) WHERE ((email_change_token_current)::text !~ '^[0-9 ]*$'::text);
 
 
 --
--- Name: email_change_token_new_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: email_change_token_new_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE UNIQUE INDEX email_change_token_new_idx ON auth.users USING btree (email_change_token_new) WHERE ((email_change_token_new)::text !~ '^[0-9 ]*$'::text);
 
 
 --
--- Name: factor_id_created_at_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: factor_id_created_at_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX factor_id_created_at_idx ON auth.mfa_factors USING btree (user_id, created_at);
 
 
 --
--- Name: flow_state_created_at_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: flow_state_created_at_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX flow_state_created_at_idx ON auth.flow_state USING btree (created_at DESC);
 
 
 --
--- Name: identities_email_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: identities_email_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX identities_email_idx ON auth.identities USING btree (email text_pattern_ops);
 
 
 --
--- Name: INDEX identities_email_idx; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: INDEX identities_email_idx; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON INDEX auth.identities_email_idx IS 'Auth: Ensures indexed queries on the email column';
 
 
 --
--- Name: identities_user_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: identities_user_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX identities_user_id_idx ON auth.identities USING btree (user_id);
 
 
 --
--- Name: idx_auth_code; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: idx_auth_code; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX idx_auth_code ON auth.flow_state USING btree (auth_code);
 
 
 --
--- Name: idx_user_id_auth_method; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: idx_user_id_auth_method; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX idx_user_id_auth_method ON auth.flow_state USING btree (user_id, authentication_method);
 
 
 --
--- Name: mfa_challenge_created_at_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_challenge_created_at_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX mfa_challenge_created_at_idx ON auth.mfa_challenges USING btree (created_at DESC);
 
 
 --
--- Name: mfa_factors_user_friendly_name_unique; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_factors_user_friendly_name_unique; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE UNIQUE INDEX mfa_factors_user_friendly_name_unique ON auth.mfa_factors USING btree (friendly_name, user_id) WHERE (btrim(friendly_name) <> ''::text);
 
 
 --
--- Name: mfa_factors_user_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_factors_user_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX mfa_factors_user_id_idx ON auth.mfa_factors USING btree (user_id);
 
 
 --
--- Name: reauthentication_token_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: reauthentication_token_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE UNIQUE INDEX reauthentication_token_idx ON auth.users USING btree (reauthentication_token) WHERE ((reauthentication_token)::text !~ '^[0-9 ]*$'::text);
 
 
 --
--- Name: recovery_token_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: recovery_token_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE UNIQUE INDEX recovery_token_idx ON auth.users USING btree (recovery_token) WHERE ((recovery_token)::text !~ '^[0-9 ]*$'::text);
 
 
 --
--- Name: refresh_tokens_instance_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens_instance_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX refresh_tokens_instance_id_idx ON auth.refresh_tokens USING btree (instance_id);
 
 
 --
--- Name: refresh_tokens_instance_id_user_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens_instance_id_user_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX refresh_tokens_instance_id_user_id_idx ON auth.refresh_tokens USING btree (instance_id, user_id);
 
 
 --
--- Name: refresh_tokens_parent_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens_parent_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX refresh_tokens_parent_idx ON auth.refresh_tokens USING btree (parent);
 
 
 --
--- Name: refresh_tokens_session_id_revoked_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens_session_id_revoked_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX refresh_tokens_session_id_revoked_idx ON auth.refresh_tokens USING btree (session_id, revoked);
 
 
 --
--- Name: refresh_tokens_updated_at_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens_updated_at_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX refresh_tokens_updated_at_idx ON auth.refresh_tokens USING btree (updated_at DESC);
 
 
 --
--- Name: saml_providers_sso_provider_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_providers_sso_provider_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX saml_providers_sso_provider_id_idx ON auth.saml_providers USING btree (sso_provider_id);
 
 
 --
--- Name: saml_relay_states_created_at_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_relay_states_created_at_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX saml_relay_states_created_at_idx ON auth.saml_relay_states USING btree (created_at DESC);
 
 
 --
--- Name: saml_relay_states_for_email_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_relay_states_for_email_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX saml_relay_states_for_email_idx ON auth.saml_relay_states USING btree (for_email);
 
 
 --
--- Name: saml_relay_states_sso_provider_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_relay_states_sso_provider_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX saml_relay_states_sso_provider_id_idx ON auth.saml_relay_states USING btree (sso_provider_id);
 
 
 --
--- Name: sessions_not_after_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: sessions_not_after_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX sessions_not_after_idx ON auth.sessions USING btree (not_after DESC);
 
 
 --
--- Name: sessions_user_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: sessions_user_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX sessions_user_id_idx ON auth.sessions USING btree (user_id);
 
 
 --
--- Name: sso_domains_domain_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: sso_domains_domain_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE UNIQUE INDEX sso_domains_domain_idx ON auth.sso_domains USING btree (lower(domain));
 
 
 --
--- Name: sso_domains_sso_provider_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: sso_domains_sso_provider_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX sso_domains_sso_provider_id_idx ON auth.sso_domains USING btree (sso_provider_id);
 
 
 --
--- Name: sso_providers_resource_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: sso_providers_resource_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE UNIQUE INDEX sso_providers_resource_id_idx ON auth.sso_providers USING btree (lower(resource_id));
 
 
 --
--- Name: user_id_created_at_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: user_id_created_at_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX user_id_created_at_idx ON auth.sessions USING btree (user_id, created_at);
 
 
 --
--- Name: users_email_partial_key; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: users_email_partial_key; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE UNIQUE INDEX users_email_partial_key ON auth.users USING btree (email) WHERE (is_sso_user = false);
 
 
 --
--- Name: INDEX users_email_partial_key; Type: COMMENT; Schema: auth; Owner: supabase_auth_admin
+-- Name: INDEX users_email_partial_key; Type: COMMENT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 COMMENT ON INDEX auth.users_email_partial_key IS 'Auth: A partial unique index that applies only when is_sso_user is false';
 
 
 --
--- Name: users_instance_id_email_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: users_instance_id_email_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX users_instance_id_email_idx ON auth.users USING btree (instance_id, lower((email)::text));
 
 
 --
--- Name: users_instance_id_idx; Type: INDEX; Schema: auth; Owner: supabase_auth_admin
+-- Name: users_instance_id_idx; Type: INDEX; Schema: auth; Owner: gentabase_auth_admin
 --
 
 CREATE INDEX users_instance_id_idx ON auth.users USING btree (instance_id);
 
 
 --
--- Name: bname; Type: INDEX; Schema: storage; Owner: supabase_storage_admin
+-- Name: bname; Type: INDEX; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE UNIQUE INDEX bname ON storage.buckets USING btree (name);
 
 
 --
--- Name: bucketid_objname; Type: INDEX; Schema: storage; Owner: supabase_storage_admin
+-- Name: bucketid_objname; Type: INDEX; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE UNIQUE INDEX bucketid_objname ON storage.objects USING btree (bucket_id, name);
 
 
 --
--- Name: name_prefix_search; Type: INDEX; Schema: storage; Owner: supabase_storage_admin
+-- Name: name_prefix_search; Type: INDEX; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE INDEX name_prefix_search ON storage.objects USING btree (name text_pattern_ops);
 
 
 --
--- Name: objects update_objects_updated_at; Type: TRIGGER; Schema: storage; Owner: supabase_storage_admin
+-- Name: objects update_objects_updated_at; Type: TRIGGER; Schema: storage; Owner: gentabase_storage_admin
 --
 
 CREATE TRIGGER update_objects_updated_at BEFORE UPDATE ON storage.objects FOR EACH ROW EXECUTE FUNCTION storage.update_updated_at_column();
@@ -2088,7 +2088,7 @@ ALTER TABLE ONLY _realtime.extensions
 
 
 --
--- Name: identities identities_user_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: identities identities_user_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.identities
@@ -2096,7 +2096,7 @@ ALTER TABLE ONLY auth.identities
 
 
 --
--- Name: mfa_amr_claims mfa_amr_claims_session_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_amr_claims mfa_amr_claims_session_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.mfa_amr_claims
@@ -2104,7 +2104,7 @@ ALTER TABLE ONLY auth.mfa_amr_claims
 
 
 --
--- Name: mfa_challenges mfa_challenges_auth_factor_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_challenges mfa_challenges_auth_factor_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.mfa_challenges
@@ -2112,7 +2112,7 @@ ALTER TABLE ONLY auth.mfa_challenges
 
 
 --
--- Name: mfa_factors mfa_factors_user_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: mfa_factors mfa_factors_user_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.mfa_factors
@@ -2120,7 +2120,7 @@ ALTER TABLE ONLY auth.mfa_factors
 
 
 --
--- Name: refresh_tokens refresh_tokens_session_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: refresh_tokens refresh_tokens_session_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.refresh_tokens
@@ -2128,7 +2128,7 @@ ALTER TABLE ONLY auth.refresh_tokens
 
 
 --
--- Name: saml_providers saml_providers_sso_provider_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_providers saml_providers_sso_provider_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.saml_providers
@@ -2136,7 +2136,7 @@ ALTER TABLE ONLY auth.saml_providers
 
 
 --
--- Name: saml_relay_states saml_relay_states_flow_state_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_relay_states saml_relay_states_flow_state_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.saml_relay_states
@@ -2144,7 +2144,7 @@ ALTER TABLE ONLY auth.saml_relay_states
 
 
 --
--- Name: saml_relay_states saml_relay_states_sso_provider_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: saml_relay_states saml_relay_states_sso_provider_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.saml_relay_states
@@ -2152,7 +2152,7 @@ ALTER TABLE ONLY auth.saml_relay_states
 
 
 --
--- Name: sessions sessions_user_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: sessions sessions_user_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.sessions
@@ -2160,7 +2160,7 @@ ALTER TABLE ONLY auth.sessions
 
 
 --
--- Name: sso_domains sso_domains_sso_provider_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: supabase_auth_admin
+-- Name: sso_domains sso_domains_sso_provider_id_fkey; Type: FK CONSTRAINT; Schema: auth; Owner: gentabase_auth_admin
 --
 
 ALTER TABLE ONLY auth.sso_domains
@@ -2168,7 +2168,7 @@ ALTER TABLE ONLY auth.sso_domains
 
 
 --
--- Name: objects objects_bucketId_fkey; Type: FK CONSTRAINT; Schema: storage; Owner: supabase_storage_admin
+-- Name: objects objects_bucketId_fkey; Type: FK CONSTRAINT; Schema: storage; Owner: gentabase_storage_admin
 --
 
 ALTER TABLE ONLY storage.objects
@@ -2176,40 +2176,40 @@ ALTER TABLE ONLY storage.objects
 
 
 --
--- Name: buckets; Type: ROW SECURITY; Schema: storage; Owner: supabase_storage_admin
+-- Name: buckets; Type: ROW SECURITY; Schema: storage; Owner: gentabase_storage_admin
 --
 
 ALTER TABLE storage.buckets ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: migrations; Type: ROW SECURITY; Schema: storage; Owner: supabase_storage_admin
+-- Name: migrations; Type: ROW SECURITY; Schema: storage; Owner: gentabase_storage_admin
 --
 
 ALTER TABLE storage.migrations ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: objects; Type: ROW SECURITY; Schema: storage; Owner: supabase_storage_admin
+-- Name: objects; Type: ROW SECURITY; Schema: storage; Owner: gentabase_storage_admin
 --
 
 ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: supabase_realtime; Type: PUBLICATION; Schema: -; Owner: postgres
+-- Name: gentabase_realtime; Type: PUBLICATION; Schema: -; Owner: postgres
 --
 
-CREATE PUBLICATION supabase_realtime WITH (publish = 'insert, update, delete, truncate');
+CREATE PUBLICATION gentabase_realtime WITH (publish = 'insert, update, delete, truncate');
 
 
-ALTER PUBLICATION supabase_realtime OWNER TO postgres;
+ALTER PUBLICATION gentabase_realtime OWNER TO postgres;
 
 --
--- Name: SCHEMA auth; Type: ACL; Schema: -; Owner: supabase_admin
+-- Name: SCHEMA auth; Type: ACL; Schema: -; Owner: gentabase_admin
 --
 
 GRANT USAGE ON SCHEMA auth TO anon;
 GRANT USAGE ON SCHEMA auth TO authenticated;
 GRANT USAGE ON SCHEMA auth TO service_role;
-GRANT ALL ON SCHEMA auth TO supabase_auth_admin;
+GRANT ALL ON SCHEMA auth TO gentabase_auth_admin;
 GRANT ALL ON SCHEMA auth TO dashboard_user;
 GRANT ALL ON SCHEMA auth TO postgres;
 
@@ -2225,7 +2225,7 @@ GRANT ALL ON SCHEMA extensions TO dashboard_user;
 
 
 --
--- Name: SCHEMA graphql_public; Type: ACL; Schema: -; Owner: supabase_admin
+-- Name: SCHEMA graphql_public; Type: ACL; Schema: -; Owner: gentabase_admin
 --
 
 GRANT USAGE ON SCHEMA graphql_public TO postgres;
@@ -2246,33 +2246,33 @@ GRANT USAGE ON SCHEMA public TO service_role;
 
 
 --
--- Name: SCHEMA realtime; Type: ACL; Schema: -; Owner: supabase_admin
+-- Name: SCHEMA realtime; Type: ACL; Schema: -; Owner: gentabase_admin
 --
 
 GRANT USAGE ON SCHEMA realtime TO postgres;
 
 
 --
--- Name: SCHEMA storage; Type: ACL; Schema: -; Owner: supabase_admin
+-- Name: SCHEMA storage; Type: ACL; Schema: -; Owner: gentabase_admin
 --
 
 GRANT ALL ON SCHEMA storage TO postgres;
 GRANT USAGE ON SCHEMA storage TO anon;
 GRANT USAGE ON SCHEMA storage TO authenticated;
 GRANT USAGE ON SCHEMA storage TO service_role;
-GRANT ALL ON SCHEMA storage TO supabase_storage_admin;
+GRANT ALL ON SCHEMA storage TO gentabase_storage_admin;
 GRANT ALL ON SCHEMA storage TO dashboard_user;
 
 
 --
--- Name: FUNCTION email(); Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: FUNCTION email(); Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON FUNCTION auth.email() TO dashboard_user;
 
 
 --
--- Name: FUNCTION jwt(); Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: FUNCTION jwt(); Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON FUNCTION auth.jwt() TO postgres;
@@ -2280,14 +2280,14 @@ GRANT ALL ON FUNCTION auth.jwt() TO dashboard_user;
 
 
 --
--- Name: FUNCTION role(); Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: FUNCTION role(); Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON FUNCTION auth.role() TO dashboard_user;
 
 
 --
--- Name: FUNCTION uid(); Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: FUNCTION uid(); Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON FUNCTION auth.uid() TO dashboard_user;
@@ -2665,7 +2665,7 @@ GRANT ALL ON FUNCTION extensions.verify(token text, secret text, algorithm text)
 
 
 --
--- Name: FUNCTION extension(name text); Type: ACL; Schema: storage; Owner: supabase_storage_admin
+-- Name: FUNCTION extension(name text); Type: ACL; Schema: storage; Owner: gentabase_storage_admin
 --
 
 GRANT ALL ON FUNCTION storage.extension(name text) TO anon;
@@ -2676,7 +2676,7 @@ GRANT ALL ON FUNCTION storage.extension(name text) TO postgres;
 
 
 --
--- Name: FUNCTION filename(name text); Type: ACL; Schema: storage; Owner: supabase_storage_admin
+-- Name: FUNCTION filename(name text); Type: ACL; Schema: storage; Owner: gentabase_storage_admin
 --
 
 GRANT ALL ON FUNCTION storage.filename(name text) TO anon;
@@ -2687,7 +2687,7 @@ GRANT ALL ON FUNCTION storage.filename(name text) TO postgres;
 
 
 --
--- Name: FUNCTION foldername(name text); Type: ACL; Schema: storage; Owner: supabase_storage_admin
+-- Name: FUNCTION foldername(name text); Type: ACL; Schema: storage; Owner: gentabase_storage_admin
 --
 
 GRANT ALL ON FUNCTION storage.foldername(name text) TO anon;
@@ -2698,7 +2698,7 @@ GRANT ALL ON FUNCTION storage.foldername(name text) TO postgres;
 
 
 --
--- Name: TABLE audit_log_entries; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE audit_log_entries; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.audit_log_entries TO dashboard_user;
@@ -2706,7 +2706,7 @@ GRANT ALL ON TABLE auth.audit_log_entries TO postgres;
 
 
 --
--- Name: TABLE flow_state; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE flow_state; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.flow_state TO postgres;
@@ -2714,7 +2714,7 @@ GRANT ALL ON TABLE auth.flow_state TO dashboard_user;
 
 
 --
--- Name: TABLE identities; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE identities; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.identities TO postgres;
@@ -2722,7 +2722,7 @@ GRANT ALL ON TABLE auth.identities TO dashboard_user;
 
 
 --
--- Name: TABLE instances; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE instances; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.instances TO dashboard_user;
@@ -2730,7 +2730,7 @@ GRANT ALL ON TABLE auth.instances TO postgres;
 
 
 --
--- Name: TABLE mfa_amr_claims; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE mfa_amr_claims; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.mfa_amr_claims TO postgres;
@@ -2738,7 +2738,7 @@ GRANT ALL ON TABLE auth.mfa_amr_claims TO dashboard_user;
 
 
 --
--- Name: TABLE mfa_challenges; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE mfa_challenges; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.mfa_challenges TO postgres;
@@ -2746,7 +2746,7 @@ GRANT ALL ON TABLE auth.mfa_challenges TO dashboard_user;
 
 
 --
--- Name: TABLE mfa_factors; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE mfa_factors; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.mfa_factors TO postgres;
@@ -2754,7 +2754,7 @@ GRANT ALL ON TABLE auth.mfa_factors TO dashboard_user;
 
 
 --
--- Name: TABLE refresh_tokens; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE refresh_tokens; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.refresh_tokens TO dashboard_user;
@@ -2762,7 +2762,7 @@ GRANT ALL ON TABLE auth.refresh_tokens TO postgres;
 
 
 --
--- Name: SEQUENCE refresh_tokens_id_seq; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: SEQUENCE refresh_tokens_id_seq; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON SEQUENCE auth.refresh_tokens_id_seq TO dashboard_user;
@@ -2770,7 +2770,7 @@ GRANT ALL ON SEQUENCE auth.refresh_tokens_id_seq TO postgres;
 
 
 --
--- Name: TABLE saml_providers; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE saml_providers; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.saml_providers TO postgres;
@@ -2778,7 +2778,7 @@ GRANT ALL ON TABLE auth.saml_providers TO dashboard_user;
 
 
 --
--- Name: TABLE saml_relay_states; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE saml_relay_states; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.saml_relay_states TO postgres;
@@ -2786,7 +2786,7 @@ GRANT ALL ON TABLE auth.saml_relay_states TO dashboard_user;
 
 
 --
--- Name: TABLE schema_migrations; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE schema_migrations; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.schema_migrations TO dashboard_user;
@@ -2794,7 +2794,7 @@ GRANT ALL ON TABLE auth.schema_migrations TO postgres;
 
 
 --
--- Name: TABLE sessions; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE sessions; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.sessions TO postgres;
@@ -2802,7 +2802,7 @@ GRANT ALL ON TABLE auth.sessions TO dashboard_user;
 
 
 --
--- Name: TABLE sso_domains; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE sso_domains; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.sso_domains TO postgres;
@@ -2810,7 +2810,7 @@ GRANT ALL ON TABLE auth.sso_domains TO dashboard_user;
 
 
 --
--- Name: TABLE sso_providers; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE sso_providers; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.sso_providers TO postgres;
@@ -2818,7 +2818,7 @@ GRANT ALL ON TABLE auth.sso_providers TO dashboard_user;
 
 
 --
--- Name: TABLE users; Type: ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: TABLE users; Type: ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
 GRANT ALL ON TABLE auth.users TO dashboard_user;
@@ -2826,7 +2826,7 @@ GRANT ALL ON TABLE auth.users TO postgres;
 
 
 --
--- Name: TABLE buckets; Type: ACL; Schema: storage; Owner: supabase_storage_admin
+-- Name: TABLE buckets; Type: ACL; Schema: storage; Owner: gentabase_storage_admin
 --
 
 GRANT ALL ON TABLE storage.buckets TO anon;
@@ -2836,7 +2836,7 @@ GRANT ALL ON TABLE storage.buckets TO postgres;
 
 
 --
--- Name: TABLE migrations; Type: ACL; Schema: storage; Owner: supabase_storage_admin
+-- Name: TABLE migrations; Type: ACL; Schema: storage; Owner: gentabase_storage_admin
 --
 
 GRANT ALL ON TABLE storage.migrations TO anon;
@@ -2846,7 +2846,7 @@ GRANT ALL ON TABLE storage.migrations TO postgres;
 
 
 --
--- Name: TABLE objects; Type: ACL; Schema: storage; Owner: supabase_storage_admin
+-- Name: TABLE objects; Type: ACL; Schema: storage; Owner: gentabase_storage_admin
 --
 
 GRANT ALL ON TABLE storage.objects TO anon;
@@ -2856,57 +2856,57 @@ GRANT ALL ON TABLE storage.objects TO postgres;
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_auth_admin IN SCHEMA auth GRANT ALL ON SEQUENCES  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_auth_admin IN SCHEMA auth GRANT ALL ON SEQUENCES  TO dashboard_user;
-
-
---
--- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: auth; Owner: supabase_auth_admin
---
-
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_auth_admin IN SCHEMA auth GRANT ALL ON FUNCTIONS  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_auth_admin IN SCHEMA auth GRANT ALL ON FUNCTIONS  TO dashboard_user;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_auth_admin IN SCHEMA auth GRANT ALL ON SEQUENCES  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_auth_admin IN SCHEMA auth GRANT ALL ON SEQUENCES  TO dashboard_user;
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: auth; Owner: supabase_auth_admin
+-- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_auth_admin IN SCHEMA auth GRANT ALL ON TABLES  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_auth_admin IN SCHEMA auth GRANT ALL ON TABLES  TO dashboard_user;
-
-
---
--- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: graphql_public; Owner: supabase_admin
---
-
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON SEQUENCES  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON SEQUENCES  TO anon;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON SEQUENCES  TO authenticated;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON SEQUENCES  TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_auth_admin IN SCHEMA auth GRANT ALL ON FUNCTIONS  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_auth_admin IN SCHEMA auth GRANT ALL ON FUNCTIONS  TO dashboard_user;
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: graphql_public; Owner: supabase_admin
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: auth; Owner: gentabase_auth_admin
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON FUNCTIONS  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON FUNCTIONS  TO anon;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON FUNCTIONS  TO authenticated;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON FUNCTIONS  TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_auth_admin IN SCHEMA auth GRANT ALL ON TABLES  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_auth_admin IN SCHEMA auth GRANT ALL ON TABLES  TO dashboard_user;
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: graphql_public; Owner: supabase_admin
+-- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: graphql_public; Owner: gentabase_admin
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON TABLES  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON TABLES  TO anon;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON TABLES  TO authenticated;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA graphql_public GRANT ALL ON TABLES  TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON SEQUENCES  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON SEQUENCES  TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON SEQUENCES  TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON SEQUENCES  TO service_role;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: graphql_public; Owner: gentabase_admin
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON FUNCTIONS  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON FUNCTIONS  TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON FUNCTIONS  TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON FUNCTIONS  TO service_role;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: graphql_public; Owner: gentabase_admin
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON TABLES  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON TABLES  TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON TABLES  TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA graphql_public GRANT ALL ON TABLES  TO service_role;
 
 
 --
@@ -2920,13 +2920,13 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENC
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: public; Owner: supabase_admin
+-- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: public; Owner: gentabase_admin
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES  TO anon;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES  TO authenticated;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES  TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES  TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES  TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES  TO service_role;
 
 
 --
@@ -2940,13 +2940,13 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIO
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: public; Owner: supabase_admin
+-- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: public; Owner: gentabase_admin
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS  TO anon;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS  TO authenticated;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS  TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS  TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS  TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS  TO service_role;
 
 
 --
@@ -2960,37 +2960,37 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES 
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: supabase_admin
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: gentabase_admin
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON TABLES  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON TABLES  TO anon;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON TABLES  TO authenticated;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON TABLES  TO service_role;
-
-
---
--- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: realtime; Owner: supabase_admin
---
-
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA realtime GRANT ALL ON SEQUENCES  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA realtime GRANT ALL ON SEQUENCES  TO dashboard_user;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON TABLES  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON TABLES  TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON TABLES  TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA public GRANT ALL ON TABLES  TO service_role;
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: realtime; Owner: supabase_admin
+-- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: realtime; Owner: gentabase_admin
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA realtime GRANT ALL ON FUNCTIONS  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA realtime GRANT ALL ON FUNCTIONS  TO dashboard_user;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA realtime GRANT ALL ON SEQUENCES  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA realtime GRANT ALL ON SEQUENCES  TO dashboard_user;
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: realtime; Owner: supabase_admin
+-- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: realtime; Owner: gentabase_admin
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA realtime GRANT ALL ON TABLES  TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA realtime GRANT ALL ON TABLES  TO dashboard_user;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA realtime GRANT ALL ON FUNCTIONS  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA realtime GRANT ALL ON FUNCTIONS  TO dashboard_user;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: realtime; Owner: gentabase_admin
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA realtime GRANT ALL ON TABLES  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE gentabase_admin IN SCHEMA realtime GRANT ALL ON TABLES  TO dashboard_user;
 
 
 --
@@ -3024,7 +3024,7 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA storage GRANT ALL ON TABLES
 
 
 --
--- Name: issue_graphql_placeholder; Type: EVENT TRIGGER; Schema: -; Owner: supabase_admin
+-- Name: issue_graphql_placeholder; Type: EVENT TRIGGER; Schema: -; Owner: gentabase_admin
 --
 
 CREATE EVENT TRIGGER issue_graphql_placeholder ON sql_drop
@@ -3032,10 +3032,10 @@ CREATE EVENT TRIGGER issue_graphql_placeholder ON sql_drop
    EXECUTE FUNCTION extensions.set_graphql_placeholder();
 
 
-ALTER EVENT TRIGGER issue_graphql_placeholder OWNER TO supabase_admin;
+ALTER EVENT TRIGGER issue_graphql_placeholder OWNER TO gentabase_admin;
 
 --
--- Name: issue_pg_cron_access; Type: EVENT TRIGGER; Schema: -; Owner: supabase_admin
+-- Name: issue_pg_cron_access; Type: EVENT TRIGGER; Schema: -; Owner: gentabase_admin
 --
 
 CREATE EVENT TRIGGER issue_pg_cron_access ON ddl_command_end
@@ -3043,10 +3043,10 @@ CREATE EVENT TRIGGER issue_pg_cron_access ON ddl_command_end
    EXECUTE FUNCTION extensions.grant_pg_cron_access();
 
 
-ALTER EVENT TRIGGER issue_pg_cron_access OWNER TO supabase_admin;
+ALTER EVENT TRIGGER issue_pg_cron_access OWNER TO gentabase_admin;
 
 --
--- Name: issue_pg_graphql_access; Type: EVENT TRIGGER; Schema: -; Owner: supabase_admin
+-- Name: issue_pg_graphql_access; Type: EVENT TRIGGER; Schema: -; Owner: gentabase_admin
 --
 
 CREATE EVENT TRIGGER issue_pg_graphql_access ON ddl_command_end
@@ -3054,10 +3054,10 @@ CREATE EVENT TRIGGER issue_pg_graphql_access ON ddl_command_end
    EXECUTE FUNCTION extensions.grant_pg_graphql_access();
 
 
-ALTER EVENT TRIGGER issue_pg_graphql_access OWNER TO supabase_admin;
+ALTER EVENT TRIGGER issue_pg_graphql_access OWNER TO gentabase_admin;
 
 --
--- Name: issue_pg_net_access; Type: EVENT TRIGGER; Schema: -; Owner: supabase_admin
+-- Name: issue_pg_net_access; Type: EVENT TRIGGER; Schema: -; Owner: gentabase_admin
 --
 
 CREATE EVENT TRIGGER issue_pg_net_access ON ddl_command_end
@@ -3065,27 +3065,27 @@ CREATE EVENT TRIGGER issue_pg_net_access ON ddl_command_end
    EXECUTE FUNCTION extensions.grant_pg_net_access();
 
 
-ALTER EVENT TRIGGER issue_pg_net_access OWNER TO supabase_admin;
+ALTER EVENT TRIGGER issue_pg_net_access OWNER TO gentabase_admin;
 
 --
--- Name: pgrst_ddl_watch; Type: EVENT TRIGGER; Schema: -; Owner: supabase_admin
+-- Name: pgrst_ddl_watch; Type: EVENT TRIGGER; Schema: -; Owner: gentabase_admin
 --
 
 CREATE EVENT TRIGGER pgrst_ddl_watch ON ddl_command_end
    EXECUTE FUNCTION extensions.pgrst_ddl_watch();
 
 
-ALTER EVENT TRIGGER pgrst_ddl_watch OWNER TO supabase_admin;
+ALTER EVENT TRIGGER pgrst_ddl_watch OWNER TO gentabase_admin;
 
 --
--- Name: pgrst_drop_watch; Type: EVENT TRIGGER; Schema: -; Owner: supabase_admin
+-- Name: pgrst_drop_watch; Type: EVENT TRIGGER; Schema: -; Owner: gentabase_admin
 --
 
 CREATE EVENT TRIGGER pgrst_drop_watch ON sql_drop
    EXECUTE FUNCTION extensions.pgrst_drop_watch();
 
 
-ALTER EVENT TRIGGER pgrst_drop_watch OWNER TO supabase_admin;
+ALTER EVENT TRIGGER pgrst_drop_watch OWNER TO gentabase_admin;
 
 --
 -- PostgreSQL database dump complete

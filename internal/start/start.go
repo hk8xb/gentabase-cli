@@ -34,15 +34,15 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
 
-	"github.com/supabase/cli/internal/db/start"
-	"github.com/supabase/cli/internal/functions/serve"
-	"github.com/supabase/cli/internal/seed/buckets"
-	"github.com/supabase/cli/internal/services"
-	"github.com/supabase/cli/internal/status"
-	phtelemetry "github.com/supabase/cli/internal/telemetry"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/db/start"
+	"github.com/hk8xb/gentabase-cli/internal/functions/serve"
+	"github.com/hk8xb/gentabase-cli/internal/seed/buckets"
+	"github.com/hk8xb/gentabase-cli/internal/services"
+	"github.com/hk8xb/gentabase-cli/internal/status"
+	phtelemetry "github.com/hk8xb/gentabase-cli/internal/telemetry"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 func Run(ctx context.Context, fsys afero.Fs, excludedContainers []string, ignoreHealthCheck bool) error {
@@ -51,7 +51,7 @@ func Run(ctx context.Context, fsys afero.Fs, excludedContainers []string, ignore
 		if err := flags.LoadConfig(fsys); err != nil {
 			return err
 		}
-		if err := utils.AssertSupabaseDbIsRunning(); err == nil {
+		if err := utils.AssertGentabaseDbIsRunning(); err == nil {
 			fmt.Fprintln(os.Stderr, utils.Aqua("gentabase start")+" is already running.")
 			names := status.CustomName{}
 			return status.Run(ctx, names, utils.OutputPretty, fsys)
@@ -232,7 +232,7 @@ func run(ctx context.Context, fsys afero.Fs, excludedContainers []string, dbConf
 
 	// TODO: start services using compose up
 	project := types.Project{
-		Name:     "supabase-cli",
+		Name:     "gentabase-cli",
 		Services: utils.GetServices().Filter(notExcluded),
 	}
 	if err := pullImagesUsingCompose(ctx, project); err != nil {
@@ -261,7 +261,7 @@ func run(ctx context.Context, fsys afero.Fs, excludedContainers []string, dbConf
 	// Start Logflare
 	if utils.Config.Analytics.Enabled && !isContainerExcluded(utils.Config.Analytics.Image, excluded) {
 		env := []string{
-			"DB_DATABASE=_supabase",
+			"DB_DATABASE=_gentabase",
 			"DB_HOSTNAME=" + dbConfig.Host,
 			fmt.Sprintf("DB_PORT=%d", dbConfig.Port),
 			"DB_SCHEMA=_analytics",
@@ -269,7 +269,7 @@ func run(ctx context.Context, fsys afero.Fs, excludedContainers []string, dbConf
 			"DB_PASSWORD=" + dbConfig.Password,
 			"LOGFLARE_MIN_CLUSTER_SIZE=1",
 			"LOGFLARE_SINGLE_TENANT=true",
-			"LOGFLARE_SUPABASE_MODE=true",
+			"LOGFLARE_GENTABASE_MODE=true",
 			"LOGFLARE_PRIVATE_ACCESS_TOKEN=" + utils.Config.Analytics.ApiKey,
 			"LOGFLARE_LOG_LEVEL=warn",
 			"LOGFLARE_NODE_HOST=127.0.0.1",
@@ -290,7 +290,7 @@ func run(ctx context.Context, fsys afero.Fs, excludedContainers []string, dbConf
 			)
 		case config.LogflarePostgres:
 			env = append(env,
-				fmt.Sprintf("POSTGRES_BACKEND_URL=postgresql://%s:%s@%s:%d/%s", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, "_supabase"),
+				fmt.Sprintf("POSTGRES_BACKEND_URL=postgresql://%s:%s@%s:%d/%s", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, "_gentabase"),
 				"POSTGRES_BACKEND_SCHEMA=_analytics",
 			)
 		}
@@ -373,7 +373,7 @@ EOF
 			}
 			env = append(env, "DOCKER_HOST="+dindHost.String())
 		case "npipe":
-			const dockerDaemonNeededErr = "Analytics on Windows requires Docker daemon exposed on tcp://localhost:2375.\nSee https://gentabase.dev/docs/guides/local-development/cli/getting-started?queryGroups=platform&platform=windows#running-supabase-locally for more details."
+			const dockerDaemonNeededErr = "Analytics on Windows requires Docker daemon exposed on tcp://localhost:2375.\nSee https://gentabase.dev/docs/guides/local-development/cli/getting-started?queryGroups=platform&platform=windows#running-gentabase-locally for more details."
 			fmt.Fprintln(os.Stderr, utils.Yellow("WARNING:"), dockerDaemonNeededErr)
 			env = append(env, "DOCKER_HOST="+dindHost.String())
 		case "unix":
@@ -449,7 +449,7 @@ vector --config /etc/vector/vector.yaml
 			ApiPort:       utils.Config.Api.Port,
 			BearerToken: fmt.Sprintf(
 				// If Authorization header is set to a self-minted JWT, we want to pass it down.
-				// Legacy supabase-js may set Authorization header to Bearer <apikey>. We must remove it
+				// Legacy dashboard clients may set Authorization header to Bearer <apikey>. We must remove it
 				// to avoid failing JWT validation.
 				// If Authorization header is missing, we want to match against apikey header to set the
 				// default JWT for downstream services.
@@ -517,7 +517,7 @@ vector --config /etc/vector/vector.yaml
 				Env: []string{
 					"KONG_DATABASE=off",
 					"KONG_DECLARATIVE_CONFIG=/home/kong/kong.yml",
-					"KONG_DNS_ORDER=LAST,A,CNAME", // https://github.com/supabase/cli/issues/14
+					"KONG_DNS_ORDER=LAST,A,CNAME", // https://github.com/hk8xb/gentabase-cli/issues/14
 					"KONG_PLUGINS=request-transformer,cors",
 					fmt.Sprintf("KONG_PORT_MAPS=%d:8000", utils.Config.Api.Port),
 					// Need to increase the nginx buffers in kong to avoid it rejecting the rather
@@ -585,7 +585,7 @@ EOF
 			"GOTRUE_API_PORT=9999",
 
 			"GOTRUE_DB_DRIVER=postgres",
-			fmt.Sprintf("GOTRUE_DB_DATABASE_URL=postgresql://supabase_auth_admin:%s@%s:%d/%s", dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Database),
+			fmt.Sprintf("GOTRUE_DB_DATABASE_URL=postgresql://gentabase_auth_admin:%s@%s:%d/%s", dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Database),
 
 			"GOTRUE_SITE_URL=" + utils.Config.Auth.SiteUrl,
 			"GOTRUE_URI_ALLOW_LIST=" + strings.Join(utils.Config.Auth.AdditionalRedirectUrls, ","),
@@ -1038,12 +1038,12 @@ EOF
 					"SERVICE_KEY=" + utils.Config.Auth.ServiceRoleKey.Value,
 					"AUTH_JWT_SECRET=" + utils.Config.Auth.JwtSecret.Value,
 					fmt.Sprintf("JWT_JWKS=%s", jwks),
-					fmt.Sprintf("DATABASE_URL=postgresql://supabase_storage_admin:%s@%s:%d/%s", dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Database),
+					fmt.Sprintf("DATABASE_URL=postgresql://gentabase_storage_admin:%s@%s:%d/%s", dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Database),
 					fmt.Sprintf("FILE_SIZE_LIMIT=%v", utils.Config.Storage.FileSizeLimit),
 					"STORAGE_BACKEND=file",
 					"FILE_STORAGE_BACKEND_PATH=" + dockerStoragePath,
 					"TENANT_ID=stub",
-					// TODO: https://github.com/supabase/storage-api/issues/55
+					// TODO: https://github.com/gentabase/storage-api/issues/55
 					"STORAGE_S3_REGION=" + utils.Config.Storage.S3Credentials.Region,
 					"GLOBAL_S3_BUCKET=stub",
 					fmt.Sprintf("ENABLE_IMAGE_TRANSFORMATION=%t", isImgProxyEnabled),
@@ -1195,11 +1195,11 @@ EOF
 					"CURRENT_CLI_VERSION=" + utils.Version,
 					"STUDIO_PG_META_URL=http://" + utils.PgmetaId + ":8080",
 					"POSTGRES_PASSWORD=" + dbConfig.Password,
-					"SUPABASE_URL=http://" + utils.KongId + ":8000",
-					"SUPABASE_PUBLIC_URL=" + utils.Config.Studio.ApiUrl,
+					"GENTABASE_URL=http://" + utils.KongId + ":8000",
+					"GENTABASE_PUBLIC_URL=" + utils.Config.Studio.ApiUrl,
 					"AUTH_JWT_SECRET=" + utils.Config.Auth.JwtSecret.Value,
-					"SUPABASE_ANON_KEY=" + utils.Config.Auth.AnonKey.Value,
-					"SUPABASE_SERVICE_KEY=" + utils.Config.Auth.ServiceRoleKey.Value,
+					"GENTABASE_ANON_KEY=" + utils.Config.Auth.AnonKey.Value,
+					"GENTABASE_SERVICE_KEY=" + utils.Config.Auth.ServiceRoleKey.Value,
 					"LOGFLARE_PRIVATE_ACCESS_TOKEN=" + utils.Config.Analytics.ApiKey,
 					"OPENAI_API_KEY=" + utils.Config.Studio.OpenaiApiKey.Value,
 					"PGRST_DB_SCHEMAS=" + strings.Join(utils.Config.Api.Schemas, ","),
@@ -1272,7 +1272,7 @@ EOF
 					"PORT=4000",
 					fmt.Sprintf("PROXY_PORT_SESSION=%d", portSession),
 					fmt.Sprintf("PROXY_PORT_TRANSACTION=%d", portTransaction),
-					fmt.Sprintf("DATABASE_URL=ecto://%s:%s@%s:%d/%s", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, "_supabase"),
+					fmt.Sprintf("DATABASE_URL=ecto://%s:%s@%s:%d/%s", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, "_gentabase"),
 					"CLUSTER_POSTGRES=true",
 					"SECRET_KEY_BASE=" + utils.Config.Db.Pooler.SecretKeyBase,
 					"VAULT_ENC_KEY=" + utils.Config.Db.Pooler.EncryptionKey,

@@ -10,8 +10,8 @@ import (
 	"github.com/jackc/pgerrcode"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/pkg/parser"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/pkg/parser"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestMigrationFile(t *testing.T) {
@@ -96,7 +96,7 @@ func TestMigrationFile(t *testing.T) {
 		assert.ErrorContains(t, err, `type "ltree" does not exist`)
 		assert.ErrorContains(t, err, "Hint: This type may be defined in a schema")
 		assert.ErrorContains(t, err, "extensions.ltree")
-		assert.ErrorContains(t, err, "supabase migration new --help")
+		assert.ErrorContains(t, err, "gentabase migration new --help")
 		assert.ErrorContains(t, err, "At statement: 0")
 	})
 

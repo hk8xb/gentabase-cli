@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 //go:embed testdata
@@ -46,7 +46,7 @@ func TestWriteStructured(t *testing.T) {
 				}
 				expected, err := afero.ReadFile(testFs, fp)
 				assert.NoError(t, err)
-				actual, _ := afero.ReadFile(fsys, path.Join(utils.SupabaseDirPath, fp))
+				actual, _ := afero.ReadFile(fsys, path.Join(utils.GentabaseDirPath, fp))
 				assert.Equal(t, string(expected), string(actual), fp)
 				return nil
 			})

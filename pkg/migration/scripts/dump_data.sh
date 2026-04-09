@@ -30,7 +30,7 @@ pg_dump \
     --exclude-schema "${EXCLUDED_SCHEMAS:-}" \
     --exclude-table "auth.schema_migrations" \
     --exclude-table "storage.migrations" \
-    --exclude-table "supabase_functions.migrations" \
+    --exclude-table "gentabase_functions.migrations" \
     --schema "$INCLUDED_SCHEMAS" \
     ${EXTRA_FLAGS:-} \
 | sed -E 's/^\\(un)?restrict .*$/-- &/'

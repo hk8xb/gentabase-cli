@@ -10,8 +10,8 @@ import (
 	"github.com/oapi-codegen/nullable"
 	openapi_types "github.com/oapi-codegen/runtime/types"
 	"github.com/stretchr/testify/assert"
-	v1API "github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	v1API "github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 func newWithDefaults() auth {
@@ -83,7 +83,7 @@ func TestAuthDiff(t *testing.T) {
 		// Run test
 		diff, err := c.DiffWithRemote(v1API.AuthConfigResponse{
 			SiteUrl:                           nullable.NewNullableWithValue(""),
-			UriAllowList:                      nullable.NewNullableWithValue("https://127.0.0.1:3000,https://ref.supabase.co"),
+			UriAllowList:                      nullable.NewNullableWithValue("https://127.0.0.1:3000,https://ref.gentabase.dev"),
 			JwtExp:                            nullable.NewNullableWithValue(0),
 			RefreshTokenRotationEnabled:       nullable.NewNullableWithValue(true),
 			SecurityRefreshTokenReuseInterval: nullable.NewNullableWithValue(0),

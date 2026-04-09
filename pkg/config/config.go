@@ -30,8 +30,8 @@ import (
 	"github.com/go-viper/mapstructure/v2"
 	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
 	"golang.org/x/mod/semver"
 )
 
@@ -132,7 +132,7 @@ func (g Glob) Files(fsys fs.FS) ([]string, error) {
 // If you are adding new user defined secrets, such as OAuth provider secret, the default value in
 // init_config.toml should be an env var substitution. For example,
 //
-// > secret = "env(SUPABASE_AUTH_EXTERNAL_APPLE_SECRET)"
+// > secret = "env(GENTABASE_AUTH_EXTERNAL_APPLE_SECRET)"
 //
 // Default values for internal configs should be added to `var Config` initializer.
 type (
@@ -380,7 +380,7 @@ func NewConfig(editors ...ConfigEditor) config {
 			IpVersion:       AddressIPv4,
 			MaxHeaderLength: 4096,
 			TenantId:        "realtime-dev",
-			EncryptionKey:   "supabaserealtime",
+			EncryptionKey:   "gentabaserealtime",
 			SecretKeyBase:   "EAx3IQ/wRG1v47ZD4NE4/9RzBI8Jmil3x0yhcW4V2NHBP6c2iPIzwjofi2Ep4HIG",
 		},
 		Storage: storage{
@@ -478,7 +478,7 @@ func (c *config) loadFromFile(filename string, fsys fs.FS) error {
 		viper.ExperimentalBindStruct(),
 		viper.EnvKeyReplacer(strings.NewReplacer(".", "_")),
 	)
-	v.SetEnvPrefix("SUPABASE")
+	v.SetEnvPrefix("GENTABASE")
 	v.AutomaticEnv()
 	if err := c.mergeDefaultValues(v); err != nil {
 		return err
@@ -606,7 +606,7 @@ func (c *config) newDecodeHook(fs ...mapstructure.DecodeHookFunc) mapstructure.D
 func (c *config) Load(path string, fsys fs.FS, overrides ...ConfigEditor) error {
 	builder := NewPathBuilder(path)
 	// Load secrets from .env file
-	if err := loadNestedEnv(builder.SupabaseDirPath); err != nil {
+	if err := loadNestedEnv(builder.GentabaseDirPath); err != nil {
 		return err
 	}
 	if err := c.loadFromFile(builder.ConfigPath, fsys); err != nil {
@@ -712,7 +712,7 @@ func (c *baseConfig) resolve(builder pathBuilder, fsys fs.FS) error {
 	// Update content paths
 	for name, tmpl := range c.Auth.Email.Template {
 		// FIXME: only email template is relative to repo directory
-		cwd := filepath.Dir(builder.SupabaseDirPath)
+		cwd := filepath.Dir(builder.GentabaseDirPath)
 		if len(tmpl.ContentPath) > 0 && !filepath.IsAbs(tmpl.ContentPath) {
 			tmpl.ContentPath = filepath.Join(cwd, tmpl.ContentPath)
 		}
@@ -720,7 +720,7 @@ func (c *baseConfig) resolve(builder pathBuilder, fsys fs.FS) error {
 	}
 	for name, tmpl := range c.Auth.Email.Notification {
 		if len(tmpl.ContentPath) > 0 && !filepath.IsAbs(tmpl.ContentPath) {
-			tmpl.ContentPath = filepath.Join(builder.SupabaseDirPath, tmpl.ContentPath)
+			tmpl.ContentPath = filepath.Join(builder.GentabaseDirPath, tmpl.ContentPath)
 		}
 		c.Auth.Email.Notification[name] = tmpl
 	}
@@ -730,21 +730,21 @@ func (c *baseConfig) resolve(builder pathBuilder, fsys fs.FS) error {
 			bucket.FileSizeLimit = c.Storage.FileSizeLimit
 		}
 		if len(bucket.ObjectsPath) > 0 && !filepath.IsAbs(bucket.ObjectsPath) {
-			bucket.ObjectsPath = filepath.Join(builder.SupabaseDirPath, bucket.ObjectsPath)
+			bucket.ObjectsPath = filepath.Join(builder.GentabaseDirPath, bucket.ObjectsPath)
 		}
 		c.Storage.Buckets[name] = bucket
 	}
 	// Resolve signing keys path for cross-platform compatibility
 	if len(c.Auth.SigningKeysPath) > 0 && !filepath.IsAbs(c.Auth.SigningKeysPath) {
-		c.Auth.SigningKeysPath = filepath.Join(builder.SupabaseDirPath, c.Auth.SigningKeysPath)
+		c.Auth.SigningKeysPath = filepath.Join(builder.GentabaseDirPath, c.Auth.SigningKeysPath)
 	}
 	// Resolve functions config
 	for slug, function := range c.Functions {
 		if len(function.Entrypoint) == 0 {
 			function.Entrypoint = filepath.Join(builder.FunctionsDir, slug, "index.ts")
 		} else if !filepath.IsAbs(function.Entrypoint) {
-			// Append supabase/ because paths in configs are specified relative to config.toml
-			function.Entrypoint = filepath.Join(builder.SupabaseDirPath, function.Entrypoint)
+			// Append project root (gentabase/) because paths in configs are specified relative to config.toml
+			function.Entrypoint = filepath.Join(builder.GentabaseDirPath, function.Entrypoint)
 		}
 		if len(function.ImportMap) == 0 {
 			functionDir := filepath.Dir(function.Entrypoint)
@@ -757,11 +757,11 @@ func (c *baseConfig) resolve(builder pathBuilder, fsys fs.FS) error {
 			}
 			// Functions may not use import map so we don't set a default value
 		} else if !filepath.IsAbs(function.ImportMap) {
-			function.ImportMap = filepath.Join(builder.SupabaseDirPath, function.ImportMap)
+			function.ImportMap = filepath.Join(builder.GentabaseDirPath, function.ImportMap)
 		}
 		for i, val := range function.StaticFiles {
 			if len(val) > 0 && !filepath.IsAbs(val) {
-				function.StaticFiles[i] = filepath.Join(builder.SupabaseDirPath, val)
+				function.StaticFiles[i] = filepath.Join(builder.GentabaseDirPath, val)
 			}
 		}
 		c.Functions[slug] = function
@@ -769,29 +769,29 @@ func (c *baseConfig) resolve(builder pathBuilder, fsys fs.FS) error {
 	// Resolve TLS config
 	if c.Api.Enabled && c.Api.Tls.Enabled {
 		if len(c.Api.Tls.CertPath) > 0 {
-			c.Api.Tls.CertPath = path.Join(builder.SupabaseDirPath, c.Api.Tls.CertPath)
+			c.Api.Tls.CertPath = path.Join(builder.GentabaseDirPath, c.Api.Tls.CertPath)
 		}
 		if len(c.Api.Tls.KeyPath) > 0 {
-			c.Api.Tls.KeyPath = path.Join(builder.SupabaseDirPath, c.Api.Tls.KeyPath)
+			c.Api.Tls.KeyPath = path.Join(builder.GentabaseDirPath, c.Api.Tls.KeyPath)
 		}
 	}
 	// Resolve database config
 	if c.Db.Seed.Enabled {
 		for i, pattern := range c.Db.Seed.SqlPaths {
 			if len(pattern) > 0 && !filepath.IsAbs(pattern) {
-				c.Db.Seed.SqlPaths[i] = path.Join(builder.SupabaseDirPath, pattern)
+				c.Db.Seed.SqlPaths[i] = path.Join(builder.GentabaseDirPath, pattern)
 			}
 		}
 	}
 	for i, pattern := range c.Db.Migrations.SchemaPaths {
 		if len(pattern) > 0 && !filepath.IsAbs(pattern) {
-			c.Db.Migrations.SchemaPaths[i] = path.Join(builder.SupabaseDirPath, pattern)
+			c.Db.Migrations.SchemaPaths[i] = path.Join(builder.GentabaseDirPath, pattern)
 		}
 	}
 	if c.Experimental.PgDelta != nil &&
 		len(c.Experimental.PgDelta.DeclarativeSchemaPath) > 0 &&
 		!filepath.IsAbs(c.Experimental.PgDelta.DeclarativeSchemaPath) {
-		c.Experimental.PgDelta.DeclarativeSchemaPath = path.Join(builder.SupabaseDirPath, c.Experimental.PgDelta.DeclarativeSchemaPath)
+		c.Experimental.PgDelta.DeclarativeSchemaPath = path.Join(builder.GentabaseDirPath, c.Experimental.PgDelta.DeclarativeSchemaPath)
 	}
 	return nil
 }
@@ -847,9 +847,9 @@ func (c *config) Validate(fsys fs.FS) error {
 	case 15, 17:
 		if len(c.Experimental.OrioleDBVersion) > 0 {
 			if VersionCompare(c.Experimental.OrioleDBVersion, "15.1.1.13") > 0 {
-				c.Db.Image = fmt.Sprintf("supabase/postgres:%s-orioledb", c.Experimental.OrioleDBVersion)
+				c.Db.Image = fmt.Sprintf("ghcr.io/hk8xb/postgres:%s-orioledb", c.Experimental.OrioleDBVersion)
 			} else {
-				c.Db.Image = "supabase/postgres:orioledb-" + c.Experimental.OrioleDBVersion
+				c.Db.Image = "ghcr.io/hk8xb/postgres:orioledb-" + c.Experimental.OrioleDBVersion
 			}
 			if err := assertEnvLoaded(c.Experimental.S3Host); err != nil {
 				return err
@@ -1019,7 +1019,7 @@ func sanitizeProjectId(src string) string {
 	// It must also start with an alphanumeric character
 	sanitized = strings.TrimLeft(sanitized, "_.-")
 	// Truncate sanitized ID to 40 characters since docker hostnames cannot exceed
-	// 63 characters, and we need to save space for padding supabase_*_edge_runtime.
+	// 63 characters, and we need to save space for padding gentabase_*_edge_runtime.
 	return truncateText(sanitized, maxProjectIdLength)
 }
 
@@ -1031,7 +1031,7 @@ func loadNestedEnv(basePath string) error {
 	if !filepath.IsAbs(basePath) {
 		basePath = filepath.Join(repoDir, basePath)
 	}
-	env := os.Getenv("SUPABASE_ENV")
+	env := os.Getenv("GENTABASE_ENV")
 	for cwd := basePath; cwd != filepath.Dir(repoDir); cwd = filepath.Dir(cwd) {
 		if err := os.Chdir(cwd); err != nil && !errors.Is(err, os.ErrNotExist) {
 			return errors.Errorf("failed to change directory: %w", err)
@@ -1349,7 +1349,7 @@ func ValidateFunctionSlug(slug string) error {
 	return nil
 }
 
-// Ref: https://github.com/supabase/storage/blob/master/src/storage/limits.ts#L59
+// Ref: platform storage upload size limits (defaults).
 var bucketNamePattern = regexp.MustCompile(`^(\w|!|-|\.|\*|'|\(|\)| |&|\$|@|=|;|:|\+|,|\?)*$`)
 
 func ValidateBucketName(name string) error {
@@ -1421,7 +1421,7 @@ func (c *tpaClerk) validate() (err error) {
 	}
 
 	if !clerkDomainPattern.MatchString(c.Domain) {
-		return errors.New("Invalid config: auth.third_party.clerk has invalid domain, it usually is like clerk.example.com or example.clerk.accounts.dev. Check https://clerk.com/setup/supabase on how to find the correct value.")
+		return errors.New("Invalid config: auth.third_party.clerk has invalid domain, it usually is like clerk.example.com or example.clerk.accounts.dev. Check Clerk documentation for the correct setup value.")
 	}
 
 	return nil

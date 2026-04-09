@@ -11,13 +11,13 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/fetcher"
-	"github.com/supabase/cli/pkg/storage"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 var mockFile = storage.ObjectResponse{
@@ -61,7 +61,7 @@ func TestStorageCP(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Post("/storage/v1/object/private/file").
 			Reply(http.StatusOK)
 		// Run test
@@ -80,7 +80,7 @@ func TestStorageCP(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]storage.BucketResponse{})
@@ -100,7 +100,7 @@ func TestStorageCP(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Get("/storage/v1/object/private/file").
 			Reply(http.StatusOK)
 		// Run test
@@ -122,7 +122,7 @@ func TestStorageCP(t *testing.T) {
 			Get("/v1/projects/" + flags.ProjectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON(apiKeys)
-		gock.New("https://" + utils.GetSupabaseHost(flags.ProjectRef)).
+		gock.New("https://" + utils.GetGentabaseHost(flags.ProjectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]storage.BucketResponse{})

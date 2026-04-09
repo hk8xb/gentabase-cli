@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 type captureCall struct {
@@ -73,7 +73,7 @@ func (f *fakeAnalytics) Close() error {
 
 func TestServiceCaptureIncludesBasePropertiesAndCommandContext(t *testing.T) {
 	now := time.Date(2026, time.April, 1, 12, 0, 0, 0, time.UTC)
-	t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+	t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 	fsys := afero.NewMemMapFs()
 	analytics := &fakeAnalytics{enabled: true}
 
@@ -134,7 +134,7 @@ func TestServiceCaptureIncludesBasePropertiesAndCommandContext(t *testing.T) {
 
 func TestServiceStitchLoginPersistsDistinctID(t *testing.T) {
 	now := time.Date(2026, time.April, 1, 12, 0, 0, 0, time.UTC)
-	t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+	t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 	fsys := afero.NewMemMapFs()
 	analytics := &fakeAnalytics{enabled: true}
 
@@ -163,7 +163,7 @@ func TestServiceStitchLoginPersistsDistinctID(t *testing.T) {
 
 func TestServiceClearDistinctIDFallsBackToDeviceID(t *testing.T) {
 	now := time.Date(2026, time.April, 1, 12, 0, 0, 0, time.UTC)
-	t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+	t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 	fsys := afero.NewMemMapFs()
 	analytics := &fakeAnalytics{enabled: true}
 
@@ -188,7 +188,7 @@ func TestServiceClearDistinctIDFallsBackToDeviceID(t *testing.T) {
 
 func TestServiceCaptureIncludesLinkedProjectGroups(t *testing.T) {
 	now := time.Date(2026, time.April, 1, 12, 0, 0, 0, time.UTC)
-	t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+	t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 	fsys := afero.NewMemMapFs()
 	analytics := &fakeAnalytics{enabled: true}
 	require.NoError(t, SaveLinkedProject(api.V1ProjectWithDatabaseResponse{
@@ -217,7 +217,7 @@ func TestServiceCaptureHonorsConsentAndEnvOptOut(t *testing.T) {
 	now := time.Date(2026, time.April, 1, 12, 0, 0, 0, time.UTC)
 
 	t.Run("disabled telemetry file suppresses capture", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		fsys := afero.NewMemMapFs()
 		analytics := &fakeAnalytics{enabled: true}
 		require.NoError(t, SaveState(State{
@@ -239,7 +239,7 @@ func TestServiceCaptureHonorsConsentAndEnvOptOut(t *testing.T) {
 	})
 
 	t.Run("DO_NOT_TRACK suppresses capture", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		t.Setenv("DO_NOT_TRACK", "1")
 		fsys := afero.NewMemMapFs()
 		analytics := &fakeAnalytics{enabled: true}

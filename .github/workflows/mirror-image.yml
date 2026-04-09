@@ -46,5 +46,5 @@ jobs:
         with:
           src: docker.io/${{ github.event.client_payload.image || inputs.image }}
           dst: |
-            public.ecr.aws/supabase/${{ steps.strip.outputs.image }}
-            ghcr.io/supabase/${{ steps.strip.outputs.image }}
+            public.ecr.aws/gentabase/${{ steps.strip.outputs.image }}
+            ghcr.io/gentabase/${{ steps.strip.outputs.image }}

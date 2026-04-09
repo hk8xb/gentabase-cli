@@ -8,9 +8,9 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 type linkedProject struct {
@@ -19,7 +19,7 @@ type linkedProject struct {
 }
 
 func Run(ctx context.Context, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().V1ListAllProjectsWithResponse(ctx)
+	resp, err := utils.GetGentabaseAPI().V1ListAllProjectsWithResponse(ctx)
 	if err != nil {
 		return errors.Errorf("failed to list projects: %w", err)
 	}

@@ -14,10 +14,10 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	phtelemetry "github.com/supabase/cli/internal/telemetry"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/credentials"
+	phtelemetry "github.com/hk8xb/gentabase-cli/internal/telemetry"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/credentials"
 	"github.com/zalando/go-keyring"
 )
 
@@ -105,7 +105,7 @@ func TestLoginCommand(t *testing.T) {
 
 		defer gock.OffAll()
 
-		gock.New(utils.GetSupabaseAPIHost()).
+		gock.New(utils.GetGentabaseAPIHost()).
 			Get("/platform/cli/login/" + sessionId).
 			Reply(200).
 			JSON(map[string]any{
@@ -129,7 +129,7 @@ func TestLoginCommand(t *testing.T) {
 		var out bytes.Buffer
 		_, _ = io.Copy(&out, r)
 
-		expectedBrowserUrl := fmt.Sprintf("%s/cli/login?session_id=%s&token_name=%s&public_key=%s", utils.GetSupabaseDashboardURL(), sessionId, tokenName, publicKey)
+		expectedBrowserUrl := fmt.Sprintf("%s/cli/login?session_id=%s&token_name=%s&public_key=%s", utils.GetGentabaseDashboardURL(), sessionId, tokenName, publicKey)
 		assert.Contains(t, out.String(), expectedBrowserUrl)
 
 		saved, err := credentials.StoreProvider.Get(utils.CurrentProfile.Name)
@@ -145,7 +145,7 @@ func TestLoginTelemetryStitching(t *testing.T) {
 	token := string(apitest.RandomAccessToken(t))
 
 	newService := func(t *testing.T, fsys afero.Fs, analytics *fakeAnalytics) *phtelemetry.Service {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		service, err := phtelemetry.NewService(fsys, phtelemetry.Options{
 			Analytics: analytics,
 			Now:       func() time.Time { return now },
@@ -189,7 +189,7 @@ func TestLoginTelemetryStitching(t *testing.T) {
 		ctx := phtelemetry.WithService(context.Background(), newService(t, fsys, analytics))
 
 		defer gock.OffAll()
-		gock.New(utils.GetSupabaseAPIHost()).
+		gock.New(utils.GetGentabaseAPIHost()).
 			Get("/platform/cli/login/browser-session").
 			Reply(200).
 			JSON(map[string]any{

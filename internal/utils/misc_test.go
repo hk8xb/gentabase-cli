@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 type MockFs struct {
@@ -43,13 +43,13 @@ func TestProjectRoot(t *testing.T) {
 	t.Run("stops at closest parent", func(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		_, err := fsys.Create(filepath.Join(root, "supabase", ConfigPath))
+		_, err := fsys.Create(filepath.Join(root, "gentabase", ConfigPath))
 		require.NoError(t, err)
 		// Run test
-		cwd := filepath.Join(root, "supabase", "supabase", "functions")
+		cwd := filepath.Join(root, "gentabase", "gentabase", "functions")
 		path := getProjectRoot(cwd, fsys)
 		// Check error
-		assert.Equal(t, filepath.Join(root, "supabase"), path)
+		assert.Equal(t, filepath.Join(root, "gentabase"), path)
 	})
 
 	t.Run("ignores error on config not found", func(t *testing.T) {
@@ -68,7 +68,7 @@ func TestProjectRoot(t *testing.T) {
 		cwd, err := os.Getwd()
 		require.NoError(t, err)
 		// Setup in-memory fs
-		fsys := &MockFs{DenyPath: filepath.Join(cwd, "supabase")}
+		fsys := &MockFs{DenyPath: filepath.Join(cwd, "gentabase")}
 		// Run test
 		path := getProjectRoot(cwd, fsys)
 		// Check error
@@ -191,10 +191,10 @@ func TestWriteFile(t *testing.T) {
 func TestGetDeclarativeDir(t *testing.T) {
 	t.Run("uses configured pgdelta path", func(t *testing.T) {
 		Config.Experimental.PgDelta = &config.PgDeltaConfig{
-			DeclarativeSchemaPath: filepath.Join(SupabaseDirPath, "db", "decl"),
+			DeclarativeSchemaPath: filepath.Join(GentabaseDirPath, "db", "decl"),
 		}
 
-		assert.Equal(t, filepath.Join(SupabaseDirPath, "db", "decl"), GetDeclarativeDir())
+		assert.Equal(t, filepath.Join(GentabaseDirPath, "db", "decl"), GetDeclarativeDir())
 	})
 
 	t.Run("falls back to default declarative dir", func(t *testing.T) {

@@ -8,8 +8,8 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/postgresConfig/get"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/postgresConfig/get"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, projectRef string, configKeys []string, noRestart bool, fsys afero.Fs) error {
@@ -33,7 +33,7 @@ func Run(ctx context.Context, projectRef string, configKeys []string, noRestart 
 		return errors.Errorf("failed to serialize config overrides: %w", err)
 	}
 
-	resp, err := utils.GetSupabase().V1UpdatePostgresConfigWithBodyWithResponse(ctx, projectRef, "application/json", bytes.NewReader(bts))
+	resp, err := utils.GetGentabaseAPI().V1UpdatePostgresConfigWithBodyWithResponse(ctx, projectRef, "application/json", bytes.NewReader(bts))
 	if err != nil {
 		return errors.Errorf("failed to delete config overrides: %w", err)
 	} else if resp.JSON200 == nil {

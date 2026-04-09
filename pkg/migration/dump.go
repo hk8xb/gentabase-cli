@@ -21,7 +21,7 @@ var (
 	InternalSchemas = []string{
 		"information_schema",
 		"pg_*", // Wildcard pattern follows pg_dump
-		// Initialised by supabase/postgres image and owned by postgres role
+		// Initialised by ghcr.io/hk8xb/postgres image and owned by postgres role
 		"_analytics",
 		"_realtime",
 		"_supavisor",
@@ -30,8 +30,8 @@ var (
 		"pgbouncer",
 		"realtime",
 		"storage",
-		"supabase_functions",
-		"supabase_migrations",
+		"gentabase_functions",
+		"gentabase_migrations",
 		// Owned by extensions
 		"cron",
 		"dbdev",
@@ -76,9 +76,9 @@ var (
 		"pgbouncer",
 		"realtime",
 		// "storage",
-		// "supabase_functions",
-		"supabase_migrations",
-		// TODO: Remove in a few version in favor of _supabase internal db
+		// "gentabase_functions",
+		"gentabase_migrations",
+		// TODO: Remove in a few version in favor of _gentabase internal db
 		"_analytics",
 		"_realtime",
 		"_supavisor",
@@ -92,7 +92,7 @@ var (
 		"pgbouncer",
 		"postgres",
 		"service_role",
-		"supabase_.*",
+		"gentabase_.*",
 		// Managed by extensions
 		"pgsodium_keyholder",
 		"pgsodium_keyiduser",
@@ -100,7 +100,7 @@ var (
 		"pgtle_admin",
 	}
 	allowedConfigs = []string{
-		// Ref: https://github.com/supabase/postgres/blob/develop/ansible/files/postgresql_config/supautils.conf.j2#L10
+		// Ref: Postgres supautils allowed configuration patterns (see hk8xb/postgres image).
 		"pgaudit.*",
 		"pgrst.*",
 		"session_replication_role",

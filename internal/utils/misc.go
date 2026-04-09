@@ -17,7 +17,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
 )
 
 // Assigned using `-ldflags` https://stackoverflow.com/q/11354518
@@ -51,7 +51,7 @@ var (
 
 	ProjectRefPattern  = regexp.MustCompile(`^[a-z]{20}$`)
 	UUIDPattern        = regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`)
-	ProjectHostPattern = regexp.MustCompile(`^(db\.)([a-z]{20})\.supabase\.(co|red)$`)
+	ProjectHostPattern = regexp.MustCompile(`^(db\.)([a-z]{20})\.gentabase\.(dev|red)$`)
 	BranchNamePattern  = regexp.MustCompile(`[[:word:]-]+`)
 	FuncSlugPattern    = regexp.MustCompile(`^[A-Za-z][A-Za-z0-9_-]*$`)
 	ImageNamePattern   = regexp.MustCompile(`\/(.*):`)
@@ -60,10 +60,10 @@ var (
 	PgSchemas       = migration.InternalSchemas[:2]
 	InternalSchemas = migration.InternalSchemas
 
-	SupabaseDirPath      = "gentabase"
-	ConfigPath           = filepath.Join(SupabaseDirPath, "config.toml")
-	GitIgnorePath        = filepath.Join(SupabaseDirPath, ".gitignore")
-	TempDir              = filepath.Join(SupabaseDirPath, ".temp")
+	GentabaseDirPath      = "gentabase"
+	ConfigPath           = filepath.Join(GentabaseDirPath, "config.toml")
+	GitIgnorePath        = filepath.Join(GentabaseDirPath, ".gitignore")
+	TempDir              = filepath.Join(GentabaseDirPath, ".temp")
 	ImportMapsDir        = filepath.Join(TempDir, "import_maps")
 	ProjectRefPath       = filepath.Join(TempDir, "project-ref")
 	PoolerUrlPath        = filepath.Join(TempDir, "pooler-url")
@@ -77,19 +77,19 @@ var (
 	PoolerVersionPath    = filepath.Join(TempDir, "pooler-version")
 	RealtimeVersionPath  = filepath.Join(TempDir, "realtime-version")
 	CliVersionPath       = filepath.Join(TempDir, "cli-latest")
-	CurrBranchPath       = filepath.Join(SupabaseDirPath, ".branches", "_current_branch")
+	CurrBranchPath       = filepath.Join(GentabaseDirPath, ".branches", "_current_branch")
 	// DeclarativeDir is the canonical location for pg-delta declarative schema
 	// files generated or synced by `gentabase db schema declarative` commands.
-	DeclarativeDir        = filepath.Join(SupabaseDirPath, "declarative")
-	ClusterDir            = filepath.Join(SupabaseDirPath, "cluster")
-	SchemasDir            = filepath.Join(SupabaseDirPath, "schemas")
-	MigrationsDir         = filepath.Join(SupabaseDirPath, "migrations")
-	FunctionsDir          = filepath.Join(SupabaseDirPath, "functions")
-	SnippetsDir           = filepath.Join(SupabaseDirPath, "snippets")
+	DeclarativeDir        = filepath.Join(GentabaseDirPath, "declarative")
+	ClusterDir            = filepath.Join(GentabaseDirPath, "cluster")
+	SchemasDir            = filepath.Join(GentabaseDirPath, "schemas")
+	MigrationsDir         = filepath.Join(GentabaseDirPath, "migrations")
+	FunctionsDir          = filepath.Join(GentabaseDirPath, "functions")
+	SnippetsDir           = filepath.Join(GentabaseDirPath, "snippets")
 	FallbackImportMapPath = filepath.Join(FunctionsDir, "import_map.json")
 	FallbackEnvFilePath   = filepath.Join(FunctionsDir, ".env")
-	DbTestsDir            = filepath.Join(SupabaseDirPath, "tests")
-	CustomRolesPath       = filepath.Join(SupabaseDirPath, "roles.sql")
+	DbTestsDir            = filepath.Join(GentabaseDirPath, "tests")
+	CustomRolesPath       = filepath.Join(GentabaseDirPath, "roles.sql")
 
 	ErrNotLinked   = errors.Errorf("Cannot find project ref. Have you run %s?", Aqua("gentabase link"))
 	ErrInvalidRef  = errors.New("Invalid project ref format. Must be like `abcdefghijklmnopqrst`.")
@@ -122,7 +122,7 @@ func GetCurrentBranchFS(fsys afero.Fs) (string, error) {
 	return string(branch), nil
 }
 
-func AssertSupabaseDbIsRunning() error {
+func AssertGentabaseDbIsRunning() error {
 	return AssertServiceIsRunning(context.Background(), DbId)
 }
 
@@ -163,7 +163,7 @@ func IsGitIgnored(fp ...string) (bool, error) {
 	return m.Match(fp, false), nil
 }
 
-// If the `os.Getwd()` is within a supabase project, this will return
+// If the `os.Getwd()` is within a Gentabase project, this will return
 // the root of the given project as the current working directory.
 // Otherwise, the `os.Getwd()` is kept as is.
 func getProjectRoot(absPath string, fsys afero.Fs) string {

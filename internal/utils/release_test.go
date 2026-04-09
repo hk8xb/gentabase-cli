@@ -9,8 +9,8 @@ import (
 	"github.com/google/go-github/v62/github"
 	"github.com/h2non/gock"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 func TestLatestRelease(t *testing.T) {
@@ -18,7 +18,7 @@ func TestLatestRelease(t *testing.T) {
 		// Setup api mock
 		defer gock.OffAll()
 		gock.New("https://api.github.com").
-			Get("/repos/supabase/cli/releases/latest").
+			Get("/repos/hk8xb/gentabase-cli/releases/latest").
 			Reply(http.StatusOK).
 			JSON(github.RepositoryRelease{TagName: cast.Ptr("v2")})
 		// Run test
@@ -33,7 +33,7 @@ func TestLatestRelease(t *testing.T) {
 		// Setup api mock
 		defer gock.OffAll()
 		gock.New("https://api.github.com").
-			Get("/repos/supabase/cli/releases/latest").
+			Get("/repos/hk8xb/gentabase-cli/releases/latest").
 			Reply(http.StatusOK).
 			JSON(github.RepositoryRelease{})
 		// Run test
@@ -49,7 +49,7 @@ func TestLatestRelease(t *testing.T) {
 		// Setup api mock
 		defer gock.OffAll()
 		gock.New("https://api.github.com").
-			Get("/repos/supabase/cli/releases/latest").
+			Get("/repos/hk8xb/gentabase-cli/releases/latest").
 			ReplyError(errNetwork)
 		// Run test
 		version, err := GetLatestRelease(context.Background())

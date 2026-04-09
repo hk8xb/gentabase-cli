@@ -8,9 +8,9 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, fsys afero.Fs) error {
@@ -62,7 +62,7 @@ func ToMarkdown(branches []api.BranchResponse) string {
 type BranchFilter func(api.BranchResponse) bool
 
 func ListBranch(ctx context.Context, ref string, filter ...BranchFilter) ([]api.BranchResponse, error) {
-	resp, err := utils.GetSupabase().V1ListAllBranchesWithResponse(ctx, ref)
+	resp, err := utils.GetGentabaseAPI().V1ListAllBranchesWithResponse(ctx, ref)
 	if err != nil {
 		return nil, errors.Errorf("failed to list branch: %w", err)
 	} else if resp.JSON200 == nil {

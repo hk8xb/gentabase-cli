@@ -36,7 +36,7 @@ func Connect(ctx context.Context, connString string, options ...func(*pgx.ConnCo
 }
 
 func shouldIgnore(msg string) bool {
-	return strings.Contains(msg, `schema "supabase_migrations" already exists`) ||
+	return strings.Contains(msg, `schema "gentabase_migrations" already exists`) ||
 		strings.Contains(msg, `relation "schema_migrations" already exists`) ||
 		strings.Contains(msg, `relation "seed_files" already exists`)
 }

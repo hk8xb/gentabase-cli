@@ -10,11 +10,11 @@ import (
 	"github.com/h2non/gock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils/cloudflare"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils/cloudflare"
 )
 
-const host = "api.supabase.io"
+const host = "api.gentabase.io"
 
 func TestLookupIP(t *testing.T) {
 	t.Run("resolves IPv4 with CloudFlare", func(t *testing.T) {
@@ -126,7 +126,7 @@ func TestLookupIP(t *testing.T) {
 		// Run test
 		ip, err := FallbackLookupIP(context.Background(), host)
 		// Validate output
-		assert.ErrorContains(t, err, "failed to locate valid IP for api.supabase.io; resolves to []cloudflare.DNSAnswer(nil)")
+		assert.ErrorContains(t, err, "failed to locate valid IP for api.gentabase.io; resolves to []cloudflare.DNSAnswer(nil)")
 		assert.Empty(t, ip)
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
@@ -142,12 +142,12 @@ func TestResolveCNAME(t *testing.T) {
 			MatchHeader("accept", "application/dns-json").
 			Reply(http.StatusOK).
 			JSON(&cloudflare.DNSResponse{Answer: []cloudflare.DNSAnswer{
-				{Type: cloudflare.TypeCNAME, Data: "foobarbaz.supabase.co"},
+				{Type: cloudflare.TypeCNAME, Data: "foobarbaz.gentabase.dev"},
 			}})
 		// Run test
 		cname, err := ResolveCNAME(context.Background(), host)
 		// Validate output
-		assert.Equal(t, "foobarbaz.supabase.co", cname)
+		assert.Equal(t, "foobarbaz.gentabase.dev", cname)
 		assert.Nil(t, err)
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
@@ -165,7 +165,7 @@ func TestResolveCNAME(t *testing.T) {
 		cname, err := ResolveCNAME(context.Background(), host)
 		// Validate output
 		assert.Empty(t, cname)
-		assert.ErrorContains(t, err, "failed to locate appropriate CNAME record for api.supabase.io")
+		assert.ErrorContains(t, err, "failed to locate appropriate CNAME record for api.gentabase.io")
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
 
@@ -184,7 +184,7 @@ func TestResolveCNAME(t *testing.T) {
 		cname, err := ResolveCNAME(context.Background(), host)
 		// Validate output
 		assert.Empty(t, cname)
-		assert.ErrorContains(t, err, "failed to locate appropriate CNAME record for api.supabase.io")
+		assert.ErrorContains(t, err, "failed to locate appropriate CNAME record for api.gentabase.io")
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
 }

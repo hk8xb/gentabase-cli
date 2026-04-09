@@ -34,7 +34,7 @@ func (c CustomClaims) NewToken() *jwt.Token {
 		c.ExpiresAt = jwt.NewNumericDate(time.Unix(defaultJwtExpiry, 0))
 	}
 	if len(c.Issuer) == 0 {
-		c.Issuer = "supabase-demo"
+		c.Issuer = "gentabase-demo"
 	}
 	return jwt.NewWithClaims(jwt.SigningMethodHS256, c)
 }
@@ -73,7 +73,7 @@ func (a *auth) generateAPIKeys() error {
 }
 
 func (a auth) generateJWT(role string) (string, error) {
-	claims := CustomClaims{Issuer: "supabase-demo", Role: role}
+	claims := CustomClaims{Issuer: "gentabase-demo", Role: role}
 	if len(a.SigningKeysPath) > 0 && len(a.SigningKeys) > 0 {
 		claims.ExpiresAt = jwt.NewNumericDate(time.Now().Add(time.Hour * 24 * 365 * 10)) // 10 years
 		return GenerateAsymmetricJWT(a.SigningKeys[0], claims)

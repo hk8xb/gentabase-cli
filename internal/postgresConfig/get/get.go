@@ -9,7 +9,7 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, projectRef string, fsys afero.Fs) error {
@@ -42,7 +42,7 @@ func PrintOutPostgresConfigOverrides(config map[string]any) error {
 }
 
 func GetCurrentPostgresConfig(ctx context.Context, projectRef string) (map[string]any, error) {
-	resp, err := utils.GetSupabase().V1GetPostgresConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetPostgresConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return nil, errors.Errorf("failed to retrieve Postgres config overrides: %w", err)
 	} else if resp.JSON200 == nil {

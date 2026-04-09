@@ -7,12 +7,12 @@ import (
 	"strings"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func VerifyCNAME(ctx context.Context, projectRef string, customHostname string) error {
-	expectedEndpoint := fmt.Sprintf("%s.", utils.GetSupabaseHost(projectRef))
+	expectedEndpoint := fmt.Sprintf("%s.", utils.GetGentabaseHost(projectRef))
 	if cname, err := utils.ResolveCNAME(ctx, customHostname); err != nil {
 		return errors.Errorf("expected custom hostname '%s' to have a CNAME record pointing to your project at '%s', but it failed to resolve: %w", customHostname, expectedEndpoint, err)
 	} else if cname != expectedEndpoint {

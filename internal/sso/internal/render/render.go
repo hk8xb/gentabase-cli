@@ -7,8 +7,8 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/go-xmlfmt/xmlfmt"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func formatProtocol(provider api.GetProviderResponse) string {
@@ -167,17 +167,17 @@ func InfoMarkdown(ref string) error {
 
 	markdownTable = append(markdownTable, fmt.Sprintf(
 		"|Single sign-on URL (ACS URL) |`%s`|",
-		fmt.Sprintf("https://%s.supabase.co/auth/v1/sso/saml/acs", ref),
+		fmt.Sprintf("https://%s.gentabase.dev/auth/v1/sso/saml/acs", ref),
 	))
 
 	markdownTable = append(markdownTable, fmt.Sprintf(
 		"|Audience URI (SP Entity ID)|`%s`|",
-		fmt.Sprintf("https://%s.supabase.co/auth/v1/sso/saml/metadata", ref),
+		fmt.Sprintf("https://%s.gentabase.dev/auth/v1/sso/saml/metadata", ref),
 	))
 
 	markdownTable = append(markdownTable, fmt.Sprintf(
 		"|Default Relay State|`%s`|",
-		fmt.Sprintf("https://%s.supabase.co", ref),
+		fmt.Sprintf("https://%s.gentabase.dev", ref),
 	))
 
 	return utils.RenderTable(strings.Join(markdownTable, "\n"))

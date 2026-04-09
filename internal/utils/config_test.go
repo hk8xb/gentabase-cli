@@ -17,7 +17,7 @@ func TestGetId(t *testing.T) {
 
 		id := GetId(name)
 
-		assert.Equal(t, "supabase_test-service_test-project", id)
+		assert.Equal(t, "gentabase_test-service_test-project", id)
 	})
 }
 
@@ -30,21 +30,21 @@ func TestUpdateDockerIds(t *testing.T) {
 		UpdateDockerIds()
 
 		assert.Equal(t, "custom-network", NetId)
-		assert.Equal(t, "supabase_db_test-project", DbId)
-		assert.Equal(t, "supabase_kong_test-project", KongId)
-		assert.Equal(t, "supabase_auth_test-project", GotrueId)
-		assert.Equal(t, "supabase_inbucket_test-project", InbucketId)
-		assert.Equal(t, "supabase_realtime_test-project", RealtimeId)
-		assert.Equal(t, "supabase_rest_test-project", RestId)
-		assert.Equal(t, "supabase_storage_test-project", StorageId)
-		assert.Equal(t, "supabase_imgproxy_test-project", ImgProxyId)
-		assert.Equal(t, "supabase_differ_test-project", DifferId)
-		assert.Equal(t, "supabase_pg_meta_test-project", PgmetaId)
-		assert.Equal(t, "supabase_studio_test-project", StudioId)
-		assert.Equal(t, "supabase_edge_runtime_test-project", EdgeRuntimeId)
-		assert.Equal(t, "supabase_analytics_test-project", LogflareId)
-		assert.Equal(t, "supabase_vector_test-project", VectorId)
-		assert.Equal(t, "supabase_pooler_test-project", PoolerId)
+		assert.Equal(t, "gentabase_db_test-project", DbId)
+		assert.Equal(t, "gentabase_kong_test-project", KongId)
+		assert.Equal(t, "gentabase_auth_test-project", GotrueId)
+		assert.Equal(t, "gentabase_inbucket_test-project", InbucketId)
+		assert.Equal(t, "gentabase_realtime_test-project", RealtimeId)
+		assert.Equal(t, "gentabase_rest_test-project", RestId)
+		assert.Equal(t, "gentabase_storage_test-project", StorageId)
+		assert.Equal(t, "gentabase_imgproxy_test-project", ImgProxyId)
+		assert.Equal(t, "gentabase_differ_test-project", DifferId)
+		assert.Equal(t, "gentabase_pg_meta_test-project", PgmetaId)
+		assert.Equal(t, "gentabase_studio_test-project", StudioId)
+		assert.Equal(t, "gentabase_edge_runtime_test-project", EdgeRuntimeId)
+		assert.Equal(t, "gentabase_analytics_test-project", LogflareId)
+		assert.Equal(t, "gentabase_vector_test-project", VectorId)
+		assert.Equal(t, "gentabase_pooler_test-project", PoolerId)
 	})
 
 	t.Run("generates network id if not set", func(t *testing.T) {
@@ -53,7 +53,7 @@ func TestUpdateDockerIds(t *testing.T) {
 
 		UpdateDockerIds()
 
-		assert.Equal(t, "supabase_network_test-project", NetId)
+		assert.Equal(t, "gentabase_network_test-project", NetId)
 	})
 }
 

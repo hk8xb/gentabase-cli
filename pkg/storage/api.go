@@ -1,6 +1,6 @@
 package storage
 
-import "github.com/supabase/cli/pkg/fetcher"
+import "github.com/hk8xb/gentabase-cli/pkg/fetcher"
 
 type StorageAPI struct {
 	*fetcher.Fetcher

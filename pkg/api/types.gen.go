@@ -2368,7 +2368,7 @@ type CreateRoleResponse struct {
 
 // CreateSecretBody defines model for CreateSecretBody.
 type CreateSecretBody = []struct {
-	// Name Secret name must not start with the SUPABASE_ prefix.
+	// Name Secret name must not start with the GENTABASE_ prefix.
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }

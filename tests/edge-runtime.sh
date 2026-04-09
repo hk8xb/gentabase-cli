@@ -2,7 +2,7 @@
 set -eou pipefail
 
 # 0. Serve Edge Functions
-# supabase --workdir tests functions serve
+# gentabase --workdir tests functions serve
 
 # 1. POST request with publishable key
 output=$(curl -sS "$API_URL/functions/v1/hello-world" \

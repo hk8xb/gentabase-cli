@@ -14,12 +14,12 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 func TestDeployCommand(t *testing.T) {
@@ -94,7 +94,7 @@ import_map = "./import_map.json"
 `)
 		require.NoError(t, err)
 		require.NoError(t, f.Close())
-		importMapPath := filepath.Join(utils.SupabaseDirPath, "import_map.json")
+		importMapPath := filepath.Join(utils.GentabaseDirPath, "import_map.json")
 		require.NoError(t, afero.WriteFile(fsys, importMapPath, []byte("{}"), 0644))
 		// Setup function entrypoint
 		entrypointPath := filepath.Join(utils.FunctionsDir, slug, "index.ts")
@@ -150,7 +150,7 @@ import_map = "./import_map.json"
 `)
 		require.NoError(t, err)
 		require.NoError(t, f.Close())
-		importMapPath, err := filepath.Abs(filepath.Join(utils.SupabaseDirPath, "import_map.json"))
+		importMapPath, err := filepath.Abs(filepath.Join(utils.GentabaseDirPath, "import_map.json"))
 		require.NoError(t, err)
 		require.NoError(t, afero.WriteFile(fsys, importMapPath, []byte("{}"), 0644))
 		// Setup function entrypoints
@@ -206,7 +206,7 @@ import_map = "./import_map.json"
 		// Run test
 		err := Run(context.Background(), nil, true, nil, "", 1, false, fsys)
 		// Check error
-		assert.ErrorContains(t, err, "No Functions specified or found in supabase/functions")
+		assert.ErrorContains(t, err, "No Functions specified or found in gentabase/functions")
 	})
 
 	t.Run("verify_jwt param falls back to config", func(t *testing.T) {

@@ -10,9 +10,9 @@ import (
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/db/reset"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/db/reset"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 )
 
 func Run(ctx context.Context, target string, fsys afero.Fs, options ...func(*pgx.ConnConfig)) error {
@@ -21,7 +21,7 @@ func Run(ctx context.Context, target string, fsys afero.Fs, options ...func(*pgx
 		if err := flags.LoadConfig(fsys); err != nil {
 			return err
 		}
-		if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+		if err := utils.AssertGentabaseDbIsRunning(); err != nil {
 			return err
 		}
 		if target != "main" && utils.IsBranchNameReserved(target) {

@@ -15,13 +15,13 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	phtelemetry "github.com/supabase/cli/internal/telemetry"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/tenant"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/pgtest"
+	phtelemetry "github.com/hk8xb/gentabase-cli/internal/telemetry"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/tenant"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 	"github.com/zalando/go-keyring"
 )
 
@@ -77,7 +77,7 @@ func TestLinkCommand(t *testing.T) {
 		t.Cleanup(fstest.MockStdin(t, "\n"))
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		analytics := &fakeAnalytics{enabled: true}
 		service, err := phtelemetry.NewService(fsys, phtelemetry.Options{
 			Analytics: analytics,
@@ -95,7 +95,7 @@ func TestLinkCommand(t *testing.T) {
 			OrganizationId:   "org_123",
 			OrganizationSlug: "acme",
 		}
-		mockPostgres.Database.Host = utils.GetSupabaseDbHost(project)
+		mockPostgres.Database.Host = utils.GetGentabaseDbHost(project)
 		mockPostgres.Database.Version = "15.1.0.117"
 		gock.New(utils.DefaultApiHost).
 			Get("/v1/projects/" + project).
@@ -140,17 +140,17 @@ func TestLinkCommand(t *testing.T) {
 			})
 		// Link versions
 		auth := tenant.HealthResponse{Version: "v2.74.2"}
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetGentabaseHost(project)).
 			Get("/auth/v1/health").
 			Reply(200).
 			JSON(auth)
 		rest := tenant.SwaggerResponse{Info: tenant.SwaggerInfo{Version: "11.1.0"}}
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetGentabaseHost(project)).
 			Get("/rest/v1/").
 			Reply(200).
 			JSON(rest)
 		storage := "1.28.0"
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetGentabaseHost(project)).
 			Get("/storage/v1/version").
 			Reply(200).
 			BodyString(storage)
@@ -229,13 +229,13 @@ func TestLinkCommand(t *testing.T) {
 			Post("/v1/projects/" + project + "/cli/login-role").
 			Reply(http.StatusServiceUnavailable)
 		// Link versions
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetGentabaseHost(project)).
 			Get("/auth/v1/health").
 			ReplyError(errors.New("network error"))
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetGentabaseHost(project)).
 			Get("/rest/v1/").
 			ReplyError(errors.New("network error"))
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetGentabaseHost(project)).
 			Get("/storage/v1/version").
 			ReplyError(errors.New("network error"))
 		// Run test
@@ -294,13 +294,13 @@ func TestLinkCommand(t *testing.T) {
 				TtlSeconds: 300,
 			})
 		// Link versions
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetGentabaseHost(project)).
 			Get("/auth/v1/health").
 			ReplyError(errors.New("network error"))
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetGentabaseHost(project)).
 			Get("/rest/v1/").
 			ReplyError(errors.New("network error"))
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetGentabaseHost(project)).
 			Get("/storage/v1/version").
 			ReplyError(errors.New("network error"))
 		gock.New(utils.DefaultApiHost).

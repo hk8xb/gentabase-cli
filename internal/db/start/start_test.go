@@ -15,11 +15,11 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestInitBranch(t *testing.T) {
@@ -54,7 +54,7 @@ func TestInitBranch(t *testing.T) {
 func TestStartDatabase(t *testing.T) {
 	t.Run("initialize main branch", func(t *testing.T) {
 		utils.Config.Db.MajorVersion = 15
-		utils.DbId = "supabase_db_test"
+		utils.DbId = "gentabase_db_test"
 		utils.Config.Db.Port = 5432
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
@@ -101,7 +101,7 @@ func TestStartDatabase(t *testing.T) {
 
 	t.Run("recover from backup volume", func(t *testing.T) {
 		utils.Config.Db.MajorVersion = 14
-		utils.DbId = "supabase_db_test"
+		utils.DbId = "gentabase_db_test"
 		utils.Config.Db.Port = 5432
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
@@ -135,7 +135,7 @@ func TestStartDatabase(t *testing.T) {
 
 	t.Run("throws error on start failure", func(t *testing.T) {
 		utils.Config.Db.MajorVersion = 15
-		utils.DbId = "supabase_db_test"
+		utils.DbId = "gentabase_db_test"
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		// Setup mock docker
@@ -313,7 +313,7 @@ func TestStartDatabaseWithCustomSettings(t *testing.T) {
 	t.Run("starts database with custom MaxConnections", func(t *testing.T) {
 		// Setup
 		utils.Config.Db.MajorVersion = 15
-		utils.DbId = "supabase_db_test"
+		utils.DbId = "gentabase_db_test"
 		utils.Config.Db.Port = 5432
 		utils.Config.Db.Settings.MaxConnections = cast.Ptr(uint(50))
 

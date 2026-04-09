@@ -13,10 +13,10 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/db/diff"
-	"github.com/supabase/cli/internal/db/pgcache"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/db/diff"
+	"github.com/hk8xb/gentabase-cli/internal/db/pgcache"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 func TestWriteDeclarativeSchemas(t *testing.T) {
@@ -60,12 +60,12 @@ func TestTryCacheMigrationsCatalogWritesPrefixedCache(t *testing.T) {
 	require.NoError(t, afero.WriteFile(fsys, p, []byte("create table a();"), 0644))
 	exportCatalog = func(_ context.Context, targetRef, role string, _ ...func(*pgx.ConnConfig)) (string, error) {
 		assert.Equal(t, "postgres", role)
-		assert.Contains(t, targetRef, "db.test.supabase.co")
+		assert.Contains(t, targetRef, "db.test.gentabase.dev")
 		return `{"version":1}`, nil
 	}
 
 	err := TryCacheMigrationsCatalog(t.Context(), pgconn.Config{
-		Host:     "db.test.supabase.co",
+		Host:     "db.test.gentabase.dev",
 		Port:     5432,
 		User:     "postgres",
 		Password: "postgres",
@@ -108,7 +108,7 @@ func TestCatalogPrefixFromConfig(t *testing.T) {
 	local := catalogPrefixFromConfig(pgconn.Config{Host: utils.Config.Hostname, Port: utils.Config.Db.Port})
 	assert.Equal(t, "local", local)
 
-	linked := catalogPrefixFromConfig(pgconn.Config{Host: "db.abcdefghijklmnopqrst.supabase.co", Port: 5432})
+	linked := catalogPrefixFromConfig(pgconn.Config{Host: "db.abcdefghijklmnopqrst.gentabase.dev", Port: 5432})
 	assert.Equal(t, "abcdefghijklmnopqrst", linked)
 
 	custom := catalogPrefixFromConfig(pgconn.Config{Host: "db.example.com", Port: 5432, Database: "postgres", User: "postgres"})
@@ -121,7 +121,7 @@ func TestWriteDeclarativeSchemasUsesConfiguredDir(t *testing.T) {
 	require.NoError(t, afero.WriteFile(fsys, utils.ConfigPath, []byte("[db]\n"), 0644))
 	original := utils.Config.Experimental.PgDelta
 	utils.Config.Experimental.PgDelta = &config.PgDeltaConfig{
-		DeclarativeSchemaPath: filepath.Join(utils.SupabaseDirPath, "db", "decl"),
+		DeclarativeSchemaPath: filepath.Join(utils.GentabaseDirPath, "db", "decl"),
 	}
 	t.Cleanup(func() {
 		utils.Config.Experimental.PgDelta = original
@@ -136,7 +136,7 @@ func TestWriteDeclarativeSchemasUsesConfiguredDir(t *testing.T) {
 	err := WriteDeclarativeSchemas(output, fsys)
 	require.NoError(t, err)
 
-	rolesPath := filepath.Join(utils.SupabaseDirPath, "db", "decl", "cluster", "roles.sql")
+	rolesPath := filepath.Join(utils.GentabaseDirPath, "db", "decl", "cluster", "roles.sql")
 	roles, err := afero.ReadFile(fsys, rolesPath)
 	require.NoError(t, err)
 	assert.Equal(t, "create role app;", string(roles))
@@ -147,7 +147,7 @@ func TestWriteDeclarativeSchemasUsesConfiguredDir(t *testing.T) {
 }
 
 func TestWriteDeclarativeSchemasRejectsUnsafePath(t *testing.T) {
-	// Export paths must stay within supabase/declarative to prevent traversal.
+	// Export paths must stay within gentabase/declarative to prevent traversal.
 	fsys := afero.NewMemMapFs()
 	err := WriteDeclarativeSchemas(diff.DeclarativeOutput{
 		Files: []diff.DeclarativeFile{
@@ -279,7 +279,7 @@ func TestBaselineVersionToken(t *testing.T) {
 		utils.Config.Db.MajorVersion = originalMajor
 	})
 
-	utils.Config.Db.Image = "public.ecr.aws/supabase/postgres:15.8.1.049"
+	utils.Config.Db.Image = "ghcr.io/hk8xb/postgres:15.8.1.049"
 	assert.Equal(t, "15.8.1.049", baselineVersionToken())
 
 	utils.Config.Db.Image = ""

@@ -7,8 +7,8 @@ begin
     from pg_namespace pn
     left join pg_depend pd on pd.objid = pn.oid
     where pd.deptype is null
-      and not pn.nspname like any(array['information\_schema', 'pg\_%', '\_analytics', '\_realtime', '\_supavisor', 'pgbouncer', 'pgmq', 'pgsodium', 'pgtle', 'supabase\_migrations', 'vault', 'extensions', 'public'])
-      and pn.nspowner::regrole::text != 'supabase_admin'
+      and not pn.nspname like any(array['information\_schema', 'pg\_%', '\_analytics', '\_realtime', '\_supavisor', 'pgbouncer', 'pgmq', 'pgsodium', 'pgtle', 'gentabase\_migrations', 'vault', 'extensions', 'public'])
+      and pn.nspowner::regrole::text != 'gentabase_admin'
   loop
     -- If an extension uses a schema it doesn't create, dropping the schema will cascade to also
     -- drop the extension. But if an extension creates its own schema, dropping the schema will
@@ -21,7 +21,7 @@ begin
   for rec in
     select *
     from pg_extension p
-    where p.extname not in ('pg_graphql', 'pg_net', 'pg_stat_statements', 'pgcrypto', 'pgjwt', 'pgsodium', 'plpgsql', 'supabase_vault', 'uuid-ossp')
+    where p.extname not in ('pg_graphql', 'pg_net', 'pg_stat_statements', 'pgcrypto', 'pgjwt', 'pgsodium', 'plpgsql', 'gentabase_vault', 'uuid-ossp')
   loop
     raise notice 'dropping extension: %', rec.extname;
     execute format('drop extension if exists %I cascade', rec.extname);
@@ -38,7 +38,7 @@ begin
     execute format('drop routine if exists %I.%I(%s) cascade', rec.pronamespace::regnamespace::name, rec.proname, pg_catalog.pg_get_function_identity_arguments(rec.oid));
   end loop;
 
-  -- views (necessary for views referencing objects in Supabase-managed schemas)
+  -- views (necessary for views referencing objects in Gentabase-managed schemas)
   for rec in
     select *
     from pg_class c
@@ -50,7 +50,7 @@ begin
     execute format('drop view if exists %I.%I cascade', rec.relnamespace::regnamespace::name, rec.relname);
   end loop;
 
-  -- materialized views (necessary for materialized views referencing objects in Supabase-managed schemas)
+  -- materialized views (necessary for materialized views referencing objects in Gentabase-managed schemas)
   for rec in
     select *
     from pg_class c
@@ -82,8 +82,8 @@ begin
     from pg_class c
     where
       (c.relnamespace::regnamespace::name = 'auth' and c.relname != 'schema_migrations'
-      or c.relnamespace::regnamespace::name = 'supabase_functions' and c.relname != 'migrations'
-      or c.relnamespace::regnamespace::name = 'supabase_migrations')
+      or c.relnamespace::regnamespace::name = 'gentabase_functions' and c.relname != 'migrations'
+      or c.relnamespace::regnamespace::name = 'gentabase_migrations')
       and c.relkind = 'r'
   loop
     raise notice 'truncating table: %.%', rec.relnamespace::regnamespace::name, rec.relname;
@@ -128,7 +128,7 @@ begin
     select *
     from pg_publication p
     where
-      not p.pubname like any(array['supabase\_realtime%', 'realtime\_messages%'])
+      not p.pubname like any(array['gentabase\_realtime%', 'realtime\_messages%'])
   loop
     raise notice 'dropping publication: %', rec.pubname;
     execute format('drop publication if exists %I', rec.pubname);

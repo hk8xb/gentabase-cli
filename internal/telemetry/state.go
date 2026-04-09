@@ -10,7 +10,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/google/uuid"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 const SchemaVersion = 1
@@ -27,7 +27,7 @@ type State struct {
 }
 
 func telemetryPath() (string, error) {
-	if home := strings.TrimSpace(os.Getenv("SUPABASE_HOME")); home != "" {
+	if home := strings.TrimSpace(os.Getenv("GENTABASE_HOME")); home != "" {
 		return filepath.Join(home, "telemetry.json"), nil
 	}
 	home, err := os.UserHomeDir()
@@ -91,7 +91,7 @@ func Disabled(fsys afero.Fs, now time.Time) (bool, error) {
 	if os.Getenv("DO_NOT_TRACK") == "1" {
 		return true, nil
 	}
-	if os.Getenv("SUPABASE_TELEMETRY_DISABLED") == "1" {
+	if os.Getenv("GENTABASE_TELEMETRY_DISABLED") == "1" {
 		return true, nil
 	}
 	state, _, err := LoadOrCreateState(fsys, now)

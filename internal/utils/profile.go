@@ -12,7 +12,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 type Profile struct {

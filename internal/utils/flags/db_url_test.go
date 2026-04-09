@@ -12,8 +12,8 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func TestParseDatabaseConfig(t *testing.T) {
@@ -81,7 +81,7 @@ func TestParseDatabaseConfig(t *testing.T) {
 		err = ParseDatabaseConfig(context.Background(), flagSet, fsys)
 
 		assert.NoError(t, err)
-		assert.True(t, strings.HasPrefix(DbConfig.Host, utils.GetSupabaseDbHost(project)))
+		assert.True(t, strings.HasPrefix(DbConfig.Host, utils.GetGentabaseDbHost(project)))
 	})
 }
 

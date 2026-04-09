@@ -5,7 +5,7 @@ import { Migration } from "npm:@pgkit/migra";
 const ca = Deno.env.get("SSL_CA");
 const source = Deno.env.get("SOURCE");
 const target = Deno.env.get("TARGET");
-const sslDebug = Deno.env.get("SUPABASE_SSL_DEBUG")?.toLowerCase() === "true";
+const sslDebug = Deno.env.get("GENTABASE_SSL_DEBUG")?.toLowerCase() === "true";
 
 function redactPostgresUrl(raw: string | undefined): string {
   if (!raw) return "<unset>";

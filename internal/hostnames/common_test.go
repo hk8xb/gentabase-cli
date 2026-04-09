@@ -8,12 +8,12 @@ import (
 
 	"github.com/h2non/gock"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func TestVerifyCNAME(t *testing.T) {
-	utils.CurrentProfile.ProjectHost = "supabase.co"
+	utils.CurrentProfile.ProjectHost = "gentabase.dev"
 	defer gock.OffAll()
 	gock.New("https://1.1.1.1").
 		Get("/dns-query").
@@ -23,7 +23,7 @@ func TestVerifyCNAME(t *testing.T) {
 		Reply(http.StatusOK).
 		JSON(&map[string]any{"Answer": []map[string]any{
 			{
-				"Type": 5, "Data": "foobarbaz.supabase.co.",
+				"Type": 5, "Data": "foobarbaz.gentabase.dev.",
 			},
 		}})
 	err := VerifyCNAME(context.Background(), "foobarbaz", "hello.custom-domain.com")

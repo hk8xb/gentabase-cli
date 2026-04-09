@@ -29,16 +29,16 @@ const SB_SPECIFIC_ERROR_REASON = {
 // OS stuff - we don't want to expose these to the functions.
 const EXCLUDED_ENVS = ["HOME", "HOSTNAME", "PATH", "PWD"];
 
-const HOST_PORT = Deno.env.get("SUPABASE_INTERNAL_HOST_PORT")!;
-const JWT_SECRET = Deno.env.get("SUPABASE_INTERNAL_JWT_SECRET")!;
-const JWKS_ENDPOINT = new URL('/auth/v1/.well-known/jwks.json', Deno.env.get("SUPABASE_URL")!)
-const DEBUG = Deno.env.get("SUPABASE_INTERNAL_DEBUG") === "true";
+const HOST_PORT = Deno.env.get("GENTABASE_INTERNAL_HOST_PORT")!;
+const JWT_SECRET = Deno.env.get("GENTABASE_INTERNAL_JWT_SECRET")!;
+const JWKS_ENDPOINT = new URL('/auth/v1/.well-known/jwks.json', Deno.env.get("GENTABASE_URL")!)
+const DEBUG = Deno.env.get("GENTABASE_INTERNAL_DEBUG") === "true";
 const FUNCTIONS_CONFIG_STRING = Deno.env.get(
-  "SUPABASE_INTERNAL_FUNCTIONS_CONFIG",
+  "GENTABASE_INTERNAL_FUNCTIONS_CONFIG",
 )!;
 
 const WALLCLOCK_LIMIT_SEC = parseInt(
-  Deno.env.get("SUPABASE_INTERNAL_WALLCLOCK_LIMIT_SEC"),
+  Deno.env.get("GENTABASE_INTERNAL_WALLCLOCK_LIMIT_SEC"),
 );
 
 const DENO_SB_ERROR_MAP = new Map([
@@ -122,7 +122,7 @@ async function isValidLegacyJWT(jwtSecret: string, jwt: string): Promise<boolean
 let jwks = (() => {
   try {
     // using injected JWKS from cli
-    return jose.createLocalJWKSet(JSON.parse(Deno.env.get('SUPABASE_JWKS')));
+    return jose.createLocalJWKSet(JSON.parse(Deno.env.get('GENTABASE_JWKS')));
   } catch (error) {
     return null
   }
@@ -225,7 +225,7 @@ Deno.serve({
     const envVarsObj = Deno.env.toObject();
     const envVars = Object.entries(envVarsObj)
       .filter(([name, _]) =>
-        !EXCLUDED_ENVS.includes(name) && !name.startsWith("SUPABASE_INTERNAL_")
+        !EXCLUDED_ENVS.includes(name) && !name.startsWith("GENTABASE_INTERNAL_")
       );
 
     const forceCreate = false;
@@ -296,7 +296,7 @@ Deno.serve({
   onListen: () => {
     try {
       const functionsConfigString = Deno.env.get(
-        "SUPABASE_INTERNAL_FUNCTIONS_CONFIG"
+        "GENTABASE_INTERNAL_FUNCTIONS_CONFIG"
       );
       if (functionsConfigString) {
         const MAX_FUNCTIONS_URL_EXAMPLES = 5

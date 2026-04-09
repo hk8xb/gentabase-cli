@@ -11,10 +11,10 @@ import (
 	"path/filepath"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/pkg/queue"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/queue"
 )
 
 var ErrNoDeploy = errors.New("All Functions are up to date.")

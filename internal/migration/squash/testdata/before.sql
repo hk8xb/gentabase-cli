@@ -12,7 +12,7 @@ SET row_security = off;
 
 CREATE SCHEMA IF NOT EXISTS "storage";
 
-ALTER SCHEMA "storage" OWNER TO "supabase_admin";
+ALTER SCHEMA "storage" OWNER TO "gentabase_admin";
 
 CREATE OR REPLACE FUNCTION "storage"."can_insert_object"("bucketid" "text", "name" "text", "owner" "uuid", "metadata" "jsonb") RETURNS "void"
     LANGUAGE "plpgsql"
@@ -26,7 +26,7 @@ BEGIN
 END
 $$;
 
-ALTER FUNCTION "storage"."can_insert_object"("bucketid" "text", "name" "text", "owner" "uuid", "metadata" "jsonb") OWNER TO "supabase_storage_admin";
+ALTER FUNCTION "storage"."can_insert_object"("bucketid" "text", "name" "text", "owner" "uuid", "metadata" "jsonb") OWNER TO "gentabase_storage_admin";
 
 CREATE TABLE IF NOT EXISTS "storage"."objects" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS "storage"."objects" (
     "owner_id" "text"
 );
 
-ALTER TABLE "storage"."objects" OWNER TO "supabase_storage_admin";
+ALTER TABLE "storage"."objects" OWNER TO "gentabase_storage_admin";
 
 COMMENT ON COLUMN "storage"."objects"."owner" IS 'Field is deprecated, use owner_id instead';
 
@@ -79,7 +79,7 @@ GRANT ALL ON SCHEMA "storage" TO "postgres";
 GRANT USAGE ON SCHEMA "storage" TO "anon";
 GRANT USAGE ON SCHEMA "storage" TO "authenticated";
 GRANT USAGE ON SCHEMA "storage" TO "service_role";
-GRANT ALL ON SCHEMA "storage" TO "supabase_storage_admin";
+GRANT ALL ON SCHEMA "storage" TO "gentabase_storage_admin";
 GRANT ALL ON SCHEMA "storage" TO "dashboard_user";
 
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "storage" GRANT ALL ON SEQUENCES  TO "postgres";

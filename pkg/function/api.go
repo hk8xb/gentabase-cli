@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 type EdgeRuntimeAPI struct {

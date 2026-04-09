@@ -9,13 +9,13 @@ brew install websocat
 1. Start local stack
 
 ```bash
-supabase --workdir tests start
+gentabase --workdir tests start
 ```
 
 2. Run all tests
 
 ```bash
-./e2e-test.sh supabase
+./e2e-test.sh gentabase
 ```
 
 ### Auth test

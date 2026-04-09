@@ -6,13 +6,13 @@ import (
 	"os"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/orgs/list"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/orgs/list"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, name string) error {
-	resp, err := utils.GetSupabase().V1CreateAnOrganizationWithResponse(ctx, api.V1CreateAnOrganizationJSONRequestBody{Name: name})
+	resp, err := utils.GetGentabaseAPI().V1CreateAnOrganizationWithResponse(ctx, api.V1CreateAnOrganizationJSONRequestBody{Name: name})
 	if err != nil {
 		return errors.Errorf("failed to create organization: %w", err)
 	} else if resp.JSON201 == nil {

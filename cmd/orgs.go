@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/orgs/create"
-	"github.com/supabase/cli/internal/orgs/list"
+	"github.com/hk8xb/gentabase-cli/internal/orgs/create"
+	"github.com/hk8xb/gentabase-cli/internal/orgs/list"
 )
 
 var (

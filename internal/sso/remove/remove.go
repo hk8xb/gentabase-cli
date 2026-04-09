@@ -7,9 +7,9 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/google/uuid"
-	"github.com/supabase/cli/internal/sso/internal/render"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/sso/internal/render"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, ref, providerId, format string) error {
@@ -17,7 +17,7 @@ func Run(ctx context.Context, ref, providerId, format string) error {
 	if err != nil {
 		return errors.Errorf("failed to parse provider ID: %w", err)
 	}
-	resp, err := utils.GetSupabase().V1DeleteASsoProviderWithResponse(ctx, ref, parsed)
+	resp, err := utils.GetGentabaseAPI().V1DeleteASsoProviderWithResponse(ctx, ref, parsed)
 	if err != nil {
 		return errors.Errorf("failed to remove sso provider: %w", err)
 	}

@@ -7,12 +7,12 @@ import (
 	"strings"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context) error {
-	resp, err := utils.GetSupabase().V1ListAllOrganizationsWithResponse(ctx)
+	resp, err := utils.GetGentabaseAPI().V1ListAllOrganizationsWithResponse(ctx)
 	if err != nil {
 		return errors.Errorf("failed to list organizations: %w", err)
 	} else if resp.JSON200 == nil {

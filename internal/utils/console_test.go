@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
 )
 
 func TestPromptYesNo(t *testing.T) {

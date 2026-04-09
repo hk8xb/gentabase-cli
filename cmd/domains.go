@@ -3,13 +3,13 @@ package cmd
 import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/hostnames/activate"
-	"github.com/supabase/cli/internal/hostnames/create"
-	"github.com/supabase/cli/internal/hostnames/delete"
-	"github.com/supabase/cli/internal/hostnames/get"
-	"github.com/supabase/cli/internal/hostnames/reverify"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/hostnames/activate"
+	"github.com/hk8xb/gentabase-cli/internal/hostnames/create"
+	"github.com/hk8xb/gentabase-cli/internal/hostnames/delete"
+	"github.com/hk8xb/gentabase-cli/internal/hostnames/get"
+	"github.com/hk8xb/gentabase-cli/internal/hostnames/reverify"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 )
 
 var (

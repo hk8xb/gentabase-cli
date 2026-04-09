@@ -105,7 +105,7 @@ func TestImportPaths(t *testing.T) {
 
 func TestResolveImports(t *testing.T) {
 	t.Run("resolves relative directory", func(t *testing.T) {
-		imPath := "supabase/functions/import_map.json"
+		imPath := "gentabase/functions/import_map.json"
 		// Setup in-memory fs
 		fsys := fs.MapFS{
 			imPath: &fs.MapFile{Data: []byte(`{
@@ -119,8 +119,8 @@ func TestResolveImports(t *testing.T) {
 			}`)},
 			"/tmp/":                    &fs.MapFile{},
 			"common":                   &fs.MapFile{},
-			"supabase/tests":           &fs.MapFile{},
-			"supabase/functions/child": &fs.MapFile{},
+			"gentabase/tests":           &fs.MapFile{},
+			"gentabase/functions/child": &fs.MapFile{},
 		}
 		// Run test
 		resolved := ImportMap{}
@@ -129,13 +129,13 @@ func TestResolveImports(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Equal(t, "/tmp/", resolved.Imports["abs/"])
 		assert.Equal(t, "./common", resolved.Imports["root"])
-		assert.Equal(t, "./supabase/tests", resolved.Imports["parent"])
-		assert.Equal(t, "./supabase/functions/child/", resolved.Imports["child"])
-		assert.Equal(t, "./supabase/missing", resolved.Imports["missing"])
+		assert.Equal(t, "./gentabase/tests", resolved.Imports["parent"])
+		assert.Equal(t, "./gentabase/functions/child/", resolved.Imports["child"])
+		assert.Equal(t, "./gentabase/missing", resolved.Imports["missing"])
 	})
 
 	t.Run("resolves parent scopes", func(t *testing.T) {
-		imPath := "supabase/functions/import_map.json"
+		imPath := "gentabase/functions/import_map.json"
 		// Setup in-memory fs
 		fsys := fs.MapFS{
 			imPath: &fs.MapFile{Data: []byte(`{
@@ -157,7 +157,7 @@ func TestResolveImports(t *testing.T) {
 
 func TestResolveDeno(t *testing.T) {
 	t.Run("resolves deno.json", func(t *testing.T) {
-		imPath := "supabase/functions/slug/deno.json"
+		imPath := "gentabase/functions/slug/deno.json"
 		// Setup in-memory fs
 		fsys := fs.MapFS{
 			imPath: &fs.MapFile{Data: []byte(`{
@@ -166,24 +166,24 @@ func TestResolveDeno(t *testing.T) {
 				},
 				"importMap": "../../import_map.json"
 			}`)},
-			"supabase/functions/slug/mod.ts": &fs.MapFile{},
+			"gentabase/functions/slug/mod.ts": &fs.MapFile{},
 		}
 		// Run test
 		resolved := ImportMap{}
 		err := resolved.LoadAsDeno(imPath, fsys)
 		// Check error
 		assert.NoError(t, err)
-		assert.Equal(t, "./supabase/functions/slug/mod.ts", resolved.Imports["@mod"])
+		assert.Equal(t, "./gentabase/functions/slug/mod.ts", resolved.Imports["@mod"])
 	})
 
 	t.Run("resolves fallback imports", func(t *testing.T) {
-		imPath := "supabase/functions/slug/deno.json"
+		imPath := "gentabase/functions/slug/deno.json"
 		// Setup in-memory fs
 		fsys := fs.MapFS{
 			imPath: &fs.MapFile{Data: []byte(`{
 				"importMap": "../../import_map.json"
 			}`)},
-			"supabase/import_map.json": &fs.MapFile{Data: []byte(`{
+			"gentabase/import_map.json": &fs.MapFile{Data: []byte(`{
 				"imports": {
 					"my-mod": "https://deno.land"
 				}
@@ -198,7 +198,7 @@ func TestResolveDeno(t *testing.T) {
 	})
 
 	t.Run("throws error on missing import", func(t *testing.T) {
-		imPath := "supabase/functions/slug/deno.jsonc"
+		imPath := "gentabase/functions/slug/deno.jsonc"
 		// Setup in-memory fs
 		fsys := fs.MapFS{
 			imPath: &fs.MapFile{Data: []byte(`{

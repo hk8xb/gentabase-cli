@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/go-errors/errors"
-	v1API "github.com/supabase/cli/pkg/api"
+	v1API "github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 type ConfigUpdater struct {

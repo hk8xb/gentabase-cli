@@ -10,16 +10,16 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 type CustomName struct {
-	DbHost         string `env:"db.host,default=NEXT_PUBLIC_SUPABASE_URL"`
-	DbPassword     string `env:"db.password,default=SUPABASE_DB_PASSWORD"`
-	JWTSecret      string `env:"db.password,default=SUPABASE_AUTH_JWT_SECRET"`
-	AnonKey        string `env:"auth.anon_key,default=SUPABASE_AUTH_ANON_KEY"`
-	ServiceRoleKey string `env:"auth.service_role_key,default=SUPABASE_AUTH_SERVICE_ROLE_KEY"`
+	DbHost         string `env:"db.host,default=NEXT_PUBLIC_GENTABASE_URL"`
+	DbPassword     string `env:"db.password,default=GENTABASE_DB_PASSWORD"`
+	JWTSecret      string `env:"db.password,default=GENTABASE_AUTH_JWT_SECRET"`
+	AnonKey        string `env:"auth.anon_key,default=GENTABASE_AUTH_ANON_KEY"`
+	ServiceRoleKey string `env:"auth.service_role_key,default=GENTABASE_AUTH_SERVICE_ROLE_KEY"`
 }
 
 func Run(ctx context.Context, projectRef, format string, names CustomName, fsys afero.Fs) error {
@@ -38,7 +38,7 @@ func Run(ctx context.Context, projectRef, format string, names CustomName, fsys 
 
 func GenerateSecrets(ctx context.Context, projectRef, branch string, fsys afero.Fs) error {
 	// Load JWT secret from api
-	resp, err := utils.GetSupabase().V1GetPostgrestServiceConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetPostgrestServiceConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to get postgrest config: %w", err)
 	}

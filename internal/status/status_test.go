@@ -12,8 +12,8 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func TestStatusCommand(t *testing.T) {
@@ -31,7 +31,7 @@ func TestStatusCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_test/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/gentabase_db_test/json").
 			Reply(http.StatusOK).
 			JSON(container.InspectResponse{ContainerJSONBase: &container.ContainerJSONBase{
 				State: &container.State{
@@ -66,7 +66,7 @@ func TestStatusCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/gentabase_db_").
 			ReplyError(errors.New("network error"))
 		// Run test
 		err := Run(context.Background(), CustomName{}, utils.OutputPretty, fsys)

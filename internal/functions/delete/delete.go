@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, slug string, projectRef string, fsys afero.Fs) error {
@@ -24,7 +24,7 @@ func Run(ctx context.Context, slug string, projectRef string, fsys afero.Fs) err
 var ErrNoDelete = errors.New("nothing to delete")
 
 func Undeploy(ctx context.Context, projectRef string, slug string) error {
-	resp, err := utils.GetSupabase().V1DeleteAFunctionWithResponse(ctx, projectRef, slug)
+	resp, err := utils.GetGentabaseAPI().V1DeleteAFunctionWithResponse(ctx, projectRef, slug)
 	if err != nil {
 		return errors.Errorf("failed to delete function: %w", err)
 	}

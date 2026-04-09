@@ -11,9 +11,9 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func TestSuggestAppStart(t *testing.T) {
@@ -74,10 +74,10 @@ func TestWriteEnv(t *testing.T) {
 		assert.NoError(t, err)
 		env, err := afero.ReadFile(fsys, ".env")
 		assert.NoError(t, err)
-		assert.Equal(t, `GENTABASE_URL="https://testing.gentabase.dev"
-POSTGRES_URL="postgresql://admin:password@db.testing.gentabase.dev:6543/postgres?connect_timeout=10"
-SUPABASE_ANON_KEY="anonkey"
-SUPABASE_SERVICE_ROLE_KEY="servicekey"`, string(env))
+		assert.Equal(t, `GENTABASE_ANON_KEY="anonkey"
+GENTABASE_SERVICE_ROLE_KEY="servicekey"
+GENTABASE_URL="https://testing.gentabase.dev"
+POSTGRES_URL="postgresql://admin:password@db.testing.gentabase.dev:6543/postgres?connect_timeout=10"`, string(env))
 	})
 
 	t.Run("merges with .env.example", func(t *testing.T) {
@@ -108,8 +108,10 @@ SUPABASE_SERVICE_ROLE_KEY="servicekey"`, string(env))
 		assert.NoError(t, err)
 		env, err := afero.ReadFile(fsys, ".env")
 		assert.NoError(t, err)
-		assert.Equal(t, `GENTABASE_URL="https://testing.gentabase.dev"
-NEXT_PUBLIC_GENTABASE_ANON_KEY=""
+		assert.Equal(t, `GENTABASE_ANON_KEY="anonkey"
+GENTABASE_SERVICE_ROLE_KEY="servicekey"
+GENTABASE_URL="https://testing.gentabase.dev"
+NEXT_PUBLIC_GENTABASE_ANON_KEY="anonkey"
 NEXT_PUBLIC_GENTABASE_URL="https://testing.gentabase.dev"
 POSTGRES_DATABASE="postgres"
 POSTGRES_HOST="db.testing.gentabase.dev"
@@ -118,8 +120,6 @@ POSTGRES_PRISMA_URL="postgresql://admin:password@db.testing.gentabase.dev:6543/p
 POSTGRES_URL="postgresql://admin:password@db.testing.gentabase.dev:6543/postgres?connect_timeout=10"
 POSTGRES_URL_NON_POOLING="postgresql://admin:password@db.testing.gentabase.dev:5432/postgres?connect_timeout=10"
 POSTGRES_USER="admin"
-SUPABASE_ANON_KEY="anonkey"
-SUPABASE_SERVICE_ROLE_KEY="servicekey"
 no_match="example"`, string(env))
 	})
 

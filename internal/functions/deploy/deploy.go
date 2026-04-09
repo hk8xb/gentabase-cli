@@ -9,12 +9,12 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/functions/delete"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/pkg/function"
+	"github.com/hk8xb/gentabase-cli/internal/functions/delete"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/function"
 )
 
 func Run(ctx context.Context, slugs []string, useDocker bool, noVerifyJWT *bool, importMapPath string, maxJobs uint, prune bool, fsys afero.Fs) error {
@@ -60,7 +60,7 @@ func Run(ctx context.Context, slugs []string, useDocker bool, noVerifyJWT *bool,
 			fmt.Fprintln(os.Stderr, utils.Yellow("WARNING:"), "Docker is not running")
 		}
 	}
-	api := function.NewEdgeRuntimeAPI(flags.ProjectRef, *utils.GetSupabase(), opt)
+	api := function.NewEdgeRuntimeAPI(flags.ProjectRef, *utils.GetGentabaseAPI(), opt)
 	if err := api.Deploy(ctx, functionConfig, afero.NewIOFS(fsys)); errors.Is(err, function.ErrNoDeploy) {
 		fmt.Fprintln(os.Stderr, err)
 		return nil
@@ -68,7 +68,7 @@ func Run(ctx context.Context, slugs []string, useDocker bool, noVerifyJWT *bool,
 		return err
 	}
 	fmt.Printf("Deployed Functions on project %s: %s\n", utils.Aqua(flags.ProjectRef), strings.Join(slugs, ", "))
-	url := fmt.Sprintf("%s/project/%v/functions", utils.GetSupabaseDashboardURL(), flags.ProjectRef)
+	url := fmt.Sprintf("%s/project/%v/functions", utils.GetGentabaseDashboardURL(), flags.ProjectRef)
 	fmt.Println("You can inspect your deployment in the Dashboard: " + url)
 	if !prune {
 		return nil
@@ -164,7 +164,7 @@ func GetFunctionConfig(slugs []string, importMapPath string, noVerifyJWT *bool, 
 
 // pruneFunctions deletes functions that exist remotely but not locally
 func pruneFunctions(ctx context.Context, functionConfig config.FunctionConfig) error {
-	resp, err := utils.GetSupabase().V1ListAllFunctionsWithResponse(ctx, flags.ProjectRef)
+	resp, err := utils.GetGentabaseAPI().V1ListAllFunctionsWithResponse(ctx, flags.ProjectRef)
 	if err != nil {
 		return errors.Errorf("failed to list functions: %w", err)
 	} else if resp.JSON200 == nil {

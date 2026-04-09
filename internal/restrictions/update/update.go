@@ -6,8 +6,8 @@ import (
 	"net"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 // Run updates the network restriction lists using the provided CIDRs.
@@ -37,7 +37,7 @@ func Run(ctx context.Context, projectRef string, dbCidrsToAllow []string, bypass
 	}
 
 	// 2. update restrictions
-	resp, err := utils.GetSupabase().V1UpdateNetworkRestrictionsWithResponse(ctx, projectRef, body)
+	resp, err := utils.GetGentabaseAPI().V1UpdateNetworkRestrictionsWithResponse(ctx, projectRef, body)
 	if err != nil {
 		return errors.Errorf("failed to apply network restrictions: %w", err)
 	}
@@ -63,7 +63,7 @@ func ApplyPatch(ctx context.Context, projectRef string, body api.V1UpdateNetwork
 		},
 	}
 
-	resp, err := utils.GetSupabase().V1PatchNetworkRestrictionsWithResponse(ctx, projectRef, patchBody)
+	resp, err := utils.GetGentabaseAPI().V1PatchNetworkRestrictionsWithResponse(ctx, projectRef, patchBody)
 	if err != nil {
 		return errors.Errorf("failed to apply network restrictions: %w", err)
 	}

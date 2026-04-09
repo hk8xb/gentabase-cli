@@ -10,8 +10,8 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func TestBranchValidation(t *testing.T) {
@@ -30,7 +30,7 @@ func TestBranchValidation(t *testing.T) {
 	t.Run("branch not a directory", func(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		path := "/supabase/.branches/test-branch"
+		path := "/gentabase/.branches/test-branch"
 		_, err := fsys.Create(path)
 		require.NoError(t, err)
 		// Run test
@@ -40,7 +40,7 @@ func TestBranchValidation(t *testing.T) {
 	t.Run("branch already exists", func(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		path := "/supabase/.branches/test-branch"
+		path := "/gentabase/.branches/test-branch"
 		require.NoError(t, fsys.MkdirAll(path, 0755))
 		// Run test
 		assert.Error(t, assertNewBranchIsValid(path, fsys))

@@ -11,9 +11,9 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/storage"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 func TestSeedBuckets(t *testing.T) {
@@ -27,7 +27,7 @@ public = false`
 		require.NoError(t, toml.Unmarshal([]byte(config), &utils.Config.Storage.Buckets))
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		bucketPath := filepath.Join(utils.SupabaseDirPath, "images")
+		bucketPath := filepath.Join(utils.GentabaseDirPath, "images")
 		require.NoError(t, fsys.Mkdir(bucketPath, 0755))
 		// Setup mock api
 		defer gock.OffAll()

@@ -1,8 +1,8 @@
-CREATE DATABASE _supabase WITH OWNER postgres;
+CREATE DATABASE _gentabase WITH OWNER postgres;
 
--- Switch to the newly created _supabase database
-\c _supabase
--- Create schemas in _supabase database for
+-- Switch to the newly created _gentabase database
+\c _gentabase
+-- Create schemas in _gentabase database for
 -- internals tools and reports to not overload user database
 -- with non-user activity
 CREATE SCHEMA IF NOT EXISTS _analytics;

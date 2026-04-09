@@ -13,8 +13,8 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/function"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/function"
 )
 
 type dockerBundler struct {
@@ -106,7 +106,7 @@ func GetBindMounts(cwd, hostFuncDir, hostOutputDir, hostEntrypointPath, hostImpo
 		hostFuncDir += sep
 	}
 	dockerFuncDir := utils.ToDockerPath(hostFuncDir)
-	// TODO: bind ./supabase/functions:/home/deno/functions to hide PII?
+	// TODO: bind ./gentabase/functions:/home/deno/functions to hide PII?
 	binds := []string{
 		// Reuse deno cache directory, ie. DENO_DIR, between container restarts
 		// https://denolib.gitbook.io/guide/advanced/deno_dir-code-fetch-and-cache
@@ -125,7 +125,7 @@ func GetBindMounts(cwd, hostFuncDir, hostOutputDir, hostEntrypointPath, hostImpo
 			binds = append(binds, hostOutputDir+":"+dockerOutputDir+":rw")
 		}
 	}
-	// Imports outside of ./supabase/functions will be bound by walking the entrypoint
+	// Imports outside of ./gentabase/functions will be bound by walking the entrypoint
 	modules, err := utils.BindHostModules(cwd, hostEntrypointPath, hostImportMapPath, fsys)
 	if err != nil {
 		return nil, err

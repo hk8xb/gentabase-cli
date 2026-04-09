@@ -9,8 +9,8 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/oapi-codegen/nullable"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, projectRef string, fsys afero.Fs) error {
@@ -39,7 +39,7 @@ func Run(ctx context.Context, projectRef string, fsys afero.Fs) error {
 }
 
 func RunGetApiKeys(ctx context.Context, projectRef string) ([]api.ApiKeyResponse, error) {
-	resp, err := utils.GetSupabase().V1GetProjectApiKeysWithResponse(ctx, projectRef, &api.V1GetProjectApiKeysParams{})
+	resp, err := utils.GetGentabaseAPI().V1GetProjectApiKeysWithResponse(ctx, projectRef, &api.V1GetProjectApiKeysParams{})
 	if err != nil {
 		return nil, errors.Errorf("failed to get api keys: %w", err)
 	} else if resp.JSON200 == nil {
@@ -52,7 +52,7 @@ func ToEnv(keys []api.ApiKeyResponse) map[string]string {
 	envs := make(map[string]string, len(keys))
 	for _, entry := range keys {
 		name := strings.ToUpper(entry.Name)
-		key := fmt.Sprintf("SUPABASE_%s_KEY", name)
+		key := fmt.Sprintf("GENTABASE_%s_KEY", name)
 		envs[key] = toValue(entry.ApiKey)
 	}
 	return envs

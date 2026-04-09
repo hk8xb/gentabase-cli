@@ -3,11 +3,11 @@ package cmd
 import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/internal/vanity_subdomains/activate"
-	"github.com/supabase/cli/internal/vanity_subdomains/check"
-	"github.com/supabase/cli/internal/vanity_subdomains/delete"
-	"github.com/supabase/cli/internal/vanity_subdomains/get"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/vanity_subdomains/activate"
+	"github.com/hk8xb/gentabase-cli/internal/vanity_subdomains/check"
+	"github.com/hk8xb/gentabase-cli/internal/vanity_subdomains/delete"
+	"github.com/hk8xb/gentabase-cli/internal/vanity_subdomains/get"
 )
 
 var (
@@ -28,7 +28,7 @@ Usage of vanity subdomains and custom domains is mutually exclusive.`,
 		Long: `Activate a vanity subdomain for your Gentabase project.
 
 This reconfigures your Gentabase project to respond to requests on your vanity subdomain.
-After the vanity subdomain is activated, your project's auth services will no longer function on the {project-ref}.{supabase-domain} hostname.
+After the vanity subdomain is activated, your project's auth services will no longer function on the {project-ref}.{gentabase-domain} hostname.
 `,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return activate.Run(cmd.Context(), flags.ProjectRef, desiredSubdomain, afero.NewOsFs())

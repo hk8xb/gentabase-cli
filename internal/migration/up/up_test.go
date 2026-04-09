@@ -9,10 +9,10 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestPendingMigrations(t *testing.T) {
@@ -66,7 +66,7 @@ func TestPendingMigrations(t *testing.T) {
 		_, err := GetPendingMigrations(context.Background(), false, conn.MockClient(t), fsys)
 		// Check error
 		assert.ErrorIs(t, err, migration.ErrMissingLocal)
-		assert.Contains(t, utils.CmdSuggestion, "supabase migration repair --status reverted 0")
+		assert.Contains(t, utils.CmdSuggestion, "gentabase migration repair --status reverted 0")
 	})
 
 	t.Run("throws error on missing remote version", func(t *testing.T) {
@@ -135,7 +135,7 @@ func TestIgnoreVersionMismatch(t *testing.T) {
 		_, err := GetPendingMigrations(context.Background(), true, conn.MockClient(t), fsys)
 		// Check error
 		assert.ErrorIs(t, err, migration.ErrMissingLocal)
-		assert.Contains(t, utils.CmdSuggestion, "supabase migration repair --status reverted 20221201000004")
+		assert.Contains(t, utils.CmdSuggestion, "gentabase migration repair --status reverted 20221201000004")
 	})
 
 	t.Run("throws error on missing local migration", func(t *testing.T) {
@@ -163,6 +163,6 @@ func TestIgnoreVersionMismatch(t *testing.T) {
 		_, err := GetPendingMigrations(context.Background(), true, conn.MockClient(t), fsys)
 		// Check error
 		assert.ErrorIs(t, err, migration.ErrMissingLocal)
-		assert.Contains(t, utils.CmdSuggestion, "supabase migration repair --status reverted 20221201000001 20221201000003 20221201000004")
+		assert.Contains(t, utils.CmdSuggestion, "gentabase migration repair --status reverted 20221201000001 20221201000003 20221201000004")
 	})
 }

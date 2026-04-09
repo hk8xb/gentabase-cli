@@ -8,9 +8,9 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/unlink"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/credentials"
+	"github.com/hk8xb/gentabase-cli/internal/unlink"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/credentials"
 	"github.com/zalando/go-keyring"
 )
 
@@ -28,7 +28,7 @@ func PreRun(ctx context.Context, ref string) error {
 }
 
 func Run(ctx context.Context, ref string, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().V1DeleteAProjectWithResponse(ctx, ref)
+	resp, err := utils.GetGentabaseAPI().V1DeleteAProjectWithResponse(ctx, ref)
 	if err != nil {
 		return errors.Errorf("failed to delete project: %w", err)
 	}

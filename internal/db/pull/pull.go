@@ -16,16 +16,16 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/db/declarative"
-	"github.com/supabase/cli/internal/db/diff"
-	"github.com/supabase/cli/internal/db/dump"
-	"github.com/supabase/cli/internal/db/start"
-	"github.com/supabase/cli/internal/migration/format"
-	"github.com/supabase/cli/internal/migration/list"
-	"github.com/supabase/cli/internal/migration/new"
-	"github.com/supabase/cli/internal/migration/repair"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/internal/db/declarative"
+	"github.com/hk8xb/gentabase-cli/internal/db/diff"
+	"github.com/hk8xb/gentabase-cli/internal/db/dump"
+	"github.com/hk8xb/gentabase-cli/internal/db/start"
+	"github.com/hk8xb/gentabase-cli/internal/migration/format"
+	"github.com/hk8xb/gentabase-cli/internal/migration/list"
+	"github.com/hk8xb/gentabase-cli/internal/migration/new"
+	"github.com/hk8xb/gentabase-cli/internal/migration/repair"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
 )
 
 var (
@@ -112,7 +112,7 @@ func pullDeclarativePgDelta(ctx context.Context, schema []string, config pgconn.
 
 func run(ctx context.Context, schema []string, path string, conn *pgx.Conn, fsys afero.Fs) error {
 	config := conn.Config().Config
-	// 1. Assert `supabase/migrations` and `schema_migrations` are in sync.
+	// 1. Assert `gentabase/migrations` and `schema_migrations` are in sync.
 	if err := assertRemoteInSync(ctx, conn, fsys); errors.Is(err, errMissing) {
 		// Ignore schemas flag when working on the initial pull
 		if err = dumpRemoteSchema(ctx, path, config, fsys); err != nil {

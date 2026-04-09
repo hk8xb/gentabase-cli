@@ -9,11 +9,11 @@ import (
 	"github.com/google/uuid"
 	"github.com/jackc/pgconn"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/projects/apiKeys"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/projects/apiKeys"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 func Run(ctx context.Context, branchId string, fsys afero.Fs) error {
@@ -54,7 +54,7 @@ func Run(ctx context.Context, branchId string, fsys afero.Fs) error {
 func getBranchDetail(ctx context.Context, branchId string) (api.BranchDetailResponse, error) {
 	var result api.BranchDetailResponse
 	if err := uuid.Validate(branchId); err != nil && !utils.ProjectRefPattern.Match([]byte(branchId)) {
-		resp, err := utils.GetSupabase().V1GetABranchWithResponse(ctx, flags.ProjectRef, branchId)
+		resp, err := utils.GetGentabaseAPI().V1GetABranchWithResponse(ctx, flags.ProjectRef, branchId)
 		if err != nil {
 			return result, errors.Errorf("failed to find branch: %w", err)
 		} else if resp.JSON200 == nil {
@@ -62,7 +62,7 @@ func getBranchDetail(ctx context.Context, branchId string) (api.BranchDetailResp
 		}
 		branchId = resp.JSON200.ProjectRef
 	}
-	resp, err := utils.GetSupabase().V1GetABranchConfigWithResponse(ctx, branchId)
+	resp, err := utils.GetGentabaseAPI().V1GetABranchConfigWithResponse(ctx, branchId)
 	if err != nil {
 		return result, errors.Errorf("failed to get branch: %w", err)
 	} else if resp.JSON200 == nil {
@@ -99,7 +99,7 @@ func toStandardEnvs(detail api.BranchDetailResponse, pooler api.SupavisorConfigR
 	envs := apiKeys.ToEnv(keys)
 	envs["POSTGRES_URL"] = utils.ToPostgresURL(*config)
 	envs["POSTGRES_URL_NON_POOLING"] = utils.ToPostgresURL(direct)
-	envs["SUPABASE_URL"] = "https://" + utils.GetSupabaseHost(detail.Ref)
-	envs["SUPABASE_JWT_SECRET"] = *detail.JwtSecret
+	envs["GENTABASE_URL"] = "https://" + utils.GetGentabaseHost(detail.Ref)
+	envs["GENTABASE_JWT_SECRET"] = *detail.JwtSecret
 	return envs
 }

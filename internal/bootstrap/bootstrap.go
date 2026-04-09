@@ -18,18 +18,18 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/db/push"
-	initBlank "github.com/supabase/cli/internal/init"
-	"github.com/supabase/cli/internal/link"
-	"github.com/supabase/cli/internal/login"
-	"github.com/supabase/cli/internal/projects/apiKeys"
-	"github.com/supabase/cli/internal/projects/create"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/internal/utils/tenant"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/fetcher"
-	"github.com/supabase/cli/pkg/queue"
+	"github.com/hk8xb/gentabase-cli/internal/db/push"
+	initBlank "github.com/hk8xb/gentabase-cli/internal/init"
+	"github.com/hk8xb/gentabase-cli/internal/link"
+	"github.com/hk8xb/gentabase-cli/internal/login"
+	"github.com/hk8xb/gentabase-cli/internal/projects/apiKeys"
+	"github.com/hk8xb/gentabase-cli/internal/projects/create"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/utils/tenant"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/pkg/queue"
 	"golang.org/x/term"
 )
 
@@ -158,7 +158,7 @@ func checkProjectHealth(ctx context.Context) error {
 	params := api.V1GetServicesHealthParams{
 		Services: []api.V1GetServicesHealthParamsServices{api.V1GetServicesHealthParamsServicesDb},
 	}
-	resp, err := utils.GetSupabase().V1GetServicesHealthWithResponse(ctx, flags.ProjectRef, &params)
+	resp, err := utils.GetGentabaseAPI().V1GetServicesHealthWithResponse(ctx, flags.ProjectRef, &params)
 	if err != nil {
 		return err
 	}
@@ -194,7 +194,7 @@ const (
 func writeDotEnv(keys []api.ApiKeyResponse, config pgconn.Config, fsys afero.Fs) error {
 	// Initialise default envs
 	initial := apiKeys.ToEnv(keys)
-	initial[GENTABASE_URL] = "https://" + utils.GetSupabaseHost(flags.ProjectRef)
+	initial[GENTABASE_URL] = "https://" + utils.GetGentabaseHost(flags.ProjectRef)
 	transactionMode := *config.Copy()
 	transactionMode.Port = 6543
 	initial[POSTGRES_URL] = utils.ToPostgresURL(transactionMode)
@@ -270,8 +270,8 @@ type StarterTemplate struct {
 }
 
 func ListSamples(ctx context.Context, client *github.Client) ([]StarterTemplate, error) {
-	owner := "supabase-community"
-	repo := "supabase-samples"
+	owner := "hk8xb"
+	repo := "gentabase-samples"
 	path := "samples.json"
 	ref := "main"
 	opts := github.RepositoryContentGetOptions{Ref: ref}
@@ -292,7 +292,7 @@ func ListSamples(ctx context.Context, client *github.Client) ([]StarterTemplate,
 
 func downloadSample(ctx context.Context, client *github.Client, templateUrl string, fsys afero.Fs) error {
 	fmt.Println("Downloading:", templateUrl)
-	// https://github.com/supabase/supabase/tree/master/examples/user-management/nextjs-user-management
+	// https://github.com/hk8xb/gentabase-samples/tree/main/examples/user-management/nextjs-user-management
 	parsed, err := url.Parse(templateUrl)
 	if err != nil {
 		return errors.Errorf("failed to parse template url: %w", err)

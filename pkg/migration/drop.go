@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/jackc/pgx/v4"
-	"github.com/supabase/cli/pkg/pgxv5"
+	"github.com/hk8xb/gentabase-cli/pkg/pgxv5"
 )
 
 var (
@@ -26,7 +26,7 @@ var (
 		"pgmq",
 		"pgsodium",
 		"pgtle",
-		`supabase\_migrations`,
+		`gentabase\_migrations`,
 		"vault",
 	}
 )

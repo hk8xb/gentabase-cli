@@ -72,7 +72,7 @@ func MockDockerStop(docker *client.Client) {
 		gock.New(docker.DaemonHost()).
 			Post("/v"+docker.ClientVersion()+"/volumes/prune").
 			MatchParam("filters", `"all":{"true":true}`).
-			ReplyError(errors.New(`failed to parse filters for all=true&label=com.supabase.cli.project%3Dtest: "all" is an invalid volume filter`))
+			ReplyError(errors.New(`failed to parse filters for all=true&label=com.gentabase.cli.project%3Dtest: "all" is an invalid volume filter`))
 	}
 	gock.New(docker.DaemonHost()).
 		Post("/v" + docker.ClientVersion() + "/volumes/prune").

@@ -5,9 +5,9 @@ import (
 
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/bans/get"
-	"github.com/supabase/cli/internal/bans/update"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/bans/get"
+	"github.com/hk8xb/gentabase-cli/internal/bans/update"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 )
 
 var (

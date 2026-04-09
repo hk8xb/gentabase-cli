@@ -25,9 +25,9 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 var (
@@ -61,7 +61,7 @@ func RunLegacy(ctx context.Context, slug string, projectRef string, fsys afero.F
 }
 
 func getFunctionMetadata(ctx context.Context, projectRef, slug string) (*api.FunctionSlugResponse, error) {
-	resp, err := utils.GetSupabase().V1GetAFunctionWithResponse(ctx, projectRef, slug)
+	resp, err := utils.GetGentabaseAPI().V1GetAFunctionWithResponse(ctx, projectRef, slug)
 	if err != nil {
 		return nil, errors.Errorf("failed to get function metadata: %w", err)
 	}
@@ -96,7 +96,7 @@ func downloadFunction(ctx context.Context, projectRef, slug, extractScriptPath s
 		return err
 	}
 
-	resp, err := utils.GetSupabase().V1GetAFunctionBodyWithResponse(ctx, projectRef, slug)
+	resp, err := utils.GetGentabaseAPI().V1GetAFunctionBodyWithResponse(ctx, projectRef, slug)
 	if err != nil {
 		return errors.Errorf("failed to get function body: %w", err)
 	}
@@ -144,7 +144,7 @@ func Run(ctx context.Context, slug, projectRef string, useLegacyBundle, useDocke
 }
 
 func downloadAll(ctx context.Context, projectRef string, fsys afero.Fs, downloader func(context.Context, string, string, afero.Fs) error) error {
-	resp, err := utils.GetSupabase().V1ListAllFunctionsWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1ListAllFunctionsWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to list functions: %w", err)
 	}
@@ -191,7 +191,7 @@ func downloadWithDockerUnbundle(ctx context.Context, slug string, projectRef str
 
 func downloadOne(ctx context.Context, slug, projectRef string, fsys afero.Fs) (string, error) {
 	fmt.Fprintln(os.Stderr, "Downloading function:", utils.Bold(slug))
-	resp, err := utils.GetSupabase().V1GetAFunctionBody(ctx, projectRef, slug)
+	resp, err := utils.GetGentabaseAPI().V1GetAFunctionBody(ctx, projectRef, slug)
 	if err != nil {
 		return "", errors.Errorf("failed to get function body: %w", err)
 	}
@@ -331,7 +331,7 @@ func downloadWithServerSideUnbundle(ctx context.Context, slug, projectRef string
 	}
 	fmt.Fprintln(utils.GetDebugLogger(), "Using entrypoint path:", metadata.EntrypointPath)
 
-	// Root directory on disk: supabase/functions/<slug>
+	// Root directory on disk: gentabase/functions/<slug>
 	funcDir := filepath.Join(utils.FunctionsDir, slug)
 	for _, data := range form.File {
 		for _, file := range data {
@@ -347,7 +347,7 @@ func downloadWithServerSideUnbundle(ctx context.Context, slug, projectRef string
 
 func readForm(ctx context.Context, projectRef, slug string) (*multipart.Form, error) {
 	// Request multipart/form-data response using RequestEditorFn
-	resp, err := utils.GetSupabase().V1GetAFunctionBody(ctx, projectRef, slug, func(ctx context.Context, req *http.Request) error {
+	resp, err := utils.GetGentabaseAPI().V1GetAFunctionBody(ctx, projectRef, slug, func(ctx context.Context, req *http.Request) error {
 		req.Header.Set("Accept", "multipart/form-data")
 		return nil
 	})
@@ -415,10 +415,10 @@ func saveFile(file *multipart.FileHeader, entrypointPath, funcDir string, fsys a
 }
 
 // getPartPath extracts the filename for a multipart part, allowing for
-// relative paths via the custom Supabase-Path header.
+// relative paths via the custom Gentabase-Path header.
 func getPartPath(header textproto.MIMEHeader) (string, error) {
 	// dedicated header to specify relative path, not expected to be used
-	if relPath := header.Get("Supabase-Path"); relPath != "" {
+	if relPath := header.Get("Gentabase-Path"); relPath != "" {
 		return relPath, nil
 	}
 

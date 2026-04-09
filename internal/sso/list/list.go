@@ -6,12 +6,12 @@ import (
 	"os"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/sso/internal/render"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/sso/internal/render"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, ref, format string) error {
-	resp, err := utils.GetSupabase().V1ListAllSsoProviderWithResponse(ctx, ref)
+	resp, err := utils.GetGentabaseAPI().V1ListAllSsoProviderWithResponse(ctx, ref)
 	if err != nil {
 		return errors.Errorf("failed to list sso providers: %w", err)
 	}

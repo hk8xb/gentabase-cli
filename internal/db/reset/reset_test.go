@@ -15,11 +15,11 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/pgtest"
-	"github.com/supabase/cli/pkg/storage"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 func TestResetCommand(t *testing.T) {
@@ -100,7 +100,7 @@ func TestResetCommand(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		// Run test
-		err := Run(context.Background(), "", 0, pgconn.Config{Host: "db.supabase.co"}, fsys)
+		err := Run(context.Background(), "", 0, pgconn.Config{Host: "db.gentabase.dev"}, fsys)
 		// Check error
 		assert.ErrorIs(t, err, context.Canceled)
 	})
@@ -110,7 +110,7 @@ func TestResetCommand(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		// Run test
-		err := Run(context.Background(), "", 0, pgconn.Config{Host: "db.supabase.co"}, fsys)
+		err := Run(context.Background(), "", 0, pgconn.Config{Host: "db.gentabase.dev"}, fsys)
 		// Check error
 		assert.ErrorContains(t, err, "invalid port (outside range)")
 	})
@@ -198,7 +198,7 @@ func TestRecreateDatabase(t *testing.T) {
 		defer conn.Close(t)
 		conn.Query("ALTER DATABASE postgres ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
-			Query("ALTER DATABASE _supabase ALLOW_CONNECTIONS false").
+			Query("ALTER DATABASE _gentabase ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
 			Query(TERMINATE_BACKENDS).
 			Reply("SELECT 1").
@@ -208,9 +208,9 @@ func TestRecreateDatabase(t *testing.T) {
 			Reply("DROP DATABASE").
 			Query("CREATE DATABASE postgres WITH OWNER postgres").
 			Reply("CREATE DATABASE").
-			Query("DROP DATABASE IF EXISTS _supabase WITH (FORCE)").
+			Query("DROP DATABASE IF EXISTS _gentabase WITH (FORCE)").
 			Reply("DROP DATABASE").
-			Query("CREATE DATABASE _supabase WITH OWNER postgres").
+			Query("CREATE DATABASE _gentabase WITH OWNER postgres").
 			Reply("CREATE DATABASE")
 		// Run test
 		assert.NoError(t, recreateDatabase(context.Background(), conn.Intercept))
@@ -228,8 +228,8 @@ func TestRecreateDatabase(t *testing.T) {
 		defer conn.Close(t)
 		conn.Query("ALTER DATABASE postgres ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
-			Query("ALTER DATABASE _supabase ALLOW_CONNECTIONS false").
-			ReplyError(pgerrcode.InvalidCatalogName, `database "_supabase" does not exist`).
+			Query("ALTER DATABASE _gentabase ALLOW_CONNECTIONS false").
+			ReplyError(pgerrcode.InvalidCatalogName, `database "_gentabase" does not exist`).
 			Query(TERMINATE_BACKENDS).
 			Query(COUNT_REPLICATION_SLOTS).
 			ReplyError(pgerrcode.UndefinedTable, `relation "pg_replication_slots" does not exist`)
@@ -246,7 +246,7 @@ func TestRecreateDatabase(t *testing.T) {
 		defer conn.Close(t)
 		conn.Query("ALTER DATABASE postgres ALLOW_CONNECTIONS false").
 			ReplyError(pgerrcode.InvalidParameterValue, `cannot disallow connections for current database`).
-			Query("ALTER DATABASE _supabase ALLOW_CONNECTIONS false").
+			Query("ALTER DATABASE _gentabase ALLOW_CONNECTIONS false").
 			Query(TERMINATE_BACKENDS)
 		// Run test
 		err := recreateDatabase(context.Background(), conn.Intercept)
@@ -261,7 +261,7 @@ func TestRecreateDatabase(t *testing.T) {
 		defer conn.Close(t)
 		conn.Query("ALTER DATABASE postgres ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
-			Query("ALTER DATABASE _supabase ALLOW_CONNECTIONS false").
+			Query("ALTER DATABASE _gentabase ALLOW_CONNECTIONS false").
 			Reply("ALTER DATABASE").
 			Query(TERMINATE_BACKENDS).
 			Reply("SELECT 1").
@@ -270,9 +270,9 @@ func TestRecreateDatabase(t *testing.T) {
 			Query("DROP DATABASE IF EXISTS postgres WITH (FORCE)").
 			ReplyError(pgerrcode.ObjectInUse, `database "postgres" is used by an active logical replication slot`).
 			Query("CREATE DATABASE postgres WITH OWNER postgres").
-			Query("DROP DATABASE IF EXISTS _supabase WITH (FORCE)").
+			Query("DROP DATABASE IF EXISTS _gentabase WITH (FORCE)").
 			Reply("DROP DATABASE").
-			Query("CREATE DATABASE _supabase WITH OWNER postgres").
+			Query("CREATE DATABASE _gentabase WITH OWNER postgres").
 			Reply("CREATE DATABASE")
 		err := recreateDatabase(context.Background(), conn.Intercept)
 		// Check error

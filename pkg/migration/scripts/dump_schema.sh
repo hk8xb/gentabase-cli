@@ -15,13 +15,13 @@ export PGDATABASE="$PGDATABASE"
 # Explanation of sed substitutions:
 #
 #   - do not emit psql meta commands
-#   - do not alter superuser role "supabase_admin"
+#   - do not alter superuser role "gentabase_admin"
 #   - do not alter foreign data wrappers owner
 #   - do not include ACL changes on internal schemas
 #   - do not include RLS policies on cron extension schema
 #   - do not include event triggers
 #   - do not create pgtle schema and extension comments
-#   - do not create publication "supabase_realtime"
+#   - do not create publication "gentabase_realtime"
 #   - do not set transaction_timeout which requires pg17
 pg_dump \
     --schema-only \
@@ -36,14 +36,14 @@ pg_dump \
 | sed -E 's/^CREATE VIEW "/CREATE OR REPLACE VIEW "/' \
 | sed -E 's/^CREATE FUNCTION "/CREATE OR REPLACE FUNCTION "/' \
 | sed -E 's/^CREATE TRIGGER "/CREATE OR REPLACE TRIGGER "/' \
-| sed -E 's/^CREATE PUBLICATION "supabase_realtime/-- &/' \
+| sed -E 's/^CREATE PUBLICATION "gentabase_realtime/-- &/' \
 | sed -E 's/^CREATE EVENT TRIGGER /-- &/' \
 | sed -E 's/^         WHEN TAG IN /-- &/' \
 | sed -E 's/^   EXECUTE FUNCTION /-- &/' \
 | sed -E 's/^ALTER EVENT TRIGGER /-- &/' \
-| sed -E 's/^ALTER PUBLICATION "supabase_realtime_/-- &/' \
+| sed -E 's/^ALTER PUBLICATION "gentabase_realtime_/-- &/' \
 | sed -E 's/^ALTER FOREIGN DATA WRAPPER (.+) OWNER TO /-- &/' \
-| sed -E 's/^ALTER DEFAULT PRIVILEGES FOR ROLE "supabase_admin"/-- &/' \
+| sed -E 's/^ALTER DEFAULT PRIVILEGES FOR ROLE "gentabase_admin"/-- &/' \
 | sed -E 's/^GRANT ALL ON FOREIGN DATA WRAPPER (.+) TO "postgres" WITH GRANT OPTION/-- &/' \
 | sed -E "s/^GRANT (.+) ON (.+) \"(${EXCLUDED_SCHEMAS:-})\"/-- &/" \
 | sed -E "s/^REVOKE (.+) ON (.+) \"(${EXCLUDED_SCHEMAS:-})\"/-- &/" \

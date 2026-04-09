@@ -9,9 +9,9 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, params api.V1CreateProjectBody, fsys afero.Fs) error {
@@ -19,7 +19,7 @@ func Run(ctx context.Context, params api.V1CreateProjectBody, fsys afero.Fs) err
 		return err
 	}
 
-	resp, err := utils.GetSupabase().V1CreateAProjectWithResponse(ctx, params)
+	resp, err := utils.GetGentabaseAPI().V1CreateAProjectWithResponse(ctx, params)
 	if err != nil {
 		return errors.Errorf("failed to create project: %w", err)
 	}
@@ -30,7 +30,7 @@ func Run(ctx context.Context, params api.V1CreateProjectBody, fsys afero.Fs) err
 	flags.ProjectRef = resp.JSON201.Id
 	viper.Set("DB_PASSWORD", params.DbPass)
 
-	projectUrl := fmt.Sprintf("%s/project/%s", utils.GetSupabaseDashboardURL(), resp.JSON201.Id)
+	projectUrl := fmt.Sprintf("%s/project/%s", utils.GetGentabaseDashboardURL(), resp.JSON201.Id)
 	fmt.Fprintf(os.Stderr, "Created a new project at %s\n", utils.Bold(projectUrl))
 	if utils.OutputFormat.Value == utils.OutputPretty {
 		table := `|ORG ID|REFERENCE ID|NAME|REGION|CREATED AT (UTC)|
@@ -96,7 +96,7 @@ func promptProjectName(ctx context.Context) (string, error) {
 
 func promptOrgId(ctx context.Context) (string, error) {
 	title := "Which organisation do you want to create the project for?"
-	resp, err := utils.GetSupabase().V1ListAllOrganizationsWithResponse(ctx)
+	resp, err := utils.GetGentabaseAPI().V1ListAllOrganizationsWithResponse(ctx)
 	if err != nil {
 		return "", err
 	}

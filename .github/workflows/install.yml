@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: installer
-          path: supabase-1.28.0.tgz
+          path: gentabase-1.28.0.tgz
 
   npm:
     needs: pack
@@ -48,8 +48,8 @@ jobs:
           name: installer
 
       - run: npm init -y
-      - run: npm i --save-dev ./supabase-1.28.0.tgz
-      - run: npx --no-install supabase --version
+      - run: npm i --save-dev ./gentabase-1.28.0.tgz
+      - run: npx --no-install gentabase --version
 
   yarn:
     needs: pack
@@ -64,8 +64,8 @@ jobs:
           name: installer
 
       - run: yarn init -y
-      - run: yarn add -D ./supabase-1.28.0.tgz
-      - run: yarn supabase --version
+      - run: yarn add -D ./gentabase-1.28.0.tgz
+      - run: yarn gentabase --version
 
   yarn_berry:
     needs: pack
@@ -82,13 +82,13 @@ jobs:
       - run: yarn set version berry
       # - run: yarn config set nodeLinker node-modules
       - run: yarn init -y
-      - run: yarn add -D ./supabase-1.28.0.tgz
+      - run: yarn add -D ./gentabase-1.28.0.tgz
       - if: ${{ matrix.os != 'windows-latest' }}
-        run: yarn supabase --version
+        run: yarn gentabase --version
       # Workaround for running extensionless executable on windows
       - if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          & "$(yarn bin supabase).exe" --version
+          & "$(yarn bin gentabase).exe" --version
 
   pnpm:
     needs: pack
@@ -105,8 +105,8 @@ jobs:
       - run: npm install -g pnpm
       - run: pnpm init
       # https://github.com/pnpm/pnpm/issues/9124#issuecomment-2663021284
-      - run: pnpm i --save-dev ./supabase-1.28.0.tgz --allow-build=supabase
-      - run: pnpm supabase --version
+      - run: pnpm i --save-dev ./gentabase-1.28.0.tgz --allow-build=gentabase
+      - run: pnpm gentabase --version
 
   bun:
     needs: pack
@@ -125,6 +125,6 @@ jobs:
         with:
           bun-version: latest
       - run: |
-          echo '{"trustedDependencies": ["supabase"]}' > package.json
-      - run: bun add -D ./supabase-1.28.0.tgz
-      - run: bunx supabase --version
+          echo '{"trustedDependencies": ["gentabase"]}' > package.json
+      - run: bun add -D ./gentabase-1.28.0.tgz
+      - run: bunx gentabase --version

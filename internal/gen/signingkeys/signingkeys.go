@@ -16,10 +16,10 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/google/uuid"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/cast"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 // GeneratePrivateKey generates a new private key for the specified algorithm
@@ -121,7 +121,7 @@ To enable JWT signing keys in your local project:
 
 [auth]
 signing_keys_path = "./signing_keys.json"
-`, utils.Bold(filepath.Join(utils.SupabaseDirPath, "signing_keys.json")), utils.Bold(utils.ConfigPath))
+`, utils.Bold(filepath.Join(utils.GentabaseDirPath, "signing_keys.json")), utils.Bold(utils.ConfigPath))
 		return nil
 	}
 

@@ -16,10 +16,10 @@ import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/debug"
-	"github.com/supabase/cli/internal/telemetry"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/debug"
+	"github.com/hk8xb/gentabase-cli/internal/telemetry"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 	"golang.org/x/mod/semver"
 )
 
@@ -143,7 +143,7 @@ var (
 			ctx = telemetry.WithCommandContext(ctx, commandAnalyticsContext(cmd))
 			cmd.SetContext(ctx)
 			// Setup sentry last to ignore errors from parsing cli flags
-			apiHost, err := url.Parse(utils.GetSupabaseAPIHost())
+			apiHost, err := url.Parse(utils.GetGentabaseAPIHost())
 			if err != nil {
 				return err
 			}
@@ -197,7 +197,7 @@ func exitCode(err error) int {
 func checkUpgrade(ctx context.Context, fsys afero.Fs) (string, error) {
 	if shouldFetchRelease(fsys) {
 		version, err := utils.GetLatestRelease(ctx)
-		if exists, _ := afero.DirExists(fsys, utils.SupabaseDirPath); exists {
+		if exists, _ := afero.DirExists(fsys, utils.GentabaseDirPath); exists {
 			// If user is offline, write an empty file to skip subsequent checks
 			err = utils.WriteFile(utils.CliVersionPath, []byte(version), fsys)
 		}
@@ -270,7 +270,7 @@ func recoverAndExit() {
 
 func init() {
 	cobra.OnInitialize(func() {
-		viper.SetEnvPrefix("SUPABASE")
+		viper.SetEnvPrefix("GENTABASE")
 		viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
 		viper.AutomaticEnv()
 	})

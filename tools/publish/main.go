@@ -16,22 +16,22 @@ import (
 	"text/template"
 
 	"github.com/google/go-github/v62/github"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/fetcher"
-	"github.com/supabase/cli/tools/shared"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/fetcher"
+	"github.com/hk8xb/gentabase-cli/tools/shared"
 )
 
 const (
-	SUPABASE_OWNER = "gentabase"
+	GENTABASE_OWNER = "gentabase"
 	HOMEBREW_REPO  = "homebrew-tap"
 	SCOOP_REPO     = "scoop-bucket"
 )
 
 var (
-	//go:embed templates/supabase.rb
+	//go:embed templates/gentabase.rb
 	brewFormula         string
 	brewFormulaTemplate = template.Must(template.New(HOMEBREW_REPO).Parse(brewFormula))
-	//go:embed templates/supabase.json
+	//go:embed templates/gentabase.json
 	scoopBucket         string
 	scoopBucketTemplate = template.Must(template.New(SCOOP_REPO).Parse(scoopBucket))
 )
@@ -119,12 +119,12 @@ func updatePackage(ctx context.Context, client *github.Client, repo, path string
 	}
 	branch := "release/cli"
 	master := "main"
-	if err := shared.CreateGitBranch(ctx, client, SUPABASE_OWNER, repo, branch, master); err != nil {
+	if err := shared.CreateGitBranch(ctx, client, GENTABASE_OWNER, repo, branch, master); err != nil {
 		return err
 	}
 	// Get file SHA
 	opts := github.RepositoryContentGetOptions{Ref: "heads/" + branch}
-	file, _, _, err := client.Repositories.GetContents(ctx, SUPABASE_OWNER, repo, path, &opts)
+	file, _, _, err := client.Repositories.GetContents(ctx, GENTABASE_OWNER, repo, path, &opts)
 	if err != nil {
 		return err
 	}
@@ -144,7 +144,7 @@ func updatePackage(ctx context.Context, client *github.Client, repo, path string
 		SHA:     file.SHA,
 		Branch:  &branch,
 	}
-	resp, _, err := client.Repositories.UpdateFile(ctx, SUPABASE_OWNER, repo, path, &commit)
+	resp, _, err := client.Repositories.UpdateFile(ctx, GENTABASE_OWNER, repo, path, &commit)
 	if err != nil {
 		return err
 	}
@@ -155,5 +155,5 @@ func updatePackage(ctx context.Context, client *github.Client, repo, path string
 		Head:  &branch,
 		Base:  &master,
 	}
-	return shared.CreatePullRequest(ctx, client, SUPABASE_OWNER, repo, pr)
+	return shared.CreatePullRequest(ctx, client, GENTABASE_OWNER, repo, pr)
 }

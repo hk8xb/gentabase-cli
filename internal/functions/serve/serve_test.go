@@ -13,9 +13,9 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 var (
@@ -36,10 +36,10 @@ func TestServeCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_test/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/gentabase_db_test/json").
 			Reply(http.StatusOK).
 			JSON(container.InspectResponse{})
-		containerId := "supabase_edge_runtime_test"
+		containerId := "gentabase_edge_runtime_test"
 		gock.New(utils.Docker.DaemonHost()).
 			Delete("/v" + utils.Docker.ClientVersion() + "/containers/" + containerId).
 			Reply(http.StatusOK)
@@ -47,7 +47,7 @@ func TestServeCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDockerLogsStream(utils.Docker, containerId, 1, strings.NewReader("failed")))
 		// Mock kong reload after edge runtime restart
 		gock.New(utils.Docker.DaemonHost()).
-			Post("/v" + utils.Docker.ClientVersion() + "/containers/supabase_kong_test/exec").
+			Post("/v" + utils.Docker.ClientVersion() + "/containers/gentabase_kong_test/exec").
 			Reply(http.StatusOK).
 			JSON(container.ExecCreateResponse{ID: "kong-reload"})
 		gock.New(utils.Docker.DaemonHost()).
@@ -82,7 +82,7 @@ func TestServeCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_test/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/gentabase_db_test/json").
 			Reply(http.StatusNotFound)
 		// Run test
 		err := Run(context.Background(), "", nil, "", RuntimeOption{}, fsys)
@@ -98,7 +98,7 @@ func TestServeCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_test/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/gentabase_db_test/json").
 			Reply(http.StatusOK).
 			JSON(container.InspectResponse{})
 		// Run test
@@ -118,7 +118,7 @@ func TestServeCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_test/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/gentabase_db_test/json").
 			Reply(http.StatusOK).
 			JSON(container.InspectResponse{})
 		// Run test
@@ -177,8 +177,8 @@ func TestServeFunctions(t *testing.T) {
 		// Check error
 		assert.NoError(t, err)
 		assert.ElementsMatch(t, []string{
-			"supabase_edge_runtime_test:/root/.cache/deno:rw",
-			"/supabase/functions/:/supabase/functions/:ro",
+			"gentabase_edge_runtime_test:/root/.cache/deno:rw",
+			"/gentabase/functions/:/gentabase/functions/:ro",
 		}, binds)
 		assert.Equal(t, `{"hello":{"verifyJWT":true,"entrypointPath":"testdata/functions/hello/index.ts","staticFiles":["testdata/image.png"]}}`, configString)
 	})

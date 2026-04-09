@@ -20,14 +20,14 @@ import (
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/db/pgcache"
-	"github.com/supabase/cli/internal/migration/apply"
-	"github.com/supabase/cli/internal/status"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/vault"
+	"github.com/hk8xb/gentabase-cli/internal/db/pgcache"
+	"github.com/hk8xb/gentabase-cli/internal/migration/apply"
+	"github.com/hk8xb/gentabase-cli/internal/status"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/vault"
 )
 
 var (
@@ -35,8 +35,8 @@ var (
 	initialSchema string
 	//go:embed templates/webhook.sql
 	webhookSchema string
-	//go:embed templates/_supabase.sql
-	_supabaseSchema string
+	//go:embed templates/_gentabase.sql
+	_gentabaseSchema string
 	//go:embed templates/restore.sh
 	restoreScript string
 )
@@ -45,7 +45,7 @@ func Run(ctx context.Context, fromBackup string, fsys afero.Fs) error {
 	if err := flags.LoadConfig(fsys); err != nil {
 		return err
 	}
-	if err := utils.AssertSupabaseDbIsRunning(); err == nil {
+	if err := utils.AssertGentabaseDbIsRunning(); err == nil {
 		fmt.Fprintln(os.Stderr, "Postgres database is already running.")
 		return nil
 	} else if !errors.Is(err, utils.ErrNotRunning) {
@@ -95,7 +95,7 @@ cat <<'EOF' >> /etc/postgresql/postgresql.conf && \
 docker-entrypoint.sh postgres -D /etc/postgresql ` + strings.Join(args, " ") + `
 ` + initialSchema + `
 ` + webhookSchema + `
-` + _supabaseSchema + `
+` + _gentabaseSchema + `
 EOF
 ` + utils.Config.Db.RootKey.Value + `
 EOF
@@ -104,10 +104,10 @@ EOF`},
 	}
 	if utils.Config.Db.MajorVersion <= 14 {
 		config.Entrypoint = []string{"sh", "-c", `
-cat <<'EOF' > /docker-entrypoint-initdb.d/supabase_schema.sql && \
+cat <<'EOF' > /docker-entrypoint-initdb.d/gentabase_schema.sql && \
 cat <<'EOF' >> /etc/postgresql/postgresql.conf && \
 docker-entrypoint.sh postgres -D /etc/postgresql ` + strings.Join(args, " ") + `
-` + _supabaseSchema + `
+` + _gentabaseSchema + `
 EOF
 ` + utils.Config.Db.Settings.ToPostgresConfig() + `
 EOF`}
@@ -148,7 +148,7 @@ cat <<'EOF' > /etc/postgresql-custom/pgsodium_root.key && \
 cat <<'EOF' >> /etc/postgresql/postgresql.conf && \
 docker-entrypoint.sh postgres -D /etc/postgresql
 ` + initialSchema + `
-` + _supabaseSchema + `
+` + _gentabaseSchema + `
 EOF
 ` + restoreScript + `
 EOF
@@ -303,12 +303,12 @@ func initStorageJob(host string) utils.DockerJob {
 			"ANON_KEY=" + utils.Config.Auth.AnonKey.Value,
 			"SERVICE_KEY=" + utils.Config.Auth.ServiceRoleKey.Value,
 			"PGRST_JWT_SECRET=" + utils.Config.Auth.JwtSecret.Value,
-			fmt.Sprintf("DATABASE_URL=postgresql://supabase_storage_admin:%s@%s:5432/postgres", utils.Config.Db.Password, host),
+			fmt.Sprintf("DATABASE_URL=postgresql://gentabase_storage_admin:%s@%s:5432/postgres", utils.Config.Db.Password, host),
 			fmt.Sprintf("FILE_SIZE_LIMIT=%v", utils.Config.Storage.FileSizeLimit),
 			"STORAGE_BACKEND=file",
 			"STORAGE_FILE_BACKEND_PATH=/mnt",
 			"TENANT_ID=stub",
-			// TODO: https://github.com/supabase/storage-api/issues/55
+			// TODO: https://github.com/gentabase/storage-api/issues/55
 			"REGION=stub",
 			"GLOBAL_S3_BUCKET=stub",
 		},
@@ -323,7 +323,7 @@ func initAuthJob(host string) utils.DockerJob {
 			"API_EXTERNAL_URL=" + utils.Config.Api.ExternalUrl,
 			"GOTRUE_LOG_LEVEL=error",
 			"GOTRUE_DB_DRIVER=postgres",
-			fmt.Sprintf("GOTRUE_DB_DATABASE_URL=postgresql://supabase_auth_admin:%s@%s:5432/postgres", utils.Config.Db.Password, host),
+			fmt.Sprintf("GOTRUE_DB_DATABASE_URL=postgresql://gentabase_auth_admin:%s@%s:5432/postgres", utils.Config.Db.Password, host),
 			"GOTRUE_SITE_URL=" + utils.Config.Auth.SiteUrl,
 			"GOTRUE_JWT_SECRET=" + utils.Config.Auth.JwtSecret.Value,
 		},

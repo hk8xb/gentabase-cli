@@ -41,7 +41,7 @@ func (s *WatcherIntegrationSetup) Cleanup() {
 
 // SetupFunctionsDirectory creates a functions directory with test functions
 func (s *WatcherIntegrationSetup) SetupFunctionsDirectory() string {
-	functionsDir := filepath.Join(s.TempDir, "supabase", "functions")
+	functionsDir := filepath.Join(s.TempDir, "gentabase", "functions")
 	require.NoError(s.T, os.MkdirAll(functionsDir, 0755))
 
 	// Set up test functions
@@ -51,15 +51,15 @@ func (s *WatcherIntegrationSetup) SetupFunctionsDirectory() string {
 	return functionsDir
 }
 
-func (s *WatcherIntegrationSetup) SetupSupabaseDirectory() string {
-	supabaseDir := filepath.Join(s.TempDir, "supabase")
-	require.NoError(s.T, os.MkdirAll(supabaseDir, 0755))
+func (s *WatcherIntegrationSetup) SetupGentabaseDirectory() string {
+	gentabaseDir := filepath.Join(s.TempDir, "gentabase")
+	require.NoError(s.T, os.MkdirAll(gentabaseDir, 0755))
 
-	return supabaseDir
+	return gentabaseDir
 }
 
 func (s *WatcherIntegrationSetup) createFunction(name, content string) {
-	funcDir := filepath.Join(s.TempDir, "supabase", "functions", name)
+	funcDir := filepath.Join(s.TempDir, "gentabase", "functions", name)
 	require.NoError(s.T, os.MkdirAll(funcDir, 0755))
 	require.NoError(s.T, os.WriteFile(filepath.Join(funcDir, "index.ts"), []byte(content), 0600))
 }
@@ -156,14 +156,14 @@ func TestFileWatcher(t *testing.T) {
 		setup := NewWatcherIntegrationSetup(t)
 		defer setup.Cleanup()
 
-		supabaseDir := setup.SetupSupabaseDirectory()
+		gentabaseDir := setup.SetupGentabaseDirectory()
 		watcher, err := setup.CreateFileWatcher()
 		require.NoError(t, err)
 
 		// Create and modify a config.toml file
 		go func() {
 			defer watcher.Close()
-			configFile := filepath.Join(supabaseDir, "config.toml")
+			configFile := filepath.Join(gentabaseDir, "config.toml")
 			require.NoError(t, os.WriteFile(configFile, []byte(`
 				[functions.hello]
 				enabled = true

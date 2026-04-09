@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-if [ "${SUPABASE_SSL_DEBUG:-}" = "true" ]; then
+if [ "${GENTABASE_SSL_DEBUG:-}" = "true" ]; then
     [ -n "${SOURCE:-}" ] && source_set=true || source_set=false
     [ -n "${TARGET:-}" ] && target_set=true || target_set=false
     echo "[ssl-debug] migra.sh uname=$(uname -a)" >&2
@@ -21,7 +21,7 @@ run_migra() {
 for schema in "$@"; do
     # migra exits 2 when differences are found
     run_migra "$SOURCE" "$TARGET" || status=$?
-    if [ "${SUPABASE_SSL_DEBUG:-}" = "true" ]; then
+    if [ "${GENTABASE_SSL_DEBUG:-}" = "true" ]; then
         echo "[ssl-debug] migra.sh schema=$schema exit_status=${status:-0}" >&2
     fi
     if [ ${status:-2} -ne 2 ]; then

@@ -3,10 +3,10 @@ package cmd
 import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/secrets/list"
-	"github.com/supabase/cli/internal/secrets/set"
-	"github.com/supabase/cli/internal/secrets/unset"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/secrets/list"
+	"github.com/hk8xb/gentabase-cli/internal/secrets/set"
+	"github.com/hk8xb/gentabase-cli/internal/secrets/unset"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 )
 
 var (

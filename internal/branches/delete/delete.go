@@ -7,9 +7,9 @@ import (
 	"os"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/branches/pause"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/internal/branches/pause"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
 )
 
 func Run(ctx context.Context, branchId string, force *bool) error {
@@ -17,7 +17,7 @@ func Run(ctx context.Context, branchId string, force *bool) error {
 	if err != nil {
 		return err
 	}
-	resp, err := utils.GetSupabase().V1DeleteABranchWithResponse(ctx, projectRef, &api.V1DeleteABranchParams{
+	resp, err := utils.GetGentabaseAPI().V1DeleteABranchWithResponse(ctx, projectRef, &api.V1DeleteABranchParams{
 		Force: force,
 	})
 	if err != nil {

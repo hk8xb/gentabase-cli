@@ -9,7 +9,7 @@ import (
 
 	"github.com/jackc/pgerrcode"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestPendingMigrations(t *testing.T) {
@@ -130,13 +130,13 @@ func TestApplyMigrations(t *testing.T) {
 			Query(CREATE_VERSION_SCHEMA).
 			Reply("CREATE SCHEMA").
 			Query(CREATE_VERSION_TABLE).
-			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation supabase_migrations").
+			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation gentabase_migrations").
 			Query(ADD_STATEMENTS_COLUMN).
 			Query(ADD_NAME_COLUMN)
 		// Run test
 		err := ApplyMigrations(context.Background(), pending, conn.MockClient(t), fsys)
 		// Check error
-		assert.ErrorContains(t, err, "ERROR: permission denied for relation supabase_migrations (SQLSTATE 42501)")
+		assert.ErrorContains(t, err, "ERROR: permission denied for relation gentabase_migrations (SQLSTATE 42501)")
 	})
 
 	t.Run("throws error on missing file", func(t *testing.T) {
@@ -162,13 +162,13 @@ func TestApplyMigrations(t *testing.T) {
 			Query("RESET ALL").
 			Reply("RESET").
 			Query(testSchema).
-			ReplyError(pgerrcode.UndefinedTable, `relation "supabase_migrations.schema_migrations" does not exist`).
+			ReplyError(pgerrcode.UndefinedTable, `relation "gentabase_migrations.schema_migrations" does not exist`).
 			Query(INSERT_MIGRATION_VERSION, "0", "schema", []string{testSchema}).
 			Reply("INSERT 0 1")
 		// Run test
 		err := ApplyMigrations(context.Background(), pending, conn.MockClient(t), testMigrations)
 		// Check error
-		assert.ErrorContains(t, err, `ERROR: relation "supabase_migrations.schema_migrations" does not exist (SQLSTATE 42P01)`)
+		assert.ErrorContains(t, err, `ERROR: relation "gentabase_migrations.schema_migrations" does not exist (SQLSTATE 42P01)`)
 	})
 
 	t.Run("throws error when RESET ALL fails", func(t *testing.T) {

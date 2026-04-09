@@ -7,7 +7,7 @@ import (
 
 	"github.com/h2non/gock"
 	"github.com/stretchr/testify/assert"
-	"github.com/supabase/cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
 )
 
 var planGateProjectJSON = map[string]interface{}{
@@ -17,7 +17,7 @@ var planGateProjectJSON = map[string]interface{}{
 	"region":            "us-east-1",
 	"created_at":        "2024-01-01T00:00:00Z",
 	"status":            "ACTIVE_HEALTHY",
-	"database":          map[string]interface{}{"host": "db.example.supabase.co", "version": "15.1.0.117"},
+	"database":          map[string]interface{}{"host": "db.example.gentabase.dev", "version": "15.1.0.117"},
 }
 
 func TestGetOrgSlugFromProjectRef(t *testing.T) {
@@ -55,7 +55,7 @@ func TestGetOrgSlugFromProjectRef(t *testing.T) {
 
 func TestGetOrgBillingURL(t *testing.T) {
 	url := GetOrgBillingURL("my-org")
-	assert.Equal(t, GetSupabaseDashboardURL()+"/org/my-org/billing", url)
+	assert.Equal(t, GetGentabaseDashboardURL()+"/org/my-org/billing", url)
 }
 
 func entitlementsJSON(featureKey string, hasAccess bool) map[string]interface{} {
@@ -113,7 +113,7 @@ func TestSuggestUpgradeOnError(t *testing.T) {
 			Reply(http.StatusNotFound)
 		SuggestUpgradeOnError(context.Background(), ref, "branching_limit", http.StatusPaymentRequired)
 		assert.Contains(t, CmdSuggestion, "plan upgrade")
-		assert.Contains(t, CmdSuggestion, GetSupabaseDashboardURL())
+		assert.Contains(t, CmdSuggestion, GetGentabaseDashboardURL())
 		assert.NotContains(t, CmdSuggestion, "/org/")
 	})
 

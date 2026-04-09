@@ -11,9 +11,9 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils/cloudflare"
-	supabase "github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/internal/utils/cloudflare"
+	gbapi "github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 const (
@@ -23,7 +23,7 @@ const (
 
 var (
 	clientOnce sync.Once
-	apiClient  *supabase.ClientWithResponses
+	apiClient  *gbapi.ClientWithResponses
 
 	DNSResolver = EnumFlag{
 		Allowed: []string{DNS_GO_NATIVE, DNS_OVER_HTTPS},
@@ -114,7 +114,7 @@ func withFallbackDNS(dialContext DialContextFunc) DialContextFunc {
 	return nativeWithFallback
 }
 
-func GetSupabase() *supabase.ClientWithResponses {
+func GetGentabaseAPI() *gbapi.ClientWithResponses {
 	clientOnce.Do(func() {
 		token, err := LoadAccessTokenFS(afero.NewOsFs())
 		if err != nil {
@@ -123,9 +123,9 @@ func GetSupabase() *supabase.ClientWithResponses {
 		if t, ok := http.DefaultTransport.(*http.Transport); ok {
 			t.DialContext = withFallbackDNS(t.DialContext)
 		}
-		apiClient, err = supabase.NewClientWithResponses(
-			GetSupabaseAPIHost(),
-			supabase.WithRequestEditorFn(func(ctx context.Context, req *http.Request) error {
+		apiClient, err = gbapi.NewClientWithResponses(
+			GetGentabaseAPIHost(),
+			gbapi.WithRequestEditorFn(func(ctx context.Context, req *http.Request) error {
 				req.Header.Set("Authorization", "Bearer "+token)
 				req.Header.Set("User-Agent", "GentabaseCLI/"+Version)
 				return nil
@@ -141,18 +141,18 @@ func GetSupabase() *supabase.ClientWithResponses {
 // Used by unit tests
 var DefaultApiHost = CurrentProfile.APIURL
 
-func GetSupabaseAPIHost() string {
+func GetGentabaseAPIHost() string {
 	return CurrentProfile.APIURL
 }
 
-func GetSupabaseDashboardURL() string {
+func GetGentabaseDashboardURL() string {
 	return CurrentProfile.DashboardURL
 }
 
-func GetSupabaseHost(projectRef string) string {
+func GetGentabaseHost(projectRef string) string {
 	return fmt.Sprintf("%s.%s", projectRef, CurrentProfile.ProjectHost)
 }
 
-func GetSupabaseDbHost(projectRef string) string {
-	return "db." + GetSupabaseHost(projectRef)
+func GetGentabaseDbHost(projectRef string) string {
+	return "db." + GetGentabaseHost(projectRef)
 }

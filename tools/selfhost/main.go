@@ -11,15 +11,15 @@ import (
 	"strings"
 
 	"github.com/google/go-github/v62/github"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/tools/shared"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/tools/shared"
 	"gopkg.in/yaml.v3"
 )
 
 const (
-	SUPABASE_REPO  = "gentabase"
-	SUPABASE_OWNER = "gentabase"
+	GENTABASE_REPO  = "gentabase"
+	GENTABASE_OWNER = "gentabase"
 )
 
 func main() {
@@ -45,7 +45,7 @@ type ComposeFile struct {
 func updateSelfHosted(ctx context.Context, branch string) error {
 	client := utils.GetGitHubClient(ctx)
 	master := "master"
-	if err := shared.CreateGitBranch(ctx, client, SUPABASE_OWNER, SUPABASE_REPO, branch, master); err != nil {
+	if err := shared.CreateGitBranch(ctx, client, GENTABASE_OWNER, GENTABASE_REPO, branch, master); err != nil {
 		return err
 	}
 	stable := getStableVersions()
@@ -57,7 +57,7 @@ func updateSelfHosted(ctx context.Context, branch string) error {
 		Head:  &branch,
 		Base:  &master,
 	}
-	return shared.CreatePullRequest(ctx, client, SUPABASE_OWNER, SUPABASE_REPO, pr)
+	return shared.CreatePullRequest(ctx, client, GENTABASE_OWNER, GENTABASE_REPO, pr)
 }
 
 func getStableVersions() map[string]string {
@@ -75,7 +75,7 @@ func getStableVersions() map[string]string {
 func updateComposeVersion(ctx context.Context, client *github.Client, path, ref string, stable map[string]string) error {
 	fmt.Fprintln(os.Stderr, "Parsing file:", path)
 	opts := github.RepositoryContentGetOptions{Ref: "heads/" + ref}
-	file, _, _, err := client.Repositories.GetContents(ctx, SUPABASE_OWNER, SUPABASE_REPO, path, &opts)
+	file, _, _, err := client.Repositories.GetContents(ctx, GENTABASE_OWNER, GENTABASE_REPO, path, &opts)
 	if err != nil {
 		return err
 	}
@@ -108,7 +108,7 @@ func updateComposeVersion(ctx context.Context, client *github.Client, path, ref 
 		SHA:     file.SHA,
 		Branch:  &ref,
 	}
-	resp, _, err := client.Repositories.UpdateFile(ctx, SUPABASE_OWNER, SUPABASE_REPO, path, &commit)
+	resp, _, err := client.Repositories.UpdateFile(ctx, GENTABASE_OWNER, GENTABASE_REPO, path, &commit)
 	if err != nil {
 		return err
 	}

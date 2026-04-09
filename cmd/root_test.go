@@ -7,8 +7,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/telemetry"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/telemetry"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func clearTelemetryEnv(t *testing.T) {
@@ -21,7 +21,7 @@ func clearTelemetryEnv(t *testing.T) {
 }
 
 func TestCommandAnalyticsContext(t *testing.T) {
-	root := &cobra.Command{Use: "supabase"}
+	root := &cobra.Command{Use: "gentabase"}
 	var projectRef string
 	var password string
 	var debug bool
@@ -62,14 +62,14 @@ func TestCommandAnalyticsContext(t *testing.T) {
 }
 
 func TestCommandName(t *testing.T) {
-	root := &cobra.Command{Use: "supabase"}
+	root := &cobra.Command{Use: "gentabase"}
 	parent := &cobra.Command{Use: "db"}
 	child := &cobra.Command{Use: "push"}
 	root.AddCommand(parent)
 	parent.AddCommand(child)
 
 	assert.Equal(t, "db push", commandName(child))
-	assert.Equal(t, "supabase", commandName(root))
+	assert.Equal(t, "gentabase", commandName(root))
 }
 
 func TestTelemetryIsAgent(t *testing.T) {

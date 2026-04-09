@@ -3,12 +3,12 @@ package cmd
 import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/storage/client"
-	"github.com/supabase/cli/internal/storage/cp"
-	"github.com/supabase/cli/internal/storage/ls"
-	"github.com/supabase/cli/internal/storage/mv"
-	"github.com/supabase/cli/internal/storage/rm"
-	"github.com/supabase/cli/pkg/storage"
+	"github.com/hk8xb/gentabase-cli/internal/storage/client"
+	"github.com/hk8xb/gentabase-cli/internal/storage/cp"
+	"github.com/hk8xb/gentabase-cli/internal/storage/ls"
+	"github.com/hk8xb/gentabase-cli/internal/storage/mv"
+	"github.com/hk8xb/gentabase-cli/internal/storage/rm"
+	"github.com/hk8xb/gentabase-cli/pkg/storage"
 )
 
 var (

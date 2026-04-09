@@ -11,7 +11,7 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 //go:embed testdata/seed.sql
@@ -115,7 +115,7 @@ func TestSeedData(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		mockSeedHistory(conn).
-			Query(testSeed+`;INSERT INTO supabase_migrations.seed_files(path, hash) VALUES( 'testdata/seed.sql' ,  '61868484fc0ddca2a2022217629a9fd9a4cf1ca479432046290797d6d40ffcc3' ) ON CONFLICT (path) DO UPDATE SET hash = EXCLUDED.hash`).
+			Query(testSeed+`;INSERT INTO gentabase_migrations.seed_files(path, hash) VALUES( 'testdata/seed.sql' ,  '61868484fc0ddca2a2022217629a9fd9a4cf1ca479432046290797d6d40ffcc3' ) ON CONFLICT (path) DO UPDATE SET hash = EXCLUDED.hash`).
 			ReplyError(pgerrcode.NotNullViolation, `null value in column "age" of relation "employees"`)
 		// Run test
 		err := SeedData(context.Background(), []SeedFile{seed}, conn.MockClient(t, func(cc *pgx.ConnConfig) {

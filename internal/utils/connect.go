@@ -14,9 +14,9 @@ import (
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/internal/debug"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/pgxv5"
+	"github.com/hk8xb/gentabase-cli/internal/debug"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/pgxv5"
 	"golang.org/x/net/publicsuffix"
 )
 
@@ -48,7 +48,7 @@ var ErrPrimaryNotFound = errors.New("primary database not found")
 
 func GetPoolerConfigPrimary(ctx context.Context, ref string) (api.SupavisorConfigResponse, error) {
 	var result api.SupavisorConfigResponse
-	resp, err := GetSupabase().V1GetPoolerConfigWithResponse(ctx, ref)
+	resp, err := GetGentabaseAPI().V1GetPoolerConfigWithResponse(ctx, ref)
 	if err != nil {
 		return result, errors.Errorf("failed to get pooler: %w", err)
 	} else if resp.JSON200 == nil {
@@ -171,7 +171,7 @@ func ConnectByUrl(ctx context.Context, url string, options ...func(*pgx.ConnConf
 	return conn, err
 }
 
-const SuggestEnvVar = "Connect to your database by setting the env var correctly: SUPABASE_DB_PASSWORD"
+const SuggestEnvVar = "Connect to your database by setting the env var correctly: GENTABASE_DB_PASSWORD"
 
 // Sets CmdSuggestion to an actionable hint based on the given pg connection error.
 func SetConnectSuggestion(err error) {
@@ -197,7 +197,7 @@ func SetConnectSuggestion(err error) {
 }
 
 const (
-	SUPERUSER_ROLE   = "supabase_admin"
+	SUPERUSER_ROLE   = "gentabase_admin"
 	CLI_LOGIN_PREFIX = "cli_login_"
 	SET_SESSION_ROLE = "SET SESSION ROLE postgres"
 )

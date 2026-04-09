@@ -10,7 +10,7 @@ import (
 )
 
 type pathBuilder struct {
-	SupabaseDirPath        string
+	GentabaseDirPath        string
 	ConfigPath             string
 	GitIgnorePath          string
 	TempDir                string
@@ -46,7 +46,7 @@ func NewPathBuilder(configPath string) pathBuilder {
 	// TODO: make base path configurable from toml
 	base := filepath.Dir(configPath)
 	return pathBuilder{
-		SupabaseDirPath:        base,
+		GentabaseDirPath:        base,
 		ConfigPath:             configPath,
 		GitIgnorePath:          filepath.Join(base, ".gitignore"),
 		TempDir:                filepath.Join(base, ".temp"),

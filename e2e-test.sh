@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eou pipefail
 
-dotenv=$("${1:-supabase}" --workdir tests status -o env)
+dotenv=$("${1:-gentabase}" --workdir tests status -o env)
 export $(echo "$dotenv" | xargs)
 
 for tc in ./tests/*.sh; do

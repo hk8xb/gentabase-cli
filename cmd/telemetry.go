@@ -7,7 +7,7 @@ import (
 
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	phtelemetry "github.com/supabase/cli/internal/telemetry"
+	phtelemetry "github.com/hk8xb/gentabase-cli/internal/telemetry"
 )
 
 var telemetryCmd = &cobra.Command{

@@ -7,16 +7,16 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 func Run(ctx context.Context, ref string, fsys afero.Fs) error {
 	if err := flags.LoadConfig(fsys); err != nil {
 		return err
 	}
-	client := config.NewConfigUpdater(*utils.GetSupabase())
+	client := config.NewConfigUpdater(*utils.GetGentabaseAPI())
 	remote, err := utils.Config.GetRemoteByProjectRef(ref)
 	if err != nil {
 		// Use base config when no remote is declared
@@ -48,7 +48,7 @@ type CostItem struct {
 }
 
 func getCostMatrix(ctx context.Context, projectRef string) (map[string]CostItem, error) {
-	resp, err := utils.GetSupabase().V1ListProjectAddonsWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1ListProjectAddonsWithResponse(ctx, projectRef)
 	if err != nil {
 		return nil, errors.Errorf("failed to list addons: %w", err)
 	} else if resp.JSON200 == nil {

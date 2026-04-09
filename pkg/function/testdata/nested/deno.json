@@ -1,5 +1,5 @@
 {
   "imports": {
-    "module": "jsr:@supabase/functions-js/edge-runtime.d.ts"
+    "module": "jsr:@hk8xb/functions-js/edge-runtime.d.ts"
   }
 }

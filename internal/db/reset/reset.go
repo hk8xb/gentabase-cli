@@ -20,14 +20,14 @@ import (
 	"github.com/jackc/pgerrcode"
 	"github.com/jackc/pgx/v4"
 	"github.com/spf13/afero"
-	"github.com/supabase/cli/internal/db/start"
-	"github.com/supabase/cli/internal/migration/apply"
-	"github.com/supabase/cli/internal/migration/down"
-	"github.com/supabase/cli/internal/migration/list"
-	"github.com/supabase/cli/internal/migration/repair"
-	"github.com/supabase/cli/internal/seed/buckets"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/internal/db/start"
+	"github.com/hk8xb/gentabase-cli/internal/migration/apply"
+	"github.com/hk8xb/gentabase-cli/internal/migration/down"
+	"github.com/hk8xb/gentabase-cli/internal/migration/list"
+	"github.com/hk8xb/gentabase-cli/internal/migration/repair"
+	"github.com/hk8xb/gentabase-cli/internal/seed/buckets"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
 )
 
 func Run(ctx context.Context, version string, last uint, config pgconn.Config, fsys afero.Fs, options ...func(*pgx.ConnConfig)) error {
@@ -54,14 +54,14 @@ func Run(ctx context.Context, version string, last uint, config pgconn.Config, f
 		return resetRemote(ctx, version, config, fsys, options...)
 	}
 	// Config file is loaded before parsing --linked or --local flags
-	if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+	if err := utils.AssertGentabaseDbIsRunning(); err != nil {
 		return err
 	}
 	// Reset postgres database because extensions (pg_cron, pg_net) require postgres
 	if err := resetDatabase(ctx, version, fsys, options...); err != nil {
 		return err
 	}
-	// Seed objects from supabase/buckets directory
+	// Seed objects from gentabase/buckets directory
 	if resp, err := utils.Docker.ContainerInspect(ctx, utils.StorageId); err == nil {
 		if resp.State.Health == nil || resp.State.Health.Status != types.Healthy {
 			if err := start.WaitForHealthyService(ctx, 30*time.Second, utils.StorageId); err != nil {
@@ -164,16 +164,16 @@ func recreateDatabase(ctx context.Context, options ...func(*pgx.ConnConfig)) err
 		Statements: []string{
 			"DROP DATABASE IF EXISTS postgres WITH (FORCE)",
 			"CREATE DATABASE postgres WITH OWNER postgres",
-			"DROP DATABASE IF EXISTS _supabase WITH (FORCE)",
-			"CREATE DATABASE _supabase WITH OWNER postgres",
+			"DROP DATABASE IF EXISTS _gentabase WITH (FORCE)",
+			"CREATE DATABASE _gentabase WITH OWNER postgres",
 		},
 	}
 	return sql.ExecBatch(ctx, conn)
 }
 
 const (
-	TERMINATE_BACKENDS      = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname IN ('postgres', '_supabase')"
-	COUNT_REPLICATION_SLOTS = "SELECT COUNT(*) FROM pg_replication_slots WHERE database IN ('postgres', '_supabase')"
+	TERMINATE_BACKENDS      = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname IN ('postgres', '_gentabase')"
+	COUNT_REPLICATION_SLOTS = "SELECT COUNT(*) FROM pg_replication_slots WHERE database IN ('postgres', '_gentabase')"
 )
 
 func DisconnectClients(ctx context.Context, conn *pgx.Conn) error {
@@ -182,7 +182,7 @@ func DisconnectClients(ctx context.Context, conn *pgx.Conn) error {
 	disconn := migration.MigrationFile{
 		Statements: []string{
 			"ALTER DATABASE postgres ALLOW_CONNECTIONS false",
-			"ALTER DATABASE _supabase ALLOW_CONNECTIONS false",
+			"ALTER DATABASE _gentabase ALLOW_CONNECTIONS false",
 			TERMINATE_BACKENDS,
 		},
 	}

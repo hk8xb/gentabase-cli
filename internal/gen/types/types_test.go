@@ -13,10 +13,10 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/apitest"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/apitest"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 func TestGenLocalCommand(t *testing.T) {
@@ -166,7 +166,7 @@ func TestGenLinkedCommand(t *testing.T) {
 
 func TestGenRemoteCommand(t *testing.T) {
 	dbConfig := pgconn.Config{
-		Host:     "db.supabase.co",
+		Host:     "db.gentabase.dev",
 		Port:     5432,
 		User:     "admin",
 		Password: "password",

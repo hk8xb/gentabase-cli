@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/viper"
-	"github.com/supabase/cli/pkg/cast"
+	"github.com/hk8xb/gentabase-cli/pkg/cast"
 )
 
 // Equal to `startBufSize` from `bufio/scan.go`
@@ -107,7 +107,7 @@ func Split(sql io.Reader, transform ...func(string) string) (stats []string, err
 		err = errors.Errorf("%w\nAfter statement %d: %s", err, len(stats), token)
 	}
 	if errors.Is(err, bufio.ErrTooLong) {
-		err = errors.Errorf("%w\nTry setting SUPABASE_SCANNER_BUFFER_SIZE=5MB (current size is %dKB)", err, maxbuf>>10)
+		err = errors.Errorf("%w\nTry setting GENTABASE_SCANNER_BUFFER_SIZE=5MB (current size is %dKB)", err, maxbuf>>10)
 	}
 	return stats, err
 }

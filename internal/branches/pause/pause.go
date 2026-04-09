@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/google/uuid"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 )
 
 func Run(ctx context.Context, branchId string) error {
@@ -15,7 +15,7 @@ func Run(ctx context.Context, branchId string) error {
 	if err != nil {
 		return err
 	}
-	if resp, err := utils.GetSupabase().V1PauseAProjectWithResponse(ctx, projectRef); err != nil {
+	if resp, err := utils.GetGentabaseAPI().V1PauseAProjectWithResponse(ctx, projectRef); err != nil {
 		return errors.Errorf("failed to pause branch: %w", err)
 	} else if resp.StatusCode() != http.StatusOK {
 		return errors.Errorf("unexpected pause branch status %d: %s", resp.StatusCode(), string(resp.Body))
@@ -28,7 +28,7 @@ func GetBranchProjectRef(ctx context.Context, branchId string) (string, error) {
 		return branchId, nil
 	}
 	if err := uuid.Validate(branchId); err == nil {
-		resp, err := utils.GetSupabase().V1GetABranchConfigWithResponse(ctx, branchId)
+		resp, err := utils.GetGentabaseAPI().V1GetABranchConfigWithResponse(ctx, branchId)
 		if err != nil {
 			return "", errors.Errorf("failed to get branch: %w", err)
 		} else if resp.JSON200 == nil {
@@ -36,7 +36,7 @@ func GetBranchProjectRef(ctx context.Context, branchId string) (string, error) {
 		}
 		return resp.JSON200.Ref, nil
 	}
-	resp, err := utils.GetSupabase().V1GetABranchWithResponse(ctx, flags.ProjectRef, branchId)
+	resp, err := utils.GetGentabaseAPI().V1GetABranchWithResponse(ctx, flags.ProjectRef, branchId)
 	if err != nil {
 		return "", errors.Errorf("failed to find branch: %w", err)
 	} else if resp.JSON200 == nil {

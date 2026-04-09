@@ -11,18 +11,18 @@ import (
 )
 
 func TestTelemetryPath(t *testing.T) {
-	t.Run("uses SUPABASE_HOME when set", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+	t.Run("uses GENTABASE_HOME when set", func(t *testing.T) {
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		t.Setenv("HOME", "/tmp/ignored-home")
 
 		path, err := telemetryPath()
 
 		require.NoError(t, err)
-		assert.Equal(t, "/tmp/supabase-home/telemetry.json", path)
+		assert.Equal(t, "/tmp/gentabase-home/telemetry.json", path)
 	})
 
 	t.Run("falls back to HOME/.gentabase", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "")
+		t.Setenv("GENTABASE_HOME", "")
 		t.Setenv("HOME", "/tmp/home")
 
 		path, err := telemetryPath()
@@ -36,7 +36,7 @@ func TestLoadOrCreateState(t *testing.T) {
 	now := time.Date(2026, time.April, 1, 12, 0, 0, 0, time.UTC)
 
 	t.Run("creates default state and writes it", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		fsys := afero.NewMemMapFs()
 
 		state, created, err := LoadOrCreateState(fsys, now)
@@ -56,7 +56,7 @@ func TestLoadOrCreateState(t *testing.T) {
 	})
 
 	t.Run("updates last active and preserves existing state", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		fsys := afero.NewMemMapFs()
 		initial := State{
 			Enabled:           false,
@@ -80,7 +80,7 @@ func TestLoadOrCreateState(t *testing.T) {
 	})
 
 	t.Run("rotates stale session after inactivity threshold", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		fsys := afero.NewMemMapFs()
 		initial := State{
 			Enabled:           true,
@@ -120,8 +120,8 @@ func TestTelemetryDisabled(t *testing.T) {
 		assert.True(t, disabled)
 	})
 
-	t.Run("honors SUPABASE_TELEMETRY_DISABLED", func(t *testing.T) {
-		t.Setenv("SUPABASE_TELEMETRY_DISABLED", "1")
+	t.Run("honors GENTABASE_TELEMETRY_DISABLED", func(t *testing.T) {
+		t.Setenv("GENTABASE_TELEMETRY_DISABLED", "1")
 		fsys := afero.NewMemMapFs()
 
 		disabled, err := Disabled(fsys, now)
@@ -131,7 +131,7 @@ func TestTelemetryDisabled(t *testing.T) {
 	})
 
 	t.Run("honors disabled state file", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		fsys := afero.NewMemMapFs()
 		require.NoError(t, SaveState(State{
 			Enabled:           false,
@@ -148,7 +148,7 @@ func TestTelemetryDisabled(t *testing.T) {
 	})
 
 	t.Run("creates enabled state when missing", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		fsys := afero.NewMemMapFs()
 
 		disabled, err := Disabled(fsys, now)
@@ -162,7 +162,7 @@ func TestSetEnabledAndStatus(t *testing.T) {
 	now := time.Date(2026, time.April, 1, 12, 0, 0, 0, time.UTC)
 
 	t.Run("disable preserves identity fields", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		fsys := afero.NewMemMapFs()
 		initial, _, err := LoadOrCreateState(fsys, now)
 		require.NoError(t, err)
@@ -179,7 +179,7 @@ func TestSetEnabledAndStatus(t *testing.T) {
 	})
 
 	t.Run("enable flips disabled state back on", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		fsys := afero.NewMemMapFs()
 		require.NoError(t, SaveState(State{
 			Enabled:           false,
@@ -196,7 +196,7 @@ func TestSetEnabledAndStatus(t *testing.T) {
 	})
 
 	t.Run("status creates default state when missing", func(t *testing.T) {
-		t.Setenv("SUPABASE_HOME", "/tmp/supabase-home")
+		t.Setenv("GENTABASE_HOME", "/tmp/gentabase-home")
 		fsys := afero.NewMemMapFs()
 
 		state, created, err := Status(fsys, now)

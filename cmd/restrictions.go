@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/restrictions/get"
-	"github.com/supabase/cli/internal/restrictions/update"
-	"github.com/supabase/cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/internal/restrictions/get"
+	"github.com/hk8xb/gentabase-cli/internal/restrictions/update"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
 )
 
 var (

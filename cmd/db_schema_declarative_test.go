@@ -9,8 +9,8 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/db/declarative"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/db/declarative"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func mockFsys() afero.Fs {

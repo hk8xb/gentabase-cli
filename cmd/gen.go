@@ -12,13 +12,13 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"github.com/supabase/cli/internal/gen/bearerjwt"
-	"github.com/supabase/cli/internal/gen/signingkeys"
-	"github.com/supabase/cli/internal/gen/types"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/internal/utils/flags"
-	"github.com/supabase/cli/legacy/keys"
-	"github.com/supabase/cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/internal/gen/bearerjwt"
+	"github.com/hk8xb/gentabase-cli/internal/gen/signingkeys"
+	"github.com/hk8xb/gentabase-cli/internal/gen/types"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils/flags"
+	"github.com/hk8xb/gentabase-cli/legacy/keys"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
 )
 
 var (
@@ -98,10 +98,10 @@ var (
 			}
 			return types.Run(ctx, flags.ProjectRef, flags.DbConfig, lang.Value, schema, postgrestV9Compat, swiftAccessControl.Value, queryTimeout, afero.NewOsFs())
 		},
-		Example: `  supabase gen types --local
-  supabase gen types --linked --lang=go
-  supabase gen types --project-id abc-def-123 --schema public --schema private
-  supabase gen types --db-url 'postgresql://...' --schema public --schema auth`,
+		Example: `  gentabase gen types --local
+  gentabase gen types --linked --lang=go
+  gentabase gen types --project-id abc-def-123 --schema public --schema private
+  gentabase gen types --db-url 'postgresql://...' --schema public --schema auth`,
 	}
 
 	algorithm = utils.EnumFlag{

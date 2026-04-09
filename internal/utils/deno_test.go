@@ -18,23 +18,23 @@ func TestBindModules(t *testing.T) {
 		entrypoint := `import "https://deno.land"
 import "/tmp/index.ts"
 import "../common/index.ts"
-import "../../../supabase/tests/index.ts"
+import "../../../gentabase/tests/index.ts"
 import "./child/index.ts"`
-		require.NoError(t, WriteFile("/app/supabase/functions/hello/index.ts", []byte(entrypoint), fsys))
+		require.NoError(t, WriteFile("/app/gentabase/functions/hello/index.ts", []byte(entrypoint), fsys))
 		require.NoError(t, WriteFile("/tmp/index.ts", []byte{}, fsys))
-		require.NoError(t, WriteFile("/app/supabase/functions/common/index.ts", []byte{}, fsys))
-		require.NoError(t, WriteFile("/app/supabase/tests/index.ts", []byte{}, fsys))
-		require.NoError(t, WriteFile("/app/supabase/functions/hello/child/index.ts", []byte{}, fsys))
+		require.NoError(t, WriteFile("/app/gentabase/functions/common/index.ts", []byte{}, fsys))
+		require.NoError(t, WriteFile("/app/gentabase/tests/index.ts", []byte{}, fsys))
+		require.NoError(t, WriteFile("/app/gentabase/functions/hello/child/index.ts", []byte{}, fsys))
 		// Run test
-		mods, err := BindHostModules("/app", "supabase/functions/hello/index.ts", "", fsys)
+		mods, err := BindHostModules("/app", "gentabase/functions/hello/index.ts", "", fsys)
 		// Check error
 		assert.NoError(t, err)
 		assert.ElementsMatch(t, mods, []string{
-			"/app/supabase/functions/hello/index.ts:/app/supabase/functions/hello/index.ts:ro",
+			"/app/gentabase/functions/hello/index.ts:/app/gentabase/functions/hello/index.ts:ro",
 			"/tmp/index.ts:/tmp/index.ts:ro",
-			"/app/supabase/functions/common/index.ts:/app/supabase/functions/common/index.ts:ro",
-			"/app/supabase/tests/index.ts:/app/supabase/tests/index.ts:ro",
-			"/app/supabase/functions/hello/child/index.ts:/app/supabase/functions/hello/child/index.ts:ro",
+			"/app/gentabase/functions/common/index.ts:/app/gentabase/functions/common/index.ts:ro",
+			"/app/gentabase/tests/index.ts:/app/gentabase/tests/index.ts:ro",
+			"/app/gentabase/functions/hello/child/index.ts:/app/gentabase/functions/hello/child/index.ts:ro",
 		})
 	})
 }

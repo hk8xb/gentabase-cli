@@ -5,11 +5,11 @@ import (
 	"fmt"
 
 	"github.com/go-errors/errors"
-	"github.com/supabase/cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
 )
 
 func Run(ctx context.Context, projectRef string) error {
-	resp, err := utils.GetSupabase().V1GetPgsodiumConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetGentabaseAPI().V1GetPgsodiumConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to retrieve pgsodium config: %w", err)
 	} else if resp.JSON200 == nil {

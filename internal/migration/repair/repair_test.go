@@ -13,11 +13,11 @@ import (
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/supabase/cli/internal/testing/fstest"
-	"github.com/supabase/cli/internal/testing/helper"
-	"github.com/supabase/cli/internal/utils"
-	"github.com/supabase/cli/pkg/migration"
-	"github.com/supabase/cli/pkg/pgtest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/fstest"
+	"github.com/hk8xb/gentabase-cli/internal/testing/helper"
+	"github.com/hk8xb/gentabase-cli/internal/utils"
+	"github.com/hk8xb/gentabase-cli/pkg/migration"
+	"github.com/hk8xb/gentabase-cli/pkg/pgtest"
 )
 
 var dbConfig = pgconn.Config{
@@ -89,11 +89,11 @@ func TestRepairCommand(t *testing.T) {
 		defer conn.Close(t)
 		helper.MockMigrationHistory(conn).
 			Query(migration.UPSERT_MIGRATION_VERSION, "0", "test", nil).
-			ReplyError(pgerrcode.DuplicateObject, `relation "supabase_migrations.schema_migrations" does not exist`)
+			ReplyError(pgerrcode.DuplicateObject, `relation "gentabase_migrations.schema_migrations" does not exist`)
 		// Run test
 		err := Run(context.Background(), dbConfig, []string{"0"}, Applied, fsys, conn.Intercept)
 		// Check error
-		assert.ErrorContains(t, err, `ERROR: relation "supabase_migrations.schema_migrations" does not exist (SQLSTATE 42710)`)
+		assert.ErrorContains(t, err, `ERROR: relation "gentabase_migrations.schema_migrations" does not exist (SQLSTATE 42710)`)
 	})
 }
 

@@ -8,9 +8,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/supabase/cli/pkg/api"
-	"github.com/supabase/cli/pkg/config"
-	"github.com/supabase/cli/pkg/function"
+	"github.com/hk8xb/gentabase-cli/pkg/api"
+	"github.com/hk8xb/gentabase-cli/pkg/config"
+	"github.com/hk8xb/gentabase-cli/pkg/function"
 )
 
 func main() {
@@ -20,12 +20,12 @@ func main() {
 }
 
 func deploy(ctx context.Context, fsys fs.FS) error {
-	project := os.Getenv("SUPABASE_PROJECT_ID")
+	project := os.Getenv("GENTABASE_PROJECT_ID")
 	apiClient := newAPIClient(os.Getenv("GENTABASE_ACCESS_TOKEN"))
 	functionClient := function.NewEdgeRuntimeAPI(project, apiClient)
 	fc := config.FunctionConfig{"my-slug": {
-		Entrypoint: "supabase/functions/my-slug/index.ts",
-		ImportMap:  "supabase/functions/import_map.json",
+		Entrypoint: "gentabase/functions/my-slug/index.ts",
+		ImportMap:  "gentabase/functions/import_map.json",
 	}}
 	return functionClient.Deploy(ctx, fc, fsys)
 }
