@@ -1,6 +1,6 @@
 # db-calls
 
-This command is much like the `supabase inspect db outliers` command, but ordered by the number of times a statement has been called.
+This command is much like the `gentabase inspect db outliers` command, but ordered by the number of times a statement has been called.
 
 You can use this information to see which queries are called most often, which can potentially be good candidates for optimisation.
 

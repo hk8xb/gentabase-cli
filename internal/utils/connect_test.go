@@ -26,8 +26,8 @@ var dbConfig = pgconn.Config{
 }
 
 var (
-	PG13_POOLER_URL = "postgres://postgres:[YOUR-PASSWORD]@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?options=reference%3Dzupyfdrjfhbeevcogohz"
-	PG15_POOLER_URL = "postgres://postgres.zupyfdrjfhbeevcogohz:[YOUR-PASSWORD]@fly-0-sin.pooler.supabase.com:6543/postgres"
+	PG13_POOLER_URL = "postgres://postgres:[YOUR-PASSWORD]@aws-0-ap-southeast-1.pooler.gentabase.dev:6543/postgres?options=reference%3Dzupyfdrjfhbeevcogohz"
+	PG15_POOLER_URL = "postgres://postgres.zupyfdrjfhbeevcogohz:[YOUR-PASSWORD]@fly-0-sin.pooler.gentabase.dev:6543/postgres"
 )
 
 func TestConnectByConfig(t *testing.T) {
@@ -105,7 +105,7 @@ func TestConnectByConfig(t *testing.T) {
 			ReplyError(&net.OpError{Op: "dial", Err: netErr})
 		gock.New("https://1.1.1.1").
 			Get("/dns-query").
-			MatchParam("name", "fly-0-sin.pooler.supabase.com").
+			MatchParam("name", "fly-0-sin.pooler.gentabase.dev").
 			MatchHeader("accept", "application/dns-json").
 			ReplyError(&net.OpError{Op: "dial", Err: netErr})
 		// Run test

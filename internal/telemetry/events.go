@@ -123,7 +123,7 @@ var (
 		"GITHUB_TOKEN",
 		"GITHUB_HEAD_REF",
 		"BITBUCKET_CLONE_DIR",
-		// Supabase environment signals
+		// Gentabase CLI environment signals (includes SUPABASE_* names for SDK compatibility)
 		"GENTABASE_ACCESS_TOKEN",
 		"SUPABASE_HOME",
 		"SYSTEMROOT",

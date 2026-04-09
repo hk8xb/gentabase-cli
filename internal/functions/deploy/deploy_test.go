@@ -40,7 +40,7 @@ func TestDeployCommand(t *testing.T) {
 		require.NoError(t, utils.WriteConfig(fsys, false))
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err := fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -103,7 +103,7 @@ import_map = "./import_map.json"
 		require.NoError(t, afero.WriteFile(fsys, ignorePath, []byte{}, 0644))
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err = fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -158,7 +158,7 @@ import_map = "./import_map.json"
 		require.NoError(t, afero.WriteFile(fsys, filepath.Join(utils.FunctionsDir, "disabled-func", "index.ts"), []byte{}, 0644))
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err = fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -224,7 +224,7 @@ verify_jwt = false
 		require.NoError(t, f.Close())
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err = fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -270,7 +270,7 @@ verify_jwt = false
 		require.NoError(t, f.Close())
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err = fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -377,7 +377,7 @@ func TestImportMapPath(t *testing.T) {
 func TestPruneFunctions(t *testing.T) {
 	flags.ProjectRef = apitest.RandomProjectRef()
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 	viper.Set("YES", true)
 
 	t.Run("prunes functions not in local directory", func(t *testing.T) {

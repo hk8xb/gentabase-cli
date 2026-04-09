@@ -1,12 +1,12 @@
-# Supabase OpenAPI Specification
+# Gentabase OpenAPI Specification
 
-This directory contains the OpenAPI specification for Supabase Management APIs.
+This directory contains the OpenAPI specification for Gentabase Management APIs.
 
 It is used to automatically generate the Go [client](pkg/api/client.gen.go) and [types](pkg/api/types.gen.go).
 
 ## Updating the specification
 
-The specification yaml is generated from our NestJS middleware. The latest release is viewable as [Swagger UI](https://api.supabase.com/api/v1).
+The specification yaml is generated from our NestJS middleware. The latest release is viewable as [Swagger UI](https://api.gentabase.dev/api/v1).
 
 To make a new release:
 

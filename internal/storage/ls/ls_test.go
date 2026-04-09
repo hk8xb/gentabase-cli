@@ -45,7 +45,7 @@ func TestStorageLS(t *testing.T) {
 	flags.ProjectRef = apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 	apiKeys := []api.ApiKeyResponse{{
 		Name:   "service_role",
 		ApiKey: nullable.NewNullableWithValue("service-key"),

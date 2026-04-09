@@ -88,7 +88,7 @@ func PrintDebugBundleMessage(debugDir string) {
 	fmt.Fprintln(os.Stderr, "To report this issue, you can:")
 	fmt.Fprintln(os.Stderr, "  1. Open an issue at https://github.com/supabase/pg-toolbelt/issues")
 	fmt.Fprintln(os.Stderr, "     Attach the files from the debug folder above.")
-	fmt.Fprintln(os.Stderr, "  2. Open a support ticket at https://supabase.com/dashboard/support")
+	fmt.Fprintln(os.Stderr, "  2. Open a support ticket at https://gentabase.dev/dashboard/support")
 	fmt.Fprintln(os.Stderr, "     (only visible to Gentabase employees)")
 	fmt.Fprintln(os.Stderr)
 	fmt.Fprintln(os.Stderr, utils.Yellow("WARNING: The debug folder may contain sensitive information about your"))

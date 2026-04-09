@@ -217,7 +217,7 @@ func TestPasskeyConfigMapping(t *testing.T) {
 		c := newWithDefaults()
 		c.Passkey = &passkey{
 			Enabled:       true,
-			RpDisplayName: "Supabase CLI",
+			RpDisplayName: "Gentabase CLI",
 			RpId:          "localhost",
 			RpOrigins: []string{
 				"http://127.0.0.1:3000",
@@ -230,7 +230,7 @@ func TestPasskeyConfigMapping(t *testing.T) {
 		if assert.NotNil(t, body.PasskeyEnabled) {
 			assert.True(t, *body.PasskeyEnabled)
 		}
-		assert.Equal(t, "Supabase CLI", ValOrDefault(body.WebauthnRpDisplayName, ""))
+		assert.Equal(t, "Gentabase CLI", ValOrDefault(body.WebauthnRpDisplayName, ""))
 		assert.Equal(t, "localhost", ValOrDefault(body.WebauthnRpId, ""))
 		assert.Equal(t, "http://127.0.0.1:3000,https://localhost:3000", ValOrDefault(body.WebauthnRpOrigins, ""))
 	})
@@ -239,7 +239,7 @@ func TestPasskeyConfigMapping(t *testing.T) {
 		c := newWithDefaults()
 		c.Passkey = &passkey{
 			Enabled:       false,
-			RpDisplayName: "Supabase CLI",
+			RpDisplayName: "Gentabase CLI",
 			RpId:          "localhost",
 			RpOrigins:     []string{"http://127.0.0.1:3000"},
 		}
@@ -265,14 +265,14 @@ func TestPasskeyConfigMapping(t *testing.T) {
 		// Run test
 		c.FromRemoteAuthConfig(v1API.AuthConfigResponse{
 			PasskeyEnabled:        true,
-			WebauthnRpDisplayName: nullable.NewNullableWithValue("Supabase CLI"),
+			WebauthnRpDisplayName: nullable.NewNullableWithValue("Gentabase CLI"),
 			WebauthnRpId:          nullable.NewNullableWithValue("localhost"),
 			WebauthnRpOrigins:     nullable.NewNullableWithValue("http://127.0.0.1:3000,https://localhost:3000"),
 		})
 		// Check result
 		if assert.NotNil(t, c.Passkey) {
 			assert.True(t, c.Passkey.Enabled)
-			assert.Equal(t, "Supabase CLI", c.Passkey.RpDisplayName)
+			assert.Equal(t, "Gentabase CLI", c.Passkey.RpDisplayName)
 			assert.Equal(t, "localhost", c.Passkey.RpId)
 			assert.Equal(t, []string{
 				"http://127.0.0.1:3000",
@@ -286,7 +286,7 @@ func TestPasskeyConfigMapping(t *testing.T) {
 		// Run test
 		c.FromRemoteAuthConfig(v1API.AuthConfigResponse{
 			PasskeyEnabled:        true,
-			WebauthnRpDisplayName: nullable.NewNullableWithValue("Supabase CLI"),
+			WebauthnRpDisplayName: nullable.NewNullableWithValue("Gentabase CLI"),
 			WebauthnRpId:          nullable.NewNullableWithValue("localhost"),
 			WebauthnRpOrigins:     nullable.NewNullableWithValue("http://127.0.0.1:3000"),
 		})
@@ -301,7 +301,7 @@ func TestPasskeyDiff(t *testing.T) {
 		// Run test
 		diff, err := c.DiffWithRemote(v1API.AuthConfigResponse{
 			PasskeyEnabled:        true,
-			WebauthnRpDisplayName: nullable.NewNullableWithValue("Supabase CLI"),
+			WebauthnRpDisplayName: nullable.NewNullableWithValue("Gentabase CLI"),
 			WebauthnRpId:          nullable.NewNullableWithValue("localhost"),
 			WebauthnRpOrigins:     nullable.NewNullableWithValue("http://127.0.0.1:3000"),
 		})

@@ -21,14 +21,14 @@ func TestTelemetryPath(t *testing.T) {
 		assert.Equal(t, "/tmp/supabase-home/telemetry.json", path)
 	})
 
-	t.Run("falls back to HOME/.supabase", func(t *testing.T) {
+	t.Run("falls back to HOME/.gentabase", func(t *testing.T) {
 		t.Setenv("SUPABASE_HOME", "")
 		t.Setenv("HOME", "/tmp/home")
 
 		path, err := telemetryPath()
 
 		require.NoError(t, err)
-		assert.Equal(t, "/tmp/home/.supabase/telemetry.json", path)
+		assert.Equal(t, "/tmp/home/.gentabase/telemetry.json", path)
 	})
 }
 

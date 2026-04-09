@@ -94,7 +94,7 @@ func TestRunLegacyUnbundle(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err := fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -157,7 +157,7 @@ func TestRunLegacyUnbundle(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err := fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -170,7 +170,7 @@ func TestRunLegacyUnbundle(t *testing.T) {
 		// Run test
 		err = Run(context.Background(), slug, project, true, false, fsys)
 		// Check error
-		assert.ErrorContains(t, err, "Function test-func does not exist on the Supabase project.")
+		assert.ErrorContains(t, err, "Function test-func does not exist on the Gentabase project.")
 	})
 }
 
@@ -183,7 +183,7 @@ func TestRunDockerUnbundle(t *testing.T) {
 		require.NoError(t, flags.LoadConfig(fsys))
 
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		dockerHost := utils.Docker.DaemonHost()
@@ -224,7 +224,7 @@ func TestRunDockerUnbundle(t *testing.T) {
 		require.NoError(t, flags.LoadConfig(fsys))
 
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		dockerHost := utils.Docker.DaemonHost()
@@ -254,7 +254,7 @@ func TestRunDockerUnbundle(t *testing.T) {
 func TestRunServerSideUnbundle(t *testing.T) {
 	const slug = "test-func"
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 	project := apitest.RandomProjectRef()
 
 	t.Run("writes files using inferred base directory", func(t *testing.T) {
@@ -404,7 +404,7 @@ func TestDownloadFunction(t *testing.T) {
 	project := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("throws error on network error", func(t *testing.T) {
 		// Setup mock api
@@ -463,7 +463,7 @@ func TestGetMetadata(t *testing.T) {
 	project := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("fallback to default paths", func(t *testing.T) {
 		// Setup mock api
@@ -502,7 +502,7 @@ func TestGetMetadata(t *testing.T) {
 		// Run test
 		meta, err := getFunctionMetadata(context.Background(), project, slug)
 		// Check error
-		assert.ErrorContains(t, err, "Failed to download Function test-func on the Supabase project:")
+		assert.ErrorContains(t, err, "Failed to download Function test-func on the Gentabase project:")
 		assert.Nil(t, meta)
 	})
 }

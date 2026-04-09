@@ -8,4 +8,4 @@ However, one limitation is that data manipulation statements, such as insert, up
 
 By default, the latest `<timestamp>_<name>.sql` file will be updated to contain the squashed migration. You can override the target version using the `--version <timestamp>` flag.
 
-If your `supabase/migrations` directory is empty, running `supabase squash` will do nothing.
+If your `supabase/migrations` directory is empty, running `gentabase squash` will do nothing.

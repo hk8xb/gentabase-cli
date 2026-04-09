@@ -26,8 +26,8 @@ var (
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return status.Run(cmd.Context(), names, utils.OutputFormat.Value, afero.NewOsFs())
 		},
-		Example: `  supabase status -o env --override-name api.url=NEXT_PUBLIC_SUPABASE_URL
-  supabase status -o json`,
+		Example: `  gentabase status -o env --override-name api.url=NEXT_PUBLIC_GENTABASE_URL
+  gentabase status -o json`,
 	}
 )
 

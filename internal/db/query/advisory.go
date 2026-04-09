@@ -79,11 +79,11 @@ func checkRLSAdvisory(ctx context.Context, conn *pgx.Conn) *Advisory {
 		Message: fmt.Sprintf(
 			"%d table(s) do not have Row Level Security (RLS) enabled: %s. "+
 				"Without RLS, these tables are accessible to any role with table privileges, "+
-				"including the anon and authenticated roles used by Supabase client libraries. "+
+				"including the anon and authenticated roles used by client libraries. "+
 				"Enable RLS and create appropriate policies to protect your data.",
 			len(tables), strings.Join(tables, ", "),
 		),
 		RemediationSQL: strings.Join(sqlStatements, "\n"),
-		DocURL:         "https://supabase.com/docs/guides/database/postgres/row-level-security",
+		DocURL:         "https://gentabase.dev/docs/guides/database/postgres/row-level-security",
 	}
 }

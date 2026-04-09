@@ -19,7 +19,7 @@ func TestDeleteCommand(t *testing.T) {
 	project := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("deletes function from project", func(t *testing.T) {
 		// Setup in-memory fs

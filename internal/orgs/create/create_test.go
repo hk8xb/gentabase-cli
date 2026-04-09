@@ -19,7 +19,7 @@ func TestOrganizationCreateCommand(t *testing.T) {
 	t.Run("create an organization", func(t *testing.T) {
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -38,7 +38,7 @@ func TestOrganizationCreateCommand(t *testing.T) {
 	t.Run("throws error on network error", func(t *testing.T) {
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -53,7 +53,7 @@ func TestOrganizationCreateCommand(t *testing.T) {
 	t.Run("throws error on server unavailable", func(t *testing.T) {
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).

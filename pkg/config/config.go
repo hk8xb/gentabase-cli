@@ -842,7 +842,7 @@ func (c *config) Validate(fsys fs.FS) error {
 	case 0:
 		return errors.New("Missing required field in config: db.major_version")
 	case 12:
-		return errors.New("Postgres version 12.x is unsupported. To use the CLI, either start a new project or follow project migration steps here: https://supabase.com/docs/guides/database#migrating-between-projects.")
+		return errors.New("Postgres version 12.x is unsupported. To use the CLI, either start a new project or follow project migration steps here: https://gentabase.dev/docs/guides/database#migrating-between-projects.")
 	case 13, 14:
 	case 15, 17:
 		if len(c.Experimental.OrioleDBVersion) > 0 {

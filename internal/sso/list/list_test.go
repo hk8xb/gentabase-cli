@@ -14,7 +14,7 @@ func TestSSOProvidersListCommand(t *testing.T) {
 	t.Run("lists all providers", func(t *testing.T) {
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
@@ -72,7 +72,7 @@ func TestSSOProvidersListCommand(t *testing.T) {
 	t.Run("list providers with disabled SAML", func(t *testing.T) {
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		// Flush pending mocks after test execution
 		defer gock.OffAll()

@@ -33,7 +33,7 @@ func TestLogoutCommand(t *testing.T) {
 		assert.Empty(t, saved)
 	})
 
-	t.Run("removes all Supabase CLI credentials", func(t *testing.T) {
+	t.Run("removes all Gentabase CLI credentials", func(t *testing.T) {
 		keyring.MockInit()
 		require.NoError(t, credentials.StoreProvider.Set(utils.CurrentProfile.Name, token))
 		require.NoError(t, credentials.StoreProvider.Set("project1", "password1"))

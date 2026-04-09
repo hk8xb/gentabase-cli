@@ -55,7 +55,7 @@ func TestApiKey(t *testing.T) {
 func TestGetApiKeys(t *testing.T) {
 	t.Run("retrieves api keys successfully", func(t *testing.T) {
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		defer gock.OffAll()
 		projectRef := apitest.RandomProjectRef()
@@ -77,7 +77,7 @@ func TestGetApiKeys(t *testing.T) {
 
 	t.Run("handles network error", func(t *testing.T) {
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		defer gock.OffAll()
 		projectRef := apitest.RandomProjectRef()
@@ -95,7 +95,7 @@ func TestGetApiKeys(t *testing.T) {
 
 	t.Run("handles unauthorized error", func(t *testing.T) {
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		defer gock.OffAll()
 		projectRef := apitest.RandomProjectRef()
@@ -113,7 +113,7 @@ func TestGetApiKeys(t *testing.T) {
 
 	t.Run("handles missing anon key", func(t *testing.T) {
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		defer gock.OffAll()
 		projectRef := apitest.RandomProjectRef()
@@ -141,7 +141,7 @@ func TestNewTenantAPI(t *testing.T) {
 	gock.New("https://"+utils.GetSupabaseHost(projectRef)).
 		Get("/test").
 		MatchHeader("Authorization", "Bearer "+anonKey).
-		MatchHeader("User-Agent", "SupabaseCLI/"+utils.Version).
+		MatchHeader("User-Agent", "GentabaseCLI/"+utils.Version).
 		Reply(http.StatusOK)
 
 	_, err := api.Send(context.Background(), http.MethodGet, "/test", nil)

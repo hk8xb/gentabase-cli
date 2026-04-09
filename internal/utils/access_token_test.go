@@ -18,7 +18,7 @@ func TestLoadToken(t *testing.T) {
 	token := string(apitest.RandomAccessToken(t))
 
 	t.Run("loads token from env var", func(t *testing.T) {
-		t.Setenv("SUPABASE_ACCESS_TOKEN", token)
+		t.Setenv("GENTABASE_ACCESS_TOKEN", token)
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		// Run test
@@ -29,7 +29,7 @@ func TestLoadToken(t *testing.T) {
 	})
 
 	t.Run("throws error on invalid token", func(t *testing.T) {
-		t.Setenv("SUPABASE_ACCESS_TOKEN", "invalid")
+		t.Setenv("GENTABASE_ACCESS_TOKEN", "invalid")
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		// Run test

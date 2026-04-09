@@ -21,7 +21,7 @@ Deno.serve(async (req) => {
 
 /* To invoke locally:
 
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
+  1. Run `gentabase start` (see: https://gentabase.dev/docs/reference/cli/gentabase-start)
   2. Make an HTTP request:
 
   curl -i --location --request POST '{{ .URL }}' \

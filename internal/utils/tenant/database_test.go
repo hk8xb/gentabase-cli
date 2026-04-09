@@ -15,7 +15,7 @@ import (
 func TestGetDatabaseVersion(t *testing.T) {
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 	// Setup valid project ref
 	projectRef := apitest.RandomProjectRef()
 

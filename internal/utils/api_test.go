@@ -41,15 +41,15 @@ func TestLookupIP(t *testing.T) {
 		defer gock.OffAll()
 		gock.New("https://1.1.1.1").
 			Get("/dns-query").
-			MatchParam("name", "api.supabase.com").
+			MatchParam("name", "api.gentabase.dev").
 			MatchHeader("accept", "application/dns-json").
 			Reply(http.StatusOK).
 			JSON(&cloudflare.DNSResponse{Answer: []cloudflare.DNSAnswer{
-				{Type: cloudflare.TypeCNAME, Data: "supabase-api.fly.dev."},
+				{Type: cloudflare.TypeCNAME, Data: "gentabase-api.fly.dev."},
 				{Type: cloudflare.TypeAAAA, Data: "2606:2800:220:1:248:1893:25c8:1946"},
 			}})
 		// Run test
-		ip, err := FallbackLookupIP(context.Background(), "api.supabase.com")
+		ip, err := FallbackLookupIP(context.Background(), "api.gentabase.dev")
 		// Validate output
 		assert.NoError(t, err)
 		assert.ElementsMatch(t, []string{"2606:2800:220:1:248:1893:25c8:1946"}, ip)

@@ -21,7 +21,7 @@ import (
 )
 
 var dbConfig = pgconn.Config{
-	Host:     "db.supabase.com",
+	Host:     "db.gentabase.dev",
 	Port:     5432,
 	User:     "admin",
 	Password: "password",

@@ -70,7 +70,7 @@ var (
 		"_timescaledb_*",
 		"topology",
 		"vault",
-		// Managed by Supabase
+		// Managed by Gentabase
 		// "auth",
 		"extensions",
 		"pgbouncer",

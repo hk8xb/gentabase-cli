@@ -118,7 +118,7 @@ func TestGenLinkedCommand(t *testing.T) {
 	projectId := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("generates typescript types", func(t *testing.T) {
 		// Setup in-memory fs

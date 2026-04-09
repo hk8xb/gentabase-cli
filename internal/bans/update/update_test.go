@@ -34,7 +34,7 @@ func TestValidateIP(t *testing.T) {
 func TestRemoveBans(t *testing.T) {
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("removes network bans", func(t *testing.T) {
 		// Setup mock api

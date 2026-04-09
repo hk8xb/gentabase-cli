@@ -79,7 +79,7 @@ func TestProjectRoot(t *testing.T) {
 
 func TestShortContainerImageName(t *testing.T) {
 	t.Run("extracts short name from image", func(t *testing.T) {
-		input := "registry.supabase.com/postgres:15.1.0.99"
+		input := "registry.gentabase.dev/postgres:15.1.0.99"
 		expected := "postgres"
 
 		result := ShortContainerImageName(input)

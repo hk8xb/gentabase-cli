@@ -2,10 +2,10 @@
 
 This command shows the number of active connections for each database roles to see which specific role might be consuming more connections than expected.
 
-This is a Supabase specific command. You can see this breakdown on the dashboard as well:
-https://app.supabase.com/project/_/database/roles
+This is a Gentabase specific command. You can see this breakdown on the dashboard as well:
+https://gentabase.dev/project/_/database/roles
 
-The maximum number of active connections depends [on your instance size](https://supabase.com/docs/guides/platform/compute-add-ons). You can [manually overwrite](https://supabase.com/docs/guides/platform/performance#allowing-higher-number-of-connections) the allowed number of connection but it is not advised.
+The maximum number of active connections depends [on your instance size](https://gentabase.dev/docs/guides/platform/compute-add-ons). You can [manually overwrite](https://gentabase.dev/docs/guides/platform/performance#allowing-higher-number-of-connections) the allowed number of connection but it is not advised.
 
 ```
 

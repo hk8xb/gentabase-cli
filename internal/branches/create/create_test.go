@@ -25,7 +25,7 @@ func TestCreateCommand(t *testing.T) {
 	t.Run("creates preview branch", func(t *testing.T) {
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		// Setup mock api

@@ -2,9 +2,9 @@
 
 Dumps contents from a remote database.
 
-Requires your local project to be linked to a remote database by running `supabase link`. For self-hosted databases, you can pass in the connection parameters using `--db-url` flag.
+Requires your local project to be linked to a remote database by running `gentabase link`. For self-hosted databases, you can pass in the connection parameters using `--db-url` flag.
 
-Runs `pg_dump` in a container with additional flags to exclude Supabase managed schemas. The ignored schemas include auth, storage, and those created by extensions.
+Runs `pg_dump` in a container with additional flags to exclude Gentabase managed schemas. The ignored schemas include auth, storage, and those created by extensions.
 
 The default dump does not contain any data or custom roles. To dump those contents explicitly, specify either the `--data-only` and `--role-only` flag.
 

@@ -13,13 +13,10 @@ import (
 )
 
 func RandomAccessToken(t *testing.T) []byte {
-	data := make([]byte, 20)
+	data := make([]byte, 24)
 	_, err := rand.Read(data)
 	require.NoError(t, err)
-	token := make([]byte, 44)
-	copy(token, "sbp_")
-	hex.Encode(token[4:], data)
-	return token
+	return []byte("gbp_" + hex.EncodeToString(data))
 }
 
 const letters = "abcdefghijklmnopqrstuvwxyz"

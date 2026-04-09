@@ -20,7 +20,7 @@ func TestProjectApiKeysCommand(t *testing.T) {
 	project := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("lists all api-keys", func(t *testing.T) {
 		// Setup in-memory fs

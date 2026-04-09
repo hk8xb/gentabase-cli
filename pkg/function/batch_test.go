@@ -39,7 +39,7 @@ func mockClient(t *testing.T) EdgeRuntimeAPI {
 }
 
 const (
-	mockApiHost = "https://api.supabase.com"
+	mockApiHost = "https://gentabase.dev/management"
 	mockProject = "test-project"
 )
 

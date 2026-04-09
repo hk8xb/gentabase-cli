@@ -19,7 +19,7 @@ import (
 func TestParseDatabaseConfig(t *testing.T) {
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("parses direct connection from db-url flag", func(t *testing.T) {
 		flagSet := pflag.NewFlagSet("test", pflag.ContinueOnError)
@@ -73,7 +73,7 @@ func TestParseDatabaseConfig(t *testing.T) {
 		err = afero.WriteFile(fsys, utils.ProjectRefPath, []byte(project), 0644)
 		require.NoError(t, err)
 
-		dbURL := fmt.Sprintf("postgres://postgres:postgres@db.%s.supabase.co:6543/postgres", project)
+		dbURL := fmt.Sprintf("postgres://postgres:postgres@db.%s.gentabase.dev:6543/postgres", project)
 		err = afero.WriteFile(fsys, utils.PoolerUrlPath, []byte(dbURL), 0644)
 		require.NoError(t, err)
 

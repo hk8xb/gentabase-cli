@@ -58,7 +58,7 @@ func publishPackages(ctx context.Context, version string, beta bool) error {
 	if err != nil {
 		return err
 	}
-	config.FormulaName = "Supabase"
+	config.FormulaName = "Gentabase"
 	config.Description = "Gentabase CLI"
 	filename := "gentabase"
 	if beta {
@@ -82,9 +82,10 @@ type PackageConfig struct {
 
 func fetchConfig(ctx context.Context, version string) (PackageConfig, error) {
 	client := fetcher.NewFetcher("https://github.com", fetcher.WithExpectedStatus(http.StatusOK))
-	checkPath := fmt.Sprintf("/%s/%s/releases/download/v%[3]s/supabase_%[3]s_checksums.txt",
+	checkPath := fmt.Sprintf("/%s/%s/releases/download/v%s/gentabase_%s_checksums.txt",
 		utils.CLI_OWNER,
 		utils.CLI_REPO,
+		version,
 		version,
 	)
 	log.Println("Downloading checksum:", checkPath)
@@ -100,6 +101,7 @@ func fetchConfig(ctx context.Context, version string) (PackageConfig, error) {
 	for scanner.Scan() {
 		tokens := strings.Fields(scanner.Text())
 		key := strings.TrimSuffix(tokens[1], ".tar.gz")
+		key = strings.TrimSuffix(key, ".zip")
 		config.Checksum[key] = tokens[0]
 	}
 	if err := scanner.Err(); err != nil {

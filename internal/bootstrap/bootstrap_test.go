@@ -40,9 +40,9 @@ func TestSuggestAppStart(t *testing.T) {
 
 	t.Run("ignore relative path", func(t *testing.T) {
 		// Run test
-		suggestion := suggestAppStart(".", "supabase start")
+		suggestion := suggestAppStart(".", "gentabase start")
 		// Check error
-		assert.Equal(t, "To start your app:\n  supabase start", suggestion)
+		assert.Equal(t, "To start your app:\n  gentabase start", suggestion)
 	})
 }
 
@@ -56,7 +56,7 @@ func TestWriteEnv(t *testing.T) {
 	}}
 
 	var dbConfig = pgconn.Config{
-		Host:     "db.supabase.co",
+		Host:     "db.testing.gentabase.dev",
 		Port:     5432,
 		User:     "admin",
 		Password: "password",
@@ -65,7 +65,7 @@ func TestWriteEnv(t *testing.T) {
 
 	t.Run("writes .env", func(t *testing.T) {
 		flags.ProjectRef = "testing"
-		utils.CurrentProfile.ProjectHost = "supabase.co"
+		utils.CurrentProfile.ProjectHost = "gentabase.dev"
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		// Run test
@@ -74,31 +74,31 @@ func TestWriteEnv(t *testing.T) {
 		assert.NoError(t, err)
 		env, err := afero.ReadFile(fsys, ".env")
 		assert.NoError(t, err)
-		assert.Equal(t, `POSTGRES_URL="postgresql://admin:password@db.supabase.co:6543/postgres?connect_timeout=10"
+		assert.Equal(t, `GENTABASE_URL="https://testing.gentabase.dev"
+POSTGRES_URL="postgresql://admin:password@db.testing.gentabase.dev:6543/postgres?connect_timeout=10"
 SUPABASE_ANON_KEY="anonkey"
-SUPABASE_SERVICE_ROLE_KEY="servicekey"
-SUPABASE_URL="https://testing.supabase.co"`, string(env))
+SUPABASE_SERVICE_ROLE_KEY="servicekey"`, string(env))
 	})
 
 	t.Run("merges with .env.example", func(t *testing.T) {
 		flags.ProjectRef = "testing"
-		utils.CurrentProfile.ProjectHost = "supabase.co"
+		utils.CurrentProfile.ProjectHost = "gentabase.dev"
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		example, err := godotenv.Marshal(map[string]string{
-			POSTGRES_PRISMA_URL:           "example",
-			POSTGRES_URL_NON_POOLING:      "example",
-			POSTGRES_USER:                 "example",
-			POSTGRES_HOST:                 "example",
-			POSTGRES_PASSWORD:             "example",
-			POSTGRES_DATABASE:             "example",
-			NEXT_PUBLIC_SUPABASE_ANON_KEY: "example",
-			NEXT_PUBLIC_SUPABASE_URL:      "example",
-			"no_match":                    "example",
-			SUPABASE_SERVICE_ROLE_KEY:     "example",
-			SUPABASE_ANON_KEY:             "example",
-			SUPABASE_URL:                  "example",
-			POSTGRES_URL:                  "example",
+			POSTGRES_PRISMA_URL:              "example",
+			POSTGRES_URL_NON_POOLING:         "example",
+			POSTGRES_USER:                    "example",
+			POSTGRES_HOST:                    "example",
+			POSTGRES_PASSWORD:                "example",
+			POSTGRES_DATABASE:                "example",
+			NEXT_PUBLIC_GENTABASE_ANON_KEY:   "example",
+			NEXT_PUBLIC_GENTABASE_URL:        "example",
+			"no_match":                       "example",
+			GENTABASE_SERVICE_ROLE_KEY:       "example",
+			GENTABASE_ANON_KEY:               "example",
+			GENTABASE_URL:                    "example",
+			POSTGRES_URL:                     "example",
 		})
 		require.NoError(t, err)
 		require.NoError(t, afero.WriteFile(fsys, ".env.example", []byte(example), 0644))
@@ -108,18 +108,18 @@ SUPABASE_URL="https://testing.supabase.co"`, string(env))
 		assert.NoError(t, err)
 		env, err := afero.ReadFile(fsys, ".env")
 		assert.NoError(t, err)
-		assert.Equal(t, `NEXT_PUBLIC_SUPABASE_ANON_KEY="anonkey"
-NEXT_PUBLIC_SUPABASE_URL="https://testing.supabase.co"
+		assert.Equal(t, `GENTABASE_URL="https://testing.gentabase.dev"
+NEXT_PUBLIC_GENTABASE_ANON_KEY=""
+NEXT_PUBLIC_GENTABASE_URL="https://testing.gentabase.dev"
 POSTGRES_DATABASE="postgres"
-POSTGRES_HOST="db.supabase.co"
+POSTGRES_HOST="db.testing.gentabase.dev"
 POSTGRES_PASSWORD="password"
-POSTGRES_PRISMA_URL="postgresql://admin:password@db.supabase.co:6543/postgres?connect_timeout=10"
-POSTGRES_URL="postgresql://admin:password@db.supabase.co:6543/postgres?connect_timeout=10"
-POSTGRES_URL_NON_POOLING="postgresql://admin:password@db.supabase.co:5432/postgres?connect_timeout=10"
+POSTGRES_PRISMA_URL="postgresql://admin:password@db.testing.gentabase.dev:6543/postgres?connect_timeout=10"
+POSTGRES_URL="postgresql://admin:password@db.testing.gentabase.dev:6543/postgres?connect_timeout=10"
+POSTGRES_URL_NON_POOLING="postgresql://admin:password@db.testing.gentabase.dev:5432/postgres?connect_timeout=10"
 POSTGRES_USER="admin"
 SUPABASE_ANON_KEY="anonkey"
 SUPABASE_SERVICE_ROLE_KEY="servicekey"
-SUPABASE_URL="https://testing.supabase.co"
 no_match="example"`, string(env))
 	})
 

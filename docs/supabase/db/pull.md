@@ -2,7 +2,7 @@
 
 Pulls schema changes from a remote database. A new migration file will be created under `supabase/migrations` directory.
 
-Requires your local project to be linked to a remote database by running `supabase link`. For self-hosted databases, you can pass in the connection parameters using `--db-url` flag.
+Requires your local project to be linked to a remote database by running `gentabase link`. For self-hosted databases, you can pass in the connection parameters using `--db-url` flag.
 
 > Note this command requires Docker Desktop (or a running Docker daemon), as it starts a local Postgres container to diff your remote schema.
 

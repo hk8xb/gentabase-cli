@@ -1,7 +1,7 @@
 # For detailed configuration reference documentation, visit:
-# https://supabase.com/docs/guides/local-development/cli/config
-# A string used to distinguish different Supabase projects on the same host. Defaults to the
-# working directory name when running `supabase init`.
+# https://gentabase.dev/docs/guides/local-development/cli/config
+# A string used to distinguish different Gentabase projects on the same host. Defaults to the
+# working directory name when running `gentabase init`.
 project_id = "test"
 
 [api]
@@ -39,7 +39,7 @@ major_version = 17
 # If disabled, migrations will be skipped during a db push or reset.
 enabled = true
 # Specifies an ordered list of schema files that describe your database.
-# Supports glob patterns relative to supabase directory: "./schemas/*.sql"
+# Supports glob patterns relative to gentabase directory: "./schemas/*.sql"
 schema_paths = ["./schemas/*.sql"]
 
 [db.pooler]
@@ -61,7 +61,7 @@ test_key = "test_value"
 # If enabled, seeds the database after migrations during a db reset.
 enabled = true
 # Specifies an ordered list of seed files to load during db reset.
-# Supports glob patterns relative to supabase directory: "./seeds/*.sql"
+# Supports glob patterns relative to gentabase directory: "./seeds/*.sql"
 sql_paths = ["./seed.sql"]
 
 [db.network_restrictions]
@@ -87,11 +87,11 @@ max_header_length = 8192
 
 [studio]
 enabled = true
-# Port to use for Supabase Studio.
+# Port to use for Gentabase Studio.
 port = 54323
 # External URL of the API server that frontend connects to.
 api_url = "http://127.0.0.1"
-# OpenAI API Key to use for Supabase AI in the Supabase Studio.
+# OpenAI API Key to use for Gentabase AI in the Gentabase Studio.
 openai_api_key = "env(OPENAI_API_KEY)"
 
 # Email testing server. Emails sent with the local dev setup are not actually sent - rather, they
@@ -122,7 +122,7 @@ objects_path = "./images"
 [storage.s3_protocol]
 enabled = true
 
-# Image transformation API is available to Supabase Pro plan.
+# Image transformation API is available to Gentabase Pro plan.
 [storage.image_transformation]
 enabled = true
 
@@ -133,7 +133,7 @@ max_namespaces = 5
 max_tables = 10
 max_catalogs = 2
 
-# Analytics Buckets is available to Supabase Pro plan.
+# Analytics Buckets is available to Gentabase Pro plan.
 [storage.analytics.buckets.my-warehouse]
 
 # Store vector embeddings in S3 for large and durable datasets
@@ -142,7 +142,7 @@ enabled = true
 max_buckets = 10
 max_indexes = 5
 
-# Vector Buckets is available to Supabase Pro plan.
+# Vector Buckets is available to Gentabase Pro plan.
 # [storage.vector.buckets.documents-openai]
 
 [auth]
@@ -234,7 +234,7 @@ sender_name = "Admin"
 # Uncomment to customize email template
 [auth.email.template.invite]
 subject = "You have been invited"
-content_path = "./supabase/templates/invite.html"
+content_path = "./gentabase/templates/invite.html"
 
 # Uncomment to customize notification email template
 [auth.email.notification.password_changed]
@@ -286,7 +286,7 @@ message_service_sid = "message_service_sid"
 # DO NOT commit your Twilio auth token to git. Use environment variable substitution instead:
 auth_token = "env(TWILIO_AUTH_TOKEN)"
 
-# Multi-factor-authentication is available to Supabase Pro plan.
+# Multi-factor-authentication is available to Gentabase Pro plan.
 [auth.mfa]
 max_enrolled_factors = 10
 

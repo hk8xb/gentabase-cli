@@ -79,7 +79,7 @@ func TestWriteJSONWithAdvisory(t *testing.T) {
 		Title:          "Row Level Security is disabled",
 		Message:        "1 table(s) do not have RLS enabled: public.test.",
 		RemediationSQL: "ALTER TABLE public.test ENABLE ROW LEVEL SECURITY;",
-		DocURL:         "https://supabase.com/docs/guides/database/postgres/row-level-security",
+		DocURL:         "https://gentabase.dev/docs/guides/database/postgres/row-level-security",
 	}
 
 	cols := []string{"id", "name"}

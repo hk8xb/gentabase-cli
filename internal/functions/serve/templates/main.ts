@@ -218,7 +218,7 @@ Deno.serve({
     const servicePath = posix.dirname(functionsConfig[functionName].entrypointPath);
     console.error(`serving the request with ${servicePath}`);
 
-    // Ref: https://supabase.com/docs/guides/functions/limits
+    // Ref: https://gentabase.dev/docs/guides/functions/limits
     const memoryLimitMb = 256;
     const workerTimeoutMs = isFinite(WALLCLOCK_LIMIT_SEC) ? WALLCLOCK_LIMIT_SEC * 1000 : 400 * 1000;
     const noModuleCache = false;

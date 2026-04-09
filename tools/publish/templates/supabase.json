@@ -2,21 +2,21 @@
     "version": "{{ .Version }}",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/supabase/cli/releases/download/v{{ .Version }}/supabase_windows_amd64.tar.gz",
+            "url": "https://github.com/hk8xb/gentabase-cli/releases/download/v{{ .Version }}/gentabase_windows_amd64.zip",
             "bin": [
-                "supabase.exe"
+                "gentabase.exe"
             ],
-            "hash": "{{ .Checksum.supabase_windows_amd64 }}"
+            "hash": "{{ .Checksum.gentabase_windows_amd64 }}"
         },
         "arm64": {
-            "url": "https://github.com/supabase/cli/releases/download/v{{ .Version }}/supabase_windows_arm64.tar.gz",
+            "url": "https://github.com/hk8xb/gentabase-cli/releases/download/v{{ .Version }}/gentabase_windows_arm64.zip",
             "bin": [
-                "supabase.exe"
+                "gentabase.exe"
             ],
-            "hash": "{{ .Checksum.supabase_windows_arm64 }}"
+            "hash": "{{ .Checksum.gentabase_windows_arm64 }}"
         }
     },
-    "homepage": "https://supabase.com",
+    "homepage": "https://gentabase.dev",
     "license": "MIT",
     "description": "{{ .Description }}"
 }

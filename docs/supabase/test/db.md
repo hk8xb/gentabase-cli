@@ -2,7 +2,7 @@
 
 Executes pgTAP tests against the local database.
 
-Requires the local development stack to be started by running `supabase start`.
+Requires the local development stack to be started by running `gentabase start`.
 
 Runs `pg_prove` in a container with unit test files volume mounted from `supabase/tests` directory. The test file can be suffixed by either `.sql` or `.pg` extension.
 

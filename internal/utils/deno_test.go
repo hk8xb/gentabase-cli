@@ -54,7 +54,7 @@ func TestGetDenoPath(t *testing.T) {
 	t.Run("returns default path", func(t *testing.T) {
 		home, err := os.UserHomeDir()
 		require.NoError(t, err)
-		expected := filepath.Join(home, ".supabase", "deno")
+		expected := filepath.Join(home, ".gentabase", "deno")
 		if runtime.GOOS == "windows" {
 			expected += ".exe"
 		}
@@ -109,7 +109,7 @@ func TestCopyDenoScripts(t *testing.T) {
 		fsys := afero.NewMemMapFs()
 		home, err := os.UserHomeDir()
 		require.NoError(t, err)
-		denoDir := filepath.Join(home, ".supabase")
+		denoDir := filepath.Join(home, ".gentabase")
 		require.NoError(t, fsys.MkdirAll(denoDir, 0755))
 
 		scripts, err := CopyDenoScripts(context.Background(), fsys)
@@ -125,7 +125,7 @@ func TestCopyDenoScripts(t *testing.T) {
 		fsys := afero.NewMemMapFs()
 		home, err := os.UserHomeDir()
 		require.NoError(t, err)
-		scriptDir := filepath.Join(home, ".supabase", "denos")
+		scriptDir := filepath.Join(home, ".gentabase", "denos")
 		require.NoError(t, fsys.MkdirAll(scriptDir, 0755))
 
 		scripts1, err := CopyDenoScripts(context.Background(), fsys)

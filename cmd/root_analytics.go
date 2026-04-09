@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	telemetrySafeValueAnnotation = "supabase.com/telemetry-safe-value"
+	telemetrySafeValueAnnotation = "gentabase.dev/telemetry-safe-value"
 	redactedTelemetryValue       = "<redacted>"
 	maxTelemetryEnvValueLength   = 80
 )

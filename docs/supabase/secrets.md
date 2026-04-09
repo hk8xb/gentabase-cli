@@ -1,6 +1,6 @@
 ## supabase-secrets
 
-Provides tools for managing environment variables and secrets for your Supabase project.
+Provides tools for managing environment variables and secrets for your Gentabase project.
 
 This command group allows you to set, unset, and list secrets that are securely stored and made available to Edge Functions as environment variables.
 

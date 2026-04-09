@@ -20,7 +20,7 @@ func TestDeleteCommand(t *testing.T) {
 	ref := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 	// Mock credentials store
 	keyring.MockInit()
 

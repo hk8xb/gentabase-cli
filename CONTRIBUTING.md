@@ -1,4 +1,4 @@
-# Welcome to Supabase CLI contributing guide
+# Welcome to Gentabase CLI contributing guide
 
 ## Release process
 
@@ -12,9 +12,9 @@ Hotfixes are released manually. Follow these steps:
    1. If stable is on `v1.2.3` and beta is on `v1.3.6`, create `1.2.x` branch.
    2. If stable is on `v1.3.1` and beta is on `v1.3.6`, create `1.3.x` branch (or simply release all patch versions).
 2. Cherry-pick your hotfix on top of `N.N.x` branch.
-3. Run the [Release (Beta)](https://github.com/supabase/cli/actions/workflows/release-beta.yml) workflow targetting `N.N.x` branch.
-4. Verify your hotfix locally with `npx supabase@N.N.x help`
-5. Edit [GitHub releases](https://github.com/supabase/cli/releases) to set your hotfix pre-release as latest stable.
+3. Run the [Release (Beta)](https://github.com/hk8xb/gentabase-cli/actions/workflows/release-beta.yml) workflow targetting `N.N.x` branch.
+4. Verify your hotfix locally with `npx gentabase@N.N.x help`
+5. Edit [GitHub releases](https://github.com/hk8xb/gentabase-cli/releases) to set your hotfix pre-release as latest stable.
 
 After promoting the next beta version to stable, previous `N.N.x` branches may be deleted.
 
@@ -22,13 +22,13 @@ To revert a stable release, set a previous release to latest. This will update b
 
 ## Unit testing
 
-All new code should aim to improve [test coverage](https://coveralls.io/github/supabase/cli).
+All new code should aim to improve [test coverage](https://coveralls.io/github/hk8xb/gentabase-cli).
 
 We use mock objects for unit testing code that interacts with external systems, such as
 
 - local filesystem (via [afero](https://github.com/spf13/afero))
 - Postgres database (via [pgmock](https://github.com/jackc/pgmock))
-- Supabase API (via [gock](https://github.com/h2non/gock))
+- Gentabase API (via [gock](https://github.com/h2non/gock))
 
 Wrappers and test helper methods can be found under [internal/testing](internal/testing).
 
@@ -40,4 +40,4 @@ go test ./... -race -v -count=1 -failfast
 
 ## API client
 
-The Supabase API client is generated from OpenAPI spec. See [our guide](api/README.md) for updating the client and types.
+The Gentabase API client is generated from OpenAPI spec. See [our guide](api/README.md) for updating the client and types.

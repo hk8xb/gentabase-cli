@@ -156,7 +156,7 @@ func GetFunctionConfig(slugs []string, importMapPath string, noVerifyJWT *bool, 
 		)
 		fmt.Fprintln(os.Stderr,
 			"Please use recommended per function dependency declaration ",
-			utils.Aqua("https://supabase.com/docs/guides/functions/import-maps"),
+			utils.Aqua("https://gentabase.dev/docs/guides/functions/import-maps"),
 		)
 	}
 	return functionConfig, nil

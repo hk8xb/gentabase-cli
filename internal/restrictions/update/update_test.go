@@ -17,7 +17,7 @@ func TestUpdateRestrictionsCommand(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("replaces v4 and v6 CIDR", func(t *testing.T) {
 		// Setup mock api
@@ -112,7 +112,7 @@ func TestValidateCIDR(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("bypasses private subnet checks", func(t *testing.T) {
 		// Setup mock api

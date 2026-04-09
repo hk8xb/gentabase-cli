@@ -68,7 +68,7 @@ func TestProjectRef(t *testing.T) {
 func TestProjectPrompt(t *testing.T) {
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("validates prompt input", func(t *testing.T) {
 		input := tea.WithInput(strings.NewReader("\r"))

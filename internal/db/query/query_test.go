@@ -211,7 +211,7 @@ func TestResolveSQLFileNotFound(t *testing.T) {
 func TestRunLinkedSelectJSON(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	responseBody := `[{"id": 1, "name": "test"}]`
 	defer gock.OffAll()
@@ -240,7 +240,7 @@ func TestRunLinkedSelectJSON(t *testing.T) {
 func TestRunLinkedSelectTable(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	responseBody := `[{"id": 1, "name": "test"}]`
 	defer gock.OffAll()
@@ -263,7 +263,7 @@ func TestRunLinkedSelectTable(t *testing.T) {
 func TestRunLinkedSelectCSV(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	responseBody := `[{"a": 1, "b": 2}]`
 	defer gock.OffAll()
@@ -307,7 +307,7 @@ func TestFormatOutputNilColsCSV(t *testing.T) {
 func TestRunLinkedEmptyResult(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	defer gock.OffAll()
 	gock.New(utils.DefaultApiHost).
@@ -331,7 +331,7 @@ func TestRunLinkedEmptyResult(t *testing.T) {
 func TestRunLinkedAPIError(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	defer gock.OffAll()
 	gock.New(utils.DefaultApiHost).

@@ -69,7 +69,7 @@ func TestLinkCommand(t *testing.T) {
 	project := "test-project"
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 	// Mock credentials store
 	keyring.MockInit()
 
@@ -321,7 +321,7 @@ func TestLinkCommand(t *testing.T) {
 func TestStatusCheck(t *testing.T) {
 	project := "test-project"
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("updates postgres version when healthy", func(t *testing.T) {
 		// Setup in-memory fs
@@ -391,7 +391,7 @@ func TestLinkPostgrest(t *testing.T) {
 	project := "test-project"
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 	t.Run("ignores matching config", func(t *testing.T) {
 		// Flush pending mocks after test execution

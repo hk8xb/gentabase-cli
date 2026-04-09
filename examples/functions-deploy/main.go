@@ -37,7 +37,7 @@ func newAPIClient(token string) api.ClientWithResponses {
 	}
 	client := api.ClientWithResponses{ClientInterface: &api.Client{
 		// Ensure the server URL always has a trailing slash
-		Server: "https://api.supabase.com/",
+		Server: "https://gentabase.dev/management/",
 		Client: &http.Client{
 			Timeout: 10 * time.Second,
 		},

@@ -1,12 +1,12 @@
 {
-  "name": "supabase",
+  "name": "gentabase",
   "version": "0.0.0-automated",
-  "description": "Supabase CLI",
-  "repository": "supabase/cli",
-  "homepage": "https://supabase.com/docs/reference/cli",
-  "bugs": "https://github.com/supabase/cli/issues",
+  "description": "Gentabase CLI",
+  "repository": "hk8xb/gentabase-cli",
+  "homepage": "https://gentabase.dev/docs/reference/cli",
+  "bugs": "https://github.com/hk8xb/gentabase-cli/issues",
   "license": "MIT",
-  "author": "Supabase",
+  "author": "Gentabase",
   "type": "module",
   "engines": {
     "npm": ">=8"
@@ -18,7 +18,7 @@
     "postinstall": "node scripts/postinstall.js"
   },
   "bin": {
-    "supabase": "bin/supabase"
+    "gentabase": "bin/gentabase"
   },
   "dependencies": {
     "bin-links": "^6.0.0",

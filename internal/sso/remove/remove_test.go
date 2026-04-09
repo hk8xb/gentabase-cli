@@ -15,7 +15,7 @@ func TestSSOProvidersRemoveCommand(t *testing.T) {
 	t.Run("remove provider", func(t *testing.T) {
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
@@ -70,7 +70,7 @@ func TestSSOProvidersRemoveCommand(t *testing.T) {
 	t.Run("remove provider that does not exist", func(t *testing.T) {
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("GENTABASE_ACCESS_TOKEN", string(token))
 
 		// Flush pending mocks after test execution
 		defer gock.OffAll()

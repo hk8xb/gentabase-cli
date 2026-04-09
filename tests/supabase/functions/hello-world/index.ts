@@ -2,7 +2,7 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-// Setup type definitions for built-in Supabase Runtime APIs
+// Setup type definitions for built-in Gentabase Edge Functions runtime APIs
 import "@supabase/functions-js/edge-runtime.d.ts"
 
 console.log("Hello from Functions!")
@@ -21,7 +21,7 @@ Deno.serve(async (req) => {
 
 /* To invoke locally:
 
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
+  1. Run `gentabase start` (see: https://gentabase.dev/docs/reference/cli/gentabase-start)
   2. Make an HTTP request:
 
   curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/hello-world' \

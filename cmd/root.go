@@ -262,7 +262,7 @@ func recoverAndExit() {
 		eventId := sentry.CurrentHub().Recover(err)
 		if eventId != nil && sentry.Flush(2*time.Second) {
 			fmt.Fprintln(os.Stderr, "Sent crash report:", *eventId)
-			fmt.Fprintln(os.Stderr, "Quote the crash ID above when filing a bug report: https://github.com/supabase/cli/issues/new/choose")
+			fmt.Fprintln(os.Stderr, "Quote the crash ID above when filing a bug report: https://github.com/hk8xb/gentabase-cli/issues/new/choose")
 		}
 	}
 	os.Exit(1)
