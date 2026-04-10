@@ -4,9 +4,6 @@ const fs = require('fs')
 const path = require('path')
 const https = require('https')
 const os = require('os')
-const crypto = require('crypto')
-const { createGunzip } = require('zlib')
-const tar = require('tar')
 
 const VERSION = require('../package.json').version
 const REPO = 'hk8xb/gentabase-cli'

@@ -1,0 +1,70 @@
+name: Publish npm wrapper
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g. 0.1.0). Must already exist as a v<version> GitHub Release with binary assets.'
+        required: true
+        type: string
+        default: '0.1.0'
+      tag:
+        description: 'npm dist-tag (e.g. latest, beta)'
+        required: true
+        type: string
+        default: latest
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Verify GitHub Release assets exist
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -e
+          for asset in \
+            gentabase_darwin_amd64.tar.gz \
+            gentabase_darwin_arm64.tar.gz \
+            gentabase_linux_amd64.tar.gz \
+            gentabase_linux_arm64.tar.gz \
+            gentabase_windows_amd64.zip \
+            gentabase_windows_arm64.zip; do
+            url="https://github.com/${{ github.repository }}/releases/download/v${VERSION}/${asset}"
+            code=$(curl -sSL -o /dev/null -w "%{http_code}" -I "$url")
+            if [ "$code" != "200" ]; then
+              echo "::error::Missing release asset: $url ($code)"
+              exit 1
+            fi
+            echo "  ✓ $asset"
+          done
+
+      - name: Sync version into npm/package.json
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          cd npm
+          node -e "
+            const fs=require('fs');
+            const p=JSON.parse(fs.readFileSync('package.json','utf8'));
+            p.version='$VERSION';
+            fs.writeFileSync('package.json', JSON.stringify(p,null,2)+'\n');
+          "
+          cat package.json
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd npm
+          npm publish --access public --tag "${{ inputs.tag }}"

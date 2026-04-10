@@ -1,19 +1,29 @@
 {
-  "name": "@gentabase/cli",
+  "name": "gentabase",
   "version": "0.1.0",
   "description": "Gentabase CLI — manage local development, migrations, edge functions, and deployments",
   "bin": {
     "gentabase": "bin/gentabase"
   },
+  "files": [
+    "bin",
+    "scripts",
+    "README.md"
+  ],
   "scripts": {
     "postinstall": "node scripts/postinstall.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hk8xb/gentabase-cli"
+    "url": "git+https://github.com/hk8xb/gentabase-cli.git"
+  },
+  "homepage": "https://gentabase.dev/docs/reference/cli",
+  "bugs": {
+    "url": "https://github.com/hk8xb/gentabase-cli/issues"
   },
   "keywords": ["gentabase", "cli", "database", "postgres"],
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "author": "Gentabase",
   "engines": {
     "node": ">=18"
   }
