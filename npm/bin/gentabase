@@ -1,0 +1,8 @@
+#!/bin/sh
+# Stub binary — the real Gentabase CLI is downloaded by the npm postinstall
+# script. If you're seeing this message, postinstall did not complete
+# successfully (network issue, unsupported platform, etc.).
+echo "Gentabase CLI was not installed correctly." >&2
+echo "Reinstall:  npm install -g gentabase" >&2
+echo "Or download manually:  https://github.com/hk8xb/gentabase-cli/releases" >&2
+exit 1

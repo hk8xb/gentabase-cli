@@ -29,3 +29,6 @@ package-lock.json
 
 # Initialized by cli for local testing
 gentabase
+# Exception: the npm wrapper's stub binary must be tracked so it ships in
+# the published tarball (postinstall replaces it with the downloaded binary).
+!npm/bin/gentabase
