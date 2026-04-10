@@ -1,5 +1,5 @@
 {
-  "name": "gentabase",
+  "name": "@gentabase/cli",
   "version": "0.1.0",
   "description": "Gentabase CLI — manage local development, migrations, edge functions, and deployments",
   "bin": {
