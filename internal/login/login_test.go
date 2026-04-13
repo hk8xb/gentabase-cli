@@ -105,8 +105,8 @@ func TestLoginCommand(t *testing.T) {
 
 		defer gock.OffAll()
 
-		gock.New(utils.GetGentabaseAPIHost()).
-			Get("/platform/cli/login/" + sessionId).
+		gock.New(utils.GetGentabaseDashboardURL()).
+			Get("/api/platform/cli/login/" + sessionId).
 			Reply(200).
 			JSON(map[string]any{
 				"id":           "0b0d48f6-878b-4190-88d7-2ca33ed800bc",
@@ -189,8 +189,8 @@ func TestLoginTelemetryStitching(t *testing.T) {
 		ctx := phtelemetry.WithService(context.Background(), newService(t, fsys, analytics))
 
 		defer gock.OffAll()
-		gock.New(utils.GetGentabaseAPIHost()).
-			Get("/platform/cli/login/browser-session").
+		gock.New(utils.GetGentabaseDashboardURL()).
+			Get("/api/platform/cli/login/browser-session").
 			Reply(200).
 			JSON(map[string]any{
 				"id":           "0b0d48f6-878b-4190-88d7-2ca33ed800bc",

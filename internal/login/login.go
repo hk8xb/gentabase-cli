@@ -130,9 +130,10 @@ func (enc LoginEncryption) decryptAccessToken(accessToken string, publicKey stri
 const maxRetries = 2
 
 func pollForAccessToken(ctx context.Context, url string) (AccessTokenResponse, error) {
-	// TODO: Move to OpenAPI-generated http client once we reach v1 on API schema.
+	// The login-session endpoint is served by the dashboard (Studio) under
+	// /api/platform/cli/login, not by the authenticated management API.
 	client := fetcher.NewFetcher(
-		utils.GetGentabaseAPIHost(),
+		utils.GetGentabaseDashboardURL(),
 		fetcher.WithHTTPClient(&http.Client{
 			Timeout: 10 * time.Second,
 		}),
@@ -207,7 +208,7 @@ func Run(ctx context.Context, stdout io.Writer, params RunParams) error {
 		fmt.Fprintf(stdout, "Here is your login link, open it in the browser %s\n\n", utils.Bold(createLoginSessionUrl))
 	}
 
-	sessionPollingUrl := "/platform/cli/login/" + params.SessionId
+	sessionPollingUrl := "/api/platform/cli/login/" + params.SessionId
 	accessTokenResponse, err := pollForAccessToken(ctx, sessionPollingUrl)
 	if err != nil {
 		return err
