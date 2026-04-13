@@ -55,8 +55,11 @@ async function main() {
   const binDir = path.join(__dirname, '..', 'bin')
   const binPath = path.join(binDir, `gentabase${ext}`)
 
-  // Skip if binary already exists (e.g., from a previous install)
-  if (fs.existsSync(binPath)) {
+  // Skip download only if the real binary is already present. The stub
+  // shipped in the tarball is tiny (~400 bytes); a real Go binary is >20 MB.
+  // This avoids re-downloading on repeated installs while still replacing the stub.
+  const STUB_SIZE_THRESHOLD = 10_000 // bytes
+  if (fs.existsSync(binPath) && fs.statSync(binPath).size > STUB_SIZE_THRESHOLD) {
     console.log('Gentabase CLI binary already exists, skipping download.')
     return
   }
