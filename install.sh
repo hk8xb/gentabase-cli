@@ -3,7 +3,7 @@
 # Usage: curl -fsSL https://gentabase.dev/install.sh | sh
 set -e
 
-VERSION="0.1.0"
+VERSION="0.1.2"
 REPO="hk8xb/gentabase-cli"
 INSTALL_DIR="${GENTABASE_INSTALL_DIR:-/usr/local/bin}"
 
