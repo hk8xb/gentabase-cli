@@ -3,7 +3,7 @@ FROM ghcr.io/hk8xb/postgres:17.6.1.104 AS pg
 # Append to ServiceImages when adding new dependencies below
 FROM library/kong:2.8.1 AS kong
 FROM axllent/mailpit:v1.22.3 AS mailpit
-FROM postgrest/postgrest:v14.8 AS postgrest
+FROM postgrest/postgrest:v14.9 AS postgrest
 FROM ghcr.io/hk8xb/postgres-meta:v0.96.2 AS pgmeta
 FROM ghcr.io/hk8xb/studio:2026.04.06-sha-b9e83b2 AS studio
 FROM darthsim/imgproxy:v3.8.0 AS imgproxy
